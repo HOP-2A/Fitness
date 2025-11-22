@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AttendanceStatus {
+  HIISEN
+  HIIGEEGUI
+}
+
+enum ExerciseStatus {
+  APPROVE
+  CANCEL
+  PENDING
+}
+
+model User {
+  id             String  @id @default(nanoid())
+  username       String  @unique
+  password       String
+  email          String  @unique
+  profilePicture String?
+  coin           Int     @default(0)
+  followers      Int     @default(0)
+  following      Int     @default(0)
+
+  exercises  AssignedExercise[]
+  attendance Attendance[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Teacher {
+  id        String @id @default(nanoid())
+  adminName String
+  password  String
+  email     String @unique
+
+  assignedExercises AssignedExercise[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ExerciseTemplate {
+  id        String   @id @default(nanoid())
+  name      String
+  rate      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  assignedExercises AssignedExercise[]
+}
+
+model AssignedExercise {
+  id String @id @default(nanoid())
+
+  traineeId String
+  trainee   User   @relation(fields: [traineeId], references: [id])
+
+  teacherId String
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+
+  templateId String
+  template   ExerciseTemplate @relation(fields: [templateId], references: [id])
+
+  status ExerciseStatus @default(PENDING)
+
+  reward Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attendance {
+  id   String   @id @default(nanoid())
+  date DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  attendanceStatus AttendanceStatus
+}
+ 
