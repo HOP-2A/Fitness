@@ -2,7 +2,7 @@
 const Page = () => {
   return (
     <div>
-      <div>TUUUUGUUUUUUUUUUU!!!!!!!!!!</div>
+      <div>ahahahahahhahahahah</div>
     </div>
   );
 };
