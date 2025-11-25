@@ -7,7 +7,7 @@ export const Welcome = () => {
     <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-[#192126]">
       <div className="max-w-md flex flex-col items-center text-center gap-6">
         <Image
-          src="/images/Image.png"
+          src={"/Image.png"}
           alt="Welcome"
           width={260}
           height={260}
