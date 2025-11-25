@@ -9,13 +9,13 @@ export const Footer = () => {
           <House />
         </Link>
       </div>
-      <div>
+      <div className="hover:cursor-pointer">
         <Rocket />
       </div>
-      <div>
+      <div className="hover:cursor-pointer">
         <ListOrdered />
       </div>
-      <div>
+      <div className="hover:cursor-pointer">
         <ChartColumnBig />
       </div>
       <div>
