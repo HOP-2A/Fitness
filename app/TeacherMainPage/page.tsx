@@ -1,11 +1,11 @@
 "use client";
 
-import Greeting from "../_components/Greeting";
+import TeacherDashboard from "../_components/TeacherMainPage";
 
 const Page = () => {
   return (
     <div className="App">
-      <Greeting />
+      <TeacherDashboard />
     </div>
   );
 };
