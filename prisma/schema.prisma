@@ -57,8 +57,13 @@ model AssignedExercise {
   teacherId String
   teacher   Teacher @relation(fields: [teacherId], references: [id])
 
-  status ExerciseStatus @default(PENDING)
+  
+  title       String
+  description String?
+  target      String?   
+  rate        Int       @default(0)
 
+  status ExerciseStatus @default(PENDING)
   reward Int @default(0)
 
   createdAt DateTime @default(now())
@@ -74,4 +79,3 @@ model Attendance {
 
   attendanceStatus AttendanceStatus
 }
-
