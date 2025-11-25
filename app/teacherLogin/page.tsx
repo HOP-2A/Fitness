@@ -30,13 +30,13 @@ export const Login = () => {
     if (isLoading) return;
     setIsLoading(true);
 
-    const res = await fetch("/api/login", {
+    const res = await fetch("/api/teacherLogin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(inputs),
     });
-
     const data = await res.json();
+    console.log(data, "data");
 
     if (res.ok) {
       toast.success("Login successful");
@@ -50,7 +50,7 @@ export const Login = () => {
     }
 
     setIsLoading(false);
-    push("/");
+    push("/TeacherMainPage");
   };
   return (
     <div className="min-h-screen flex items-center justify-center px-6 bg-[#192126]">
@@ -59,10 +59,12 @@ export const Login = () => {
           Welcome Back
         </h1>
 
-        <p className="text-center text-[#8B8F92]">Login to your account</p>
+        <p className="text-center text-[#8B8F92]">
+          Login to your teacher account
+        </p>
 
         <Input
-          placeholder="Email or username"
+          placeholder="Email or admin name"
           name="identifier"
           onChange={handleInputs}
           value={inputs.identifier}
@@ -91,10 +93,13 @@ export const Login = () => {
           Forgot your password?
         </div>
 
-        <div className="text-center text-sm text-[#A48AED] hover:text-[#FCC46F] transition">
-          Do not have an account?{" "}
-          <Link href="/signup" className="font-semibold hover:text-[#BBF246]">
-            Sign up
+        <div className=" text-center text-sm text-[#A48AED] hover:text-[#FCC46F] transition flex flex-col ">
+          Do not have a teacher account?{" "}
+          <Link
+            href="/teacherSignup"
+            className="font-semibold hover:text-[#BBF246]"
+          >
+            Sign up as a teacher
           </Link>
         </div>
       </div>
