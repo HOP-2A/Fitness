@@ -36,7 +36,6 @@ export const Login = () => {
       body: JSON.stringify(inputs),
     });
     const data = await res.json();
-    console.log(data, "data");
 
     if (res.ok) {
       toast.success("Login successful");
@@ -50,7 +49,7 @@ export const Login = () => {
     }
 
     setIsLoading(false);
-    push("/TeacherMainPage");
+    push("/teacher");
   };
   return (
     <div className="min-h-screen flex items-center justify-center px-6 bg-[#192126]">
@@ -96,7 +95,7 @@ export const Login = () => {
         <div className=" text-center text-sm text-[#A48AED] hover:text-[#FCC46F] transition flex flex-col ">
           Do not have a teacher account?{" "}
           <Link
-            href="/teacherSignup"
+            href="/teacher/signup"
             className="font-semibold hover:text-[#BBF246]"
           >
             Sign up as a teacher

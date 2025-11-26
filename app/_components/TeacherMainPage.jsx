@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const TeacherDashboard = ({ teacher = { name: "Zolbayar" } }) => {
@@ -49,7 +50,6 @@ const TeacherDashboard = ({ teacher = { name: "Zolbayar" } }) => {
       </header>
 
       <main className="grid grid-cols-12 gap-6">
-        {/* Left column */}
         <section className="col-span-8">
           <div className="grid grid-cols-4 gap-4 mb-4">
             {stats.map((s) => (
@@ -93,11 +93,15 @@ const TeacherDashboard = ({ teacher = { name: "Zolbayar" } }) => {
           </div>
         </section>
 
-        {/* Right column */}
         <aside className="col-span-4 space-y-4">
           <div className="bg-white rounded-xl shadow-sm p-4">
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-semibold">Students</h4>
+              <Link href={"/teacher/exercise"}>
+                <button className="text-sm px-4 py-2 rounded-lg border">
+                  Give exercises
+                </button>
+              </Link>
               <button className="text-sm">See all</button>
             </div>
             <div className="space-y-3">
