@@ -6,7 +6,10 @@ export async function POST(req: Request) {
   const { identifier, password } = await req.json();
 
   if (!identifier || !password) {
-    return NextResponse.json("All fields are required.");
+    return NextResponse.json(
+      { message: " All fields should be filled." },
+      { status: 400 }
+    );
   }
 
   const normalizedIdentifier = identifier.toLowerCase();
@@ -18,13 +21,19 @@ export async function POST(req: Request) {
   });
 
   if (!user) {
-    return NextResponse.json("User not found.");
+    return NextResponse.json({ message: "User not found." }, { status: 400 });
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    return NextResponse.json("Incorrect password.");
+    return NextResponse.json(
+      { message: "Incorrect password." },
+      { status: 400 }
+    );
   }
 
-  return NextResponse.json("Login successful");
+  return NextResponse.json(
+    { message: "Succesfully logged in" },
+    { status: 200 }
+  );
 }
