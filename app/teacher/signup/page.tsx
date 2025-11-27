@@ -42,6 +42,7 @@ export const SignUp = () => {
 
     if (res.ok) {
       toast.success("Signed up successfully");
+      push("/teacher/login");
 
       setInputs({
         email: "",
@@ -53,7 +54,6 @@ export const SignUp = () => {
     }
 
     setIsLoading(false);
-    push("/teacherLogin");
   };
 
   return (
@@ -100,7 +100,7 @@ export const SignUp = () => {
         <div className="text-center text-sm text-[#A48AED] hover:text-[#FCC46F] transition">
           Have a teacher account already?{" "}
           <Link
-            href="/teacherLogin"
+            href="/teacher/login"
             className="font-semibold hover:text-[#BBF246]"
           >
             Login as a teacher

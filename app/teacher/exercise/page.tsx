@@ -19,6 +19,8 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 type ChallengeFormData = {
   id: string;
@@ -30,114 +32,185 @@ type ChallengeFormData = {
   rate: number;
   status: "PENDING" | "ACTIVE" | "COMPLETED";
   reward: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export default function ChallengeForm() {
-  const [formData, setFormData] = useState<ChallengeFormData>({
-    id: "lr3istxnNkfee22Tark5T",
+  const { push } = useRouter();
+  const [data, setData] = useState<ChallengeFormData>({
+    id: "",
     traineeId: "nMK5CXR1IxJkAGw4qn0Mo",
     teacherId: "N9bQMpN9MTVYFAvkMwN1l",
-    title: "Push-up Challenge",
-    description: "Do 50 push-ups every day for a week",
-    target: "Strength",
-    rate: 5,
+    title: "",
+    description: "",
+    target: "",
+    rate: 0,
     status: "PENDING",
     reward: 0,
-    createdAt: "2025-11-25T14:38:19.362Z",
-    updatedAt: "2025-11-25T14:38:19.362Z",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = <K extends keyof ChallengeFormData>(
-    field: K,
-    value: ChallengeFormData[K]
+  const handleInputValue = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({ ...formData, [field]: value });
+    const { name, value } = e.target;
+
+    setData((prev) => ({
+      ...prev,
+      [name]: name === "rate" || name === "reward" ? Number(value) : value,
+    }));
   };
 
-  const handleSubmit = () => {
-    toast.success("hudlaa ch gesen ajillaa");
+  const handleSubmit = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    const res = await fetch("/api/teacherSetExercise", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      toast.error(result.error || "Error while sending challenge");
+      setIsSubmitting(false);
+      return;
+    }
+
+    toast.success("Challenge submitted!");
+    push("/teacher");
   };
 
   return (
-    <div className="flex justify-center pt-10">
-      <Card className="w-full max-w-xl shadow-md">
-        <CardHeader>
-          <CardTitle className="text-xl font-semibold">
-            Challenge Details
-          </CardTitle>
-        </CardHeader>
-
-        <CardContent className="space-y-4">
-          <div className="flex flex-col space-y-1">
-            <Label>Title</Label>
-            <Input
-              value={formData.title}
-              onChange={(e) => handleChange("title", e.target.value)}
-            />
-          </div>
-
-          <div className="flex flex-col space-y-1">
-            <Label>Description</Label>
-            <Textarea
-              value={formData.description}
-              onChange={(e) => handleChange("description", e.target.value)}
-            />
-          </div>
-
-          <div className="flex flex-col space-y-1">
-            <Label>Target</Label>
-            <Input
-              value={formData.target}
-              onChange={(e) => handleChange("target", e.target.value)}
-            />
-          </div>
-
-          <div className="flex flex-col space-y-1">
-            <Label>Rate</Label>
-            <Input
-              type="number"
-              value={formData.rate}
-              onChange={(e) => handleChange("rate", Number(e.target.value))}
-            />
-          </div>
-
-          <div className="flex flex-col space-y-1">
-            <Label>Status</Label>
-            <Select
-              value={formData.status}
-              onValueChange={(v) =>
-                handleChange("status", v as ChallengeFormData["status"])
-              }
+    <div
+      className="flex justify-center pt-10 min-h-screen"
+      style={{ backgroundColor: "#192126" }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="w-full max-w-xl"
+      >
+        <Card
+          className="w-full shadow-lg border-0"
+          style={{ backgroundColor: "#384046", color: "#8B8F92" }}
+        >
+          <CardHeader>
+            <CardTitle
+              className="text-2xl font-semibold"
+              style={{ color: "#BBF246" }}
             >
-              <SelectTrigger>
-                <SelectValue placeholder="Select status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="PENDING">Pending</SelectItem>
-                <SelectItem value="ACTIVE">Active</SelectItem>
-                <SelectItem value="COMPLETED">Completed</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+              Challenge Details
+            </CardTitle>
+          </CardHeader>
 
-          <div className="flex flex-col space-y-1">
-            <Label>Reward</Label>
-            <Input
-              type="number"
-              value={formData.reward}
-              onChange={(e) => handleChange("reward", Number(e.target.value))}
-            />
-          </div>
-        </CardContent>
+          <CardContent className="space-y-4">
+            <div className="flex flex-col space-y-1">
+              <Label style={{ color: "#FCC46F" }}>Title</Label>
+              <Input
+                name="title"
+                placeholder="Enter challenge title"
+                className="border-0 focus:ring-2"
+                style={{ backgroundColor: "#5E6468", color: "white" }}
+                onChange={handleInputValue}
+              />
+            </div>
 
-        <CardFooter>
-          <Button className="w-full" onClick={handleSubmit}>
-            Submit Challenge
-          </Button>
-        </CardFooter>
-      </Card>
+            <div className="flex flex-col space-y-1">
+              <Label style={{ color: "#FCC46F" }}>Description</Label>
+              <Textarea
+                name="description"
+                placeholder="Describe the challenge"
+                className="border-0 focus:ring-2"
+                style={{ backgroundColor: "#5E6468", color: "white" }}
+                onChange={handleInputValue}
+              />
+            </div>
+
+            <div className="flex flex-col space-y-1">
+              <Label style={{ color: "#FCC46F" }}>Target</Label>
+              <Input
+                name="target"
+                placeholder="Strength, Endurance, etc."
+                className="border-0 focus:ring-2"
+                style={{ backgroundColor: "#5E6468", color: "white" }}
+                onChange={handleInputValue}
+              />
+            </div>
+
+            <div className="flex flex-col space-y-1">
+              <Label style={{ color: "#FCC46F" }}>Rate</Label>
+              <Input
+                name="rate"
+                type="number"
+                max="5"
+                min="0"
+                placeholder="Enter difficulty rate"
+                className="border-0 focus:ring-2"
+                style={{ backgroundColor: "#5E6468", color: "white" }}
+                onChange={handleInputValue}
+              />
+            </div>
+
+            <div className="flex flex-col space-y-1">
+              <Label style={{ color: "#FCC46F" }}>Status</Label>
+
+              <Select
+                value={data.status}
+                onValueChange={(v) =>
+                  setData((prev) => ({
+                    ...prev,
+                    status: v as ChallengeFormData["status"],
+                  }))
+                }
+              >
+                <SelectTrigger
+                  className="border-0"
+                  style={{ backgroundColor: "#5E6468", color: "white" }}
+                >
+                  <SelectValue placeholder="Select status" />
+                </SelectTrigger>
+
+                <SelectContent style={{ backgroundColor: "#5E6468" }}>
+                  <SelectItem value="PENDING">Pending</SelectItem>
+                  <SelectItem value="ACTIVE">Active</SelectItem>
+                  <SelectItem value="COMPLETED">Completed</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex flex-col space-y-1">
+              <Label style={{ color: "#FCC46F" }}>Reward</Label>
+              <Input
+                name="reward"
+                type="number"
+                min="0"
+                placeholder="Reward points"
+                className="border-0 focus:ring-2"
+                style={{ backgroundColor: "#5E6468", color: "white" }}
+                onChange={handleInputValue}
+              />
+            </div>
+          </CardContent>
+
+          <CardFooter>
+            <Button
+              disabled={isSubmitting}
+              className="w-full font-semibold py-3 rounded-xl shadow-md"
+              style={{
+                backgroundColor: "#A48AED",
+                color: "white",
+                opacity: isSubmitting ? 0.6 : 1,
+              }}
+              onClick={handleSubmit}
+            >
+              {isSubmitting ? "Submitting..." : "Submit Challenge"}
+            </Button>
+          </CardFooter>
+        </Card>
+      </motion.div>
     </div>
   );
 }

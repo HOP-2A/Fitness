@@ -40,6 +40,7 @@ export const Login = () => {
 
     if (res.ok) {
       toast.success("Login successful");
+      push("/");
 
       setInputs({
         identifier: "",
@@ -50,7 +51,6 @@ export const Login = () => {
     }
 
     setIsLoading(false);
-    push("/");
   };
   return (
     <div className="min-h-screen flex items-center justify-center px-6 bg-[#192126]">

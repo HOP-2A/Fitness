@@ -1,5 +1,7 @@
 "use client";
-import TeacherDashboard from "../../_components/TeacherMainPage";
+
+import TeacherDashboard from "../_components/TeacherMainPage";
+
 const Page = () => {
   return (
     <div className="App">

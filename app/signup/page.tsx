@@ -42,6 +42,7 @@ export const SignUp = () => {
 
     if (res.ok) {
       toast.success("Signed up successfully");
+      push("/login");
 
       setInputs({
         email: "",
@@ -53,7 +54,6 @@ export const SignUp = () => {
     }
 
     setIsLoading(false);
-    push("/login");
   };
 
   return (
