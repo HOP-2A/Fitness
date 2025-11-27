@@ -9,6 +9,27 @@ const TeacherDashboard = ({ teacher = { name: "Zolbayar" } }) => {
     { title: "Pending Reviews", value: 5, subtitle: "forms to grade" },
   ];
 
+  const upcoming = [
+    {
+      id: 1,
+      title: "Strength Circuit",
+      time: "Nov 26, 2025 — 10:00 AM",
+      students: 12,
+    },
+    {
+      id: 2,
+      title: "Swim Technique",
+      time: "Nov 27, 2025 — 4:30 PM",
+      students: 8,
+    },
+  ];
+
+  const students = [
+    { id: "S001", name: "Anu", lastWorkout: "Nov 24", progress: "+8%" },
+    { id: "S002", name: "Bataa", lastWorkout: "Nov 23", progress: "+2%" },
+    { id: "S003", name: "Chin", lastWorkout: "Nov 25", progress: "-1%" },
+  ];
+
   return (
     <div className="min-h-screen p-6 bg-gray-50">
       <header className="flex items-center justify-between mb-6">
