@@ -1,5 +1,6 @@
+import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
-import { prisma } from "@/app/lib/route";
+
 
 export async function GET() {
   const exercises = await prisma.assignedExercise.findMany();
