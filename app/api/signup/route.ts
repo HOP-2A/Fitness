@@ -1,4 +1,5 @@
-import { prisma } from "@/app/lib/route";
+
+import { prisma } from "@/lib/db";
 import bcrypt from "bcrypt";
 
 import { NextResponse } from "next/server";
