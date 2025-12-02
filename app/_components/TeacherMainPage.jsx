@@ -1,14 +1,9 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import TodoList from "./TodoList"; // TodoList.jsx-ийг import хийж байна
 
-const TeacherDashboard = ({ teacher = { name: "Zolbayar" } }) => {
-  const stats = [
-    { title: "Active Students", value: 42, subtitle: "+3 this week" },
-    { title: "Avg. Weekly Workouts", value: 4.3, subtitle: "per student" },
-    { title: "Avg. Progress", value: "+6%", subtitle: "since last month" },
-    { title: "Pending Reviews", value: 5, subtitle: "forms to grade" },
-  ];
-
+const TeacherDashboard = ({ teacher = { id: "T001", name: "Zolbayar" } }) => {
   const upcoming = [
     {
       id: 1,
@@ -26,7 +21,7 @@ const TeacherDashboard = ({ teacher = { name: "Zolbayar" } }) => {
 
   const students = [
     { id: "S001", name: "Anu", lastWorkout: "Nov 24", progress: "+8%" },
-    { id: "S002", name: "Bataa", lastWorkout: "Nov 23", progress: "+2%" },
+    // { id: "S002", name: "Bataa", lastWorkout: "Nov 23", progress: "+2%" },ednariig hard code bish backend deer bga dasgaliin haruuldag bolgo
     { id: "S003", name: "Chin", lastWorkout: "Nov 25", progress: "-1%" },
   ];
 
@@ -51,24 +46,7 @@ const TeacherDashboard = ({ teacher = { name: "Zolbayar" } }) => {
 
       <main className="grid grid-cols-12 gap-6">
         <section className="col-span-8">
-          <div className="grid grid-cols-4 gap-4 mb-4">
-            {stats.map((s) => (
-              <div key={s.title} className="p-4 bg-white rounded-xl shadow-sm">
-                <div className="text-xs text-gray-500">{s.title}</div>
-                <div className="text-2xl font-bold mt-1">{s.value}</div>
-                <div className="text-sm text-green-600 mt-2">{s.subtitle}</div>
-              </div>
-            ))}
-          </div>
-
           <div className="bg-white rounded-xl shadow-sm p-4 mb-4">
-            <h3 className="font-semibold mb-2">Team progress</h3>
-            <div className="h-48 flex items-center justify-center text-gray-400">
-              [Chart placeholder — integrate recharts/D3]
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm p-4">
             <h3 className="font-semibold mb-3">Upcoming sessions</h3>
             <ul className="space-y-3">
               {upcoming.map((u) => (
@@ -119,36 +97,159 @@ const TeacherDashboard = ({ teacher = { name: "Zolbayar" } }) => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-4">
-            <h4 className="font-semibold mb-2">Recent activity</h4>
-            <ul className="text-sm text-gray-600 space-y-2">
-              <li>Nov 25 — Anu completed Cardio Blast</li>
-              <li>Nov 24 — Bataa submitted progress form</li>
-              <li>Nov 23 — New student Ene joined</li>
-            </ul>
-          </div>
-
+          {/* Todo List */}
           <div className="bg-white rounded-xl shadow-sm p-4">
             <h4 className="font-semibold mb-2">Todo List</h4>
-            <textarea
-              className="w-full h-24 p-2 border rounded-md"
-              placeholder="Write task here"
-            ></textarea>
-            <div className="mt-2 text-right">
-              <button className="px-3 py-1 rounded-md bg-green-600 text-white">
-                Save
-              </button>
-            </div>
+            <TodoList teacherId={teacher.id} />
           </div>
         </aside>
       </main>
-
-      <footer className="mt-6 text-xs text-gray-500">
-        Need more features? Add CSV export, class templates, or automated
-        emails.
-      </footer>
     </div>
   );
 };
 
 export default TeacherDashboard;
+
+// "use client";
+
+// import { useEffect, useState } from "react";
+// import Link from "next/link";
+// import TodoList from "./TodoList";
+
+// const TeacherDashboard = ({ teacherId }) => {
+//   const [teacher, setTeacher] = useState(null);
+//   const [upcoming, setUpcoming] = useState([]);
+//   const [students, setStudents] = useState([]);
+
+//   // Load teacher info
+//   useEffect(() => {
+//     const fetchTeacher = async () => {
+//       try {
+//         const res = await fetch(`/api/teacher/${teacherId}`);
+//         const data = await res.json();
+//         setTeacher(data);
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     };
+//     fetchTeacher();
+//   }, [teacherId]);
+
+//   // Load upcoming sessions
+//   useEffect(() => {
+//     const fetchSessions = async () => {
+//       try {
+//         const res = await fetch(`/api/sessions?teacherId=${teacherId}`);
+//         const data = await res.json();
+//         setUpcoming(data);
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     };
+//     fetchSessions();
+//   }, [teacherId]);
+
+//   // Load students
+//   useEffect(() => {
+//     const fetchStudents = async () => {
+//       try {
+//         const res = await fetch(`/api/students?teacherId=${teacherId}`);
+//         const data = await res.json();
+//         setStudents(data);
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     };
+//     fetchStudents();
+//   }, [teacherId]);
+
+//   if (!teacher) return <div>Loading...</div>;
+
+//   return (
+//     <div className="min-h-screen p-6 bg-gray-50">
+//       <header className="flex items-center justify-between mb-6">
+//         <div>
+//           <h1 className="text-2xl font-semibold">
+//             Welcome back, {teacher.name}
+//           </h1>
+//           <p className="text-sm text-gray-600">
+//             Teacher dashboard • Fitness Track
+//           </p>
+//         </div>
+//         <div className="flex items-center gap-3">
+//           <button className="px-4 py-2 rounded-lg border">Quick actions</button>
+//           <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white">
+//             {teacher.name
+//               .split(" ")
+//               .map((n) => n[0])
+//               .join("")}
+//           </div>
+//         </div>
+//       </header>
+
+//       <main className="grid grid-cols-12 gap-6">
+//         <section className="col-span-8">
+//           <div className="bg-white rounded-xl shadow-sm p-4 mb-4">
+//             <h3 className="font-semibold mb-3">Upcoming sessions</h3>
+//             <ul className="space-y-3">
+//               {upcoming.map((u) => (
+//                 <li key={u.id} className="flex items-center justify-between">
+//                   <div>
+//                     <div className="font-medium">{u.title}</div>
+//                     <div className="text-sm text-gray-500">
+//                       {new Date(u.time).toLocaleString()} • {u.students}{" "}
+//                       students
+//                     </div>
+//                   </div>
+//                   <div className="flex gap-2">
+//                     <button className="px-3 py-1 rounded-md border">
+//                       View
+//                     </button>
+//                     <button className="px-3 py-1 rounded-md bg-blue-600 text-white">
+//                       Start
+//                     </button>
+//                   </div>
+//                 </li>
+//               ))}
+//             </ul>
+//           </div>
+//         </section>
+
+//         <aside className="col-span-4 space-y-4">
+//           <div className="bg-white rounded-xl shadow-sm p-4">
+//             <div className="flex items-center justify-between mb-3">
+//               <h4 className="font-semibold">Students</h4>
+//               <Link href={"/teacher/exercise"}>
+//                 <button className="text-sm px-4 py-2 rounded-lg border">
+//                   Give exercises
+//                 </button>
+//               </Link>
+//               <button className="text-sm">See all</button>
+//             </div>
+//             <div className="space-y-3">
+//               {students.map((st) => (
+//                 <div key={st.id} className="flex items-center justify-between">
+//                   <div>
+//                     <div className="font-medium">{st.name}</div>
+//                     <div className="text-xs text-gray-500">
+//                       Last workout: {st.lastWorkout}
+//                     </div>
+//                   </div>
+//                   <div className="text-sm text-gray-700">{st.progress}</div>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+
+//           {/* Todo List */}
+//           <div className="bg-white rounded-xl shadow-sm p-4">
+//             <h4 className="font-semibold mb-2">Todo List</h4>
+//             <TodoList teacherId={teacherId} />
+//           </div>
+//         </aside>
+//       </main>
+//     </div>
+//   );
+// };
+
+// export default TeacherDashboard;
