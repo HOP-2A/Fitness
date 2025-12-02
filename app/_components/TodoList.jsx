@@ -1,21 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const TodoList = ({ teacherId }) => {
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState("");
 
-  useEffect(() => {
-    (async () => {
-      const res = await fetch("/api/todos");
-      setTodos(await res.json());
-    })();
-  }, []);
-
   const addTodo = async () => {
     if (!task) return;
-    const res = await fetch("/api/todos", {
+    const res = await fetch("/api/todo", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ task, teacherId }),
@@ -26,12 +19,12 @@ const TodoList = ({ teacherId }) => {
   };
 
   const deleteTodo = async (id) => {
-    await fetch("/api/todos", {
+    await fetch("/api/todo", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
     });
-    setTodos(todos.filter((t) => t.id !== id));
+    setTodos((prev) => prev.filter((t) => t.id !== id));
   };
 
   return (
