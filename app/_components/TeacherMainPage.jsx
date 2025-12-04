@@ -21,14 +21,10 @@ const Page = () => {
     <div className="min-h-screen p-6 bg-gray-50">
       <div>
         <div className="flex items-center justify-between mb-6">
-<<<<<<< HEAD
           <h1 className="text-2xl font-semibold">
             Welcome back,
             {/* {user.lastName} */}
           </h1>
-=======
-          <h1 className="text-2xl font-semibold">Welcome back,</h1>
->>>>>>> 367d96e (1)
           <p className="text-sm text-gray-600">
             Teacher dashboard • Fitness Track
           </p>
