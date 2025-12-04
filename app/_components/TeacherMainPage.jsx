@@ -6,7 +6,7 @@ import TodoList from "./TodoList";
 // import { useUser } from "@clerk/nextjs";
 
 const Page = () => {
-  const [teachers, setTeachers] = useState([]);
+  const [setTeachers] = useState([]);
   // const { user } = useUser();
   // console.log(user);
   useEffect(() => {
