@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import TodoList from "./TodoList";
-import { useUser } from "@clerk/nextjs";
+// import { useUser } from "@clerk/nextjs";
 
 const Page = () => {
   const [teachers, setTeachers] = useState([]);
-  const { user } = useUser();
-  console.log(user);
+  // const { user } = useUser();
+  // console.log(user);
   useEffect(() => {
     (async () => {
       const res = await fetch("/api/teacher");
@@ -22,7 +22,8 @@ const Page = () => {
       <div>
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-semibold">
-            Welcome back, {user.lastName}
+            Welcome back,
+            {/* {user.lastName} */}
           </h1>
           <p className="text-sm text-gray-600">
             Teacher dashboard • Fitness Track

@@ -1,49 +1,54 @@
-
-import { prisma } from "@/lib/db";
-import bcrypt from "bcrypt";
+// import { prisma } from "@/lib/db";
+// import bcrypt from "bcrypt";
 
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-  const { email, username, password } = await req.json();
-  if (!email || !username || !password)
-    return NextResponse.json(
-      { message: `all fields should be filled` },
-      { status: 400 }
-    );
+// import { NextResponse } from "next/server";
 
-  const existingEmail = await prisma.user.findUnique({
-    where: { email },
-  });
+// export async function POST(req: Request) {
+//   const { email, username, password } = await req.json();
+//   if (!email || !username || !password)
+//     return NextResponse.json(
+//       { message: `all fields should be filled` },
+//       { status: 400 }
+//     );
 
-  if (existingEmail)
-    return NextResponse.json(
-      { message: `User created succesfully` },
-      { status: 200 }
-    );
+//   const existingEmail = await prisma.user.findUnique({
+//     where: { email },
+//   });
 
-  const existingUsername = await prisma.user.findUnique({
-    where: { username },
-  });
+//   if (existingEmail)
+//     return NextResponse.json(
+//       { message: `User created succesfully` },
+//       { status: 200 }
+//     );
 
-  if (existingUsername)
-    return NextResponse.json(
-      { message: `User already taken` },
-      { status: 400 }
-    );
+//   const existingUsername = await prisma.user.findUnique({
+//     where: { username },
+//   });
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+//   if (existingUsername)
+//     return NextResponse.json(
+//       { message: `User already taken` },
+//       { status: 400 }
+//     );
 
-  const newUser = await prisma.user.create({
-    data: {
-      email,
-      username,
-      password: hashedPassword,
-    },
-  });
+//   const hashedPassword = await bcrypt.hash(password, 10);
 
-  return NextResponse.json(
-    { message: `User created successfully ${newUser}` },
-    { status: 200 }
-  );
-}
+//   const newUser = await prisma.user.create({
+//     data: {
+//       email,
+//       username,
+//       password: hashedPassword,
+//     },
+//   });
+
+//   return NextResponse.json(
+//     { message: `User created successfully ${newUser}` },
+//     { status: 200 }
+//   );
+// }
+
+export const GET = () => {
+  return NextResponse.json("gg");
+};

@@ -1,6 +1,7 @@
 import Header from "./_components/Header";
 import ChallengeList from "./_components/ChallengeList";
 import { Footer } from "./_components/Footer";
+// import { useUser } from "@clerk/nextjs";
 
 const data = [
   {
@@ -51,6 +52,8 @@ const data = [
 ];
 
 export default function Page() {
+  // const { user } = useUser();
+  // console.log(user);
   return (
     <main className="min-h-screen px-6 py-8 bg-gradient-to-b from-green-100 via-green-50 to-white relative overflow-hidden">
       <div>

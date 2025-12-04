@@ -1,5 +1,5 @@
+import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
-import { prisma } from "@/app/lib/route";
 
 export async function GET() {
   const teachers = await prisma.teacher.findMany({

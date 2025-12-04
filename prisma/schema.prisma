@@ -22,8 +22,8 @@ enum ExerciseStatus {
 model User {
   id             String  @id @default(nanoid())
   username       String  @unique
-  password       String
   email          String  @unique
+  clerkId        String  @unique
   profilePicture String?
   coin           Int     @default(0)
   followers      Int     @default(0)
@@ -50,8 +50,8 @@ model User {
 model Teacher {
   id        String @id @default(nanoid())
   adminName String
-  password  String
   email     String @unique
+  clerkId   String @unique
 
   assignedExercises AssignedExercise[]
   todos             Todo[]
