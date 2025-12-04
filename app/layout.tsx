@@ -9,7 +9,7 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
-} from '@clerk/nextjs'
+} from "@clerk/nextjs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,19 +31,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (  
-  <ClerkProvider>
-  
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+  return (
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <div>
             <SignedOut>
               <SignInButton />
-              <SignUpButton>
+              <SignUpButton unsafeMetadata={{ role: "TRAINER" }}>
                 <button className="bg-[#6c47ff] text-ceramic-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
-                  Sign Up
+                  Sign Up as Trainer
+                </button>
+              </SignUpButton>
+              <SignUpButton unsafeMetadata={{ role: "STUDENT" }}>
+                <button className="bg-[#6c47ff] text-ceramic-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+                  Sign Up as student
                 </button>
               </SignUpButton>
             </SignedOut>
@@ -51,13 +55,10 @@ export default function RootLayout({
               <UserButton />
             </SignedIn>
           </div>
-        {children}
-        <Toaster richColors />
-
-      </body>
-    </html>
-        
-        </ClerkProvider>
+          {children}
+          <Toaster richColors />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
-

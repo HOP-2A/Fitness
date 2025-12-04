@@ -22,8 +22,8 @@ enum ExerciseStatus {
 model User {
   id             String  @id @default(nanoid())
   username       String  @unique
-  password       String
   email          String  @unique
+  clerkId        String  @unique
   profilePicture String?
   coin           Int     @default(0)
   followers      Int     @default(0)
@@ -36,13 +36,25 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+// model Teacher {
+//   id        String @id @default(nanoid())
+//   adminName String
+//   password  String
+//   email     String @unique
+
+//   assignedExercises AssignedExercise[]
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
 model Teacher {
   id        String @id @default(nanoid())
   adminName String
-  password  String
   email     String @unique
+  clerkId   String @unique
 
   assignedExercises AssignedExercise[]
+  todos             Todo[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -57,14 +69,13 @@ model AssignedExercise {
   teacherId String
   teacher   Teacher @relation(fields: [teacherId], references: [id])
 
-  
   title       String
   description String?
-  target      String?   
-  rate        Int       @default(0)
+  target      String?
+  rate        Int     @default(0)
 
   status ExerciseStatus @default(PENDING)
-  reward Int @default(0)
+  reward Int            @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -78,4 +89,20 @@ model Attendance {
   user   User   @relation(fields: [userId], references: [id])
 
   attendanceStatus AttendanceStatus
+}
+
+model Session {
+  id        String   @id @default(nanoid())
+  title     String
+  time      DateTime
+  students  Int
+  createdAt DateTime @default(now())
+}
+
+model Todo {
+  id        String   @id @default(nanoid())
+  task      String
+  teacherId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  createdAt DateTime @default(now())
 }
