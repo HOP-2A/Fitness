@@ -81,12 +81,17 @@ export default function ChallengeForm() {
     toast.success("Challenge submitted!");
     push("/teacher");
   };
-
+  const Back = () => {
+    push("/teacher");
+  };
   return (
     <div
       className="flex justify-center pt-10 min-h-screen"
       style={{ backgroundColor: "#192126" }}
     >
+      <Button onClick={Back} className="bg-green-500">
+        Back
+      </Button>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

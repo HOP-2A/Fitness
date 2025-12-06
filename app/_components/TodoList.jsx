@@ -1,20 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TodoList = ({ teacherId }) => {
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState("");
 
+  useEffect(() => {
+    if (!teacherId) return;
+
+    const getTodos = async () => {
+      const res = await fetch(`/api/todo?teacherId=${teacherId}`);
+      const data = await res.json();
+      setTodos(data);
+    };
+
+    getTodos();
+  }, [teacherId]);
+
   const addTodo = async () => {
     if (!task) return;
+
     const res = await fetch("/api/todo", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ task, teacherId }),
     });
+
     const newTodo = await res.json();
-    setTodos([newTodo, ...todos]);
+    setTodos((prev) => [newTodo, ...prev]);
     setTask("");
   };
 
@@ -24,6 +38,7 @@ const TodoList = ({ teacherId }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
     });
+
     setTodos((prev) => prev.filter((t) => t.id !== id));
   };
 
@@ -43,13 +58,14 @@ const TodoList = ({ teacherId }) => {
           Add
         </button>
       </div>
+
       <ul className="space-y-2">
         {todos.map((t) => (
           <li key={t.id} className="flex justify-between border-b pb-1">
             {t.task}
             <button
-              className="text-red-500 text-sm"
               onClick={() => deleteTodo(t.id)}
+              className="text-red-500 text-sm"
             >
               Delete
             </button>

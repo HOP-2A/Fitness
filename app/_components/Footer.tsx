@@ -12,17 +12,19 @@ export const Footer = () => {
       <div className="hover:cursor-pointer">
         <Rocket />
       </div>
-      <div className="hover:cursor-pointer">
-        <ListOrdered />
-      </div>
+      <Link href="/Leaderboard">
+        <div className="hover:cursor-pointer">
+          <ListOrdered />
+        </div>
+      </Link>
+
       <div className="hover:cursor-pointer">
         <ChartColumnBig />
       </div>
       <div>
-        <Link href="/login">
+        <Link href="">
           <User />
         </Link>
-        {/* Zolo oroldood uzeerei hohishu */}
       </div>
     </div>
   );
