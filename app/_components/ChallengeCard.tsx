@@ -1,4 +1,18 @@
-export default function ChallengeCard({ item }) {
+interface Challenge {
+  id: string;
+  title: string;
+  description?: string | null;
+  target?: string | null;
+  rate: number;
+  status: string;
+  createdAt: string | Date;
+}
+
+interface ChallengeCardProps {
+  item: Challenge;
+}
+
+export default function ChallengeCard({ item }: ChallengeCardProps) {
   return (
     <div className="bg-white rounded-xl shadow-md border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-200">
       <div className="flex justify-between items-center mb-3">
