@@ -5,31 +5,42 @@ import Link from "next/link";
 import TodoList from "./TodoList";
 import { useUser } from "@clerk/nextjs";
 
-const Page = () => {
-  const [teacher, setTeacher] = useState(null);
+interface Teacher {
+  id: string;
+  adminName: string;
+}
+
+const Page: React.FC = () => {
+  const [teacher, setTeacher] = useState<Teacher | null>(null);
   const { user } = useUser();
 
   useEffect(() => {
     if (!user?.id) return;
 
     const getTeacher = async () => {
-      const res = await fetch(`/api/teacher/${user.id}`);
+      try {
+        const res = await fetch(`/api/teacher/${user.id}`);
 
-      if (!res.ok) return;
+        if (!res.ok) return;
 
-      const data = await res.json();
-      setTeacher(data.teacher);
+        const data: { teacher: Teacher } = await res.json();
+        setTeacher(data.teacher);
+      } catch (error) {
+        console.error("Teacher fetch error:", error);
+      }
     };
 
     getTeacher();
   }, [user?.id]);
+
   return (
     <div className="min-h-screen p-6 bg-gray-50">
       <div>
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-semibold">
-            Welcome back,{teacher?.adminName}
+            Welcome back, {teacher?.adminName || "Loading..."}
           </h1>
+
           <p className="text-sm text-gray-600">
             Teacher dashboard • Fitness Track
           </p>
@@ -37,8 +48,9 @@ const Page = () => {
 
         <div className="flex items-center gap-3">
           <button className="px-4 py-2 rounded-lg border">Quick actions</button>
+
           <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white">
-            {teacher?.adminName?.[0] || "ZL"}
+            {teacher?.adminName?.[0] || "Z"}
           </div>
         </div>
       </div>
@@ -52,7 +64,8 @@ const Page = () => {
           <div className="bg-white rounded-xl shadow-sm p-4">
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-semibold">Students</h4>
-              <Link href={"/teacher/exercise"}>
+
+              <Link href="/teacher/exercise">
                 <button className="text-sm px-4 py-2 rounded-lg border">
                   Give exercises
                 </button>

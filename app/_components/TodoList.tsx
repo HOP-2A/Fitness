@@ -2,16 +2,26 @@
 
 import { useEffect, useState } from "react";
 
-const TodoList = ({ teacherId }) => {
-  const [todos, setTodos] = useState([]);
-  const [task, setTask] = useState("");
+interface Todo {
+  id: string;
+  task: string;
+  teacherId: string;
+}
+
+interface TodoListProps {
+  teacherId: string;
+}
+
+const TodoList = ({ teacherId }: TodoListProps) => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [task, setTask] = useState<string>("");
 
   useEffect(() => {
     if (!teacherId) return;
 
     const getTodos = async () => {
       const res = await fetch(`/api/todo?teacherId=${teacherId}`);
-      const data = await res.json();
+      const data: Todo[] = await res.json();
       setTodos(data);
     };
 
@@ -27,12 +37,12 @@ const TodoList = ({ teacherId }) => {
       body: JSON.stringify({ task, teacherId }),
     });
 
-    const newTodo = await res.json();
+    const newTodo: Todo = await res.json();
     setTodos((prev) => [newTodo, ...prev]);
     setTask("");
   };
 
-  const deleteTodo = async (id) => {
+  const deleteTodo = async (id: string) => {
     await fetch("/api/todo", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
