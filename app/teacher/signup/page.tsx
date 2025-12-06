@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useUser } from "@clerk/nextjs";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,6 +10,11 @@ import { toast } from "sonner";
 
 export const SignUp = () => {
   const router = useRouter();
+  const { user } = useUser();
+
+  if (user !== null) {
+    router.push("/teacher");
+  }
 
   const [inputs, setInputs] = useState({
     email: "",

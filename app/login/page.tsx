@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
@@ -9,6 +10,12 @@ import { toast } from "sonner";
 
 export const Login = () => {
   const { push } = useRouter();
+  const router = useRouter();
+  const { user } = useUser();
+
+  if (user !== null) {
+    router.push("/");
+  }
 
   const [inputs, setInputs] = useState({
     identifier: "",
