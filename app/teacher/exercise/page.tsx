@@ -89,9 +89,28 @@ export default function ChallengeForm() {
       className="flex justify-center pt-10 min-h-screen"
       style={{ backgroundColor: "#192126" }}
     >
-      <Button onClick={Back} className="bg-green-500">
-        Back
-      </Button>
+      <motion.button
+        onClick={Back}
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="
+    absolute top-6 left-6
+    px-5 py-2 
+    rounded-xl 
+    font-medium 
+    shadow-lg 
+    transition-all 
+    bg-[#2F3A41] 
+    text-[#BBF246]
+    hover:bg-[#3F4A51]
+    hover:shadow-[0_0_12px_#BBF246]
+    active:scale-95
+  "
+      >
+        ← Back
+      </motion.button>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
