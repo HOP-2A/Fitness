@@ -1,8 +1,18 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 export const Welcome = () => {
+  const router = useRouter();
+  const { user } = useUser();
+
+  if (user !== null) {
+    router.push("/");
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-[#192126]">
       <div className="max-w-md flex flex-col items-center text-center gap-6">
