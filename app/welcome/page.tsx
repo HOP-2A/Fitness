@@ -9,9 +9,9 @@ export const Welcome = () => {
   const router = useRouter();
   const { user } = useUser();
 
-  if (user !== null) {
-    router.push("/");
-  }
+  // if (user !== null) {
+  //   router.push("/");
+  // }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-[#192126]">

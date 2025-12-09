@@ -1,116 +1,29 @@
 "use client";
-
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useUser } from "@clerk/nextjs";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
-import { toast } from "sonner";
 
-export const Login = () => {
-  const { push } = useRouter();
-  const router = useRouter();
+const Login = () => {
   const { user } = useUser();
-
-  if (user !== null) {
-    router.push("/teacher");
-  }
-
-  const [inputs, setInputs] = useState({
-    identifier: "",
-    password: "",
-  });
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleInputs = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setInputs((prevInputs) => ({
-      ...prevInputs,
-      [name]: value,
-    }));
-  };
-
-  const handleLogin = async () => {
-    if (isLoading) return;
-    setIsLoading(true);
-
-    const res = await fetch("/api/teacherLogin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(inputs),
-    });
-    const data = await res.json();
-
-    if (res.ok) {
-      toast.success("Login successful");
-      push("/teacher");
-
-      setInputs({
-        identifier: "",
-        password: "",
-      });
-    } else {
-      toast.error(data.error || "Login failed");
-    }
-
-    setIsLoading(false);
-  };
-  return (
-    <div className="min-h-screen flex items-center justify-center px-6 bg-[#192126]">
-      <div className="w-full max-w-sm flex flex-col gap-5 p-8 rounded-3xl shadow-2xl border border-[#5E6468]/40 bg-[#384046]/60 backdrop-blur-xl">
-        <h1 className="text-3xl font-bold text-[#BBF246] text-center drop-shadow-lg">
-          Welcome Back
-        </h1>
-
-        <p className="text-center text-[#8B8F92]">
-          Login to your teacher account
-        </p>
-
-        <Input
-          placeholder="Email or admin name"
-          name="identifier"
-          onChange={handleInputs}
-          value={inputs.identifier}
-          className="bg-[#192126] border border-[#5E6468] text-white placeholder:text-[#8B8F92]"
-        />
-
-        <Input
-          placeholder="Password"
-          name="password"
-          onChange={handleInputs}
-          value={inputs.password}
-          type="password"
-          className="bg-[#192126] border border-[#5E6468] text-white placeholder:text-[#8B8F92]"
-        />
-
-        <Button
-          type="button"
-          onClick={handleLogin}
-          disabled={isLoading}
-          className="w-full py-5 text-lg rounded-xl font-semibold bg-[#BBF246] hover:bg-[#BBF246]/80 text-black"
-        >
-          {isLoading ? "Logging in..." : "Login"}
-        </Button>
-
-        <div className="text-center text-sm text-[#A48AED] hover:text-[#FCC46F] transition">
-          Forgot your password?
-        </div>
-
-        <div className=" text-center text-sm text-[#A48AED] hover:text-[#FCC46F] transition flex flex-col ">
-          Do not have a teacher account?{" "}
-          <Link
-            href="/teacher/signup"
-            className="font-semibold hover:text-[#BBF246]"
-          >
-            Sign up as a teacher
-          </Link>
-        </div>
+  const { push } = useRouter();
+  if (user === null) {
+    return (
+      <div>
+        <SignedOut>
+          <SignInButton>Sign in</SignInButton>
+        </SignedOut>
       </div>
-    </div>
-  );
+    );
+  }
+  if (user !== null) {
+    push("/teacher");
+  }
+  return <div> hi</div>;
 };
-
 export default Login;

@@ -1,15 +1,17 @@
 "use client";
-
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { Footer } from "../_components/Footer";
+import Todolist from "../_components/Todolist";
 
 const Page = () => {
-  const router = useRouter();
   const { user } = useUser();
 
-  if (user === null) {
-    router.push("/teacher/login");
-  }
-  return <div>hi</div>;
+  return (
+    <div>
+      <Todolist teacherId={user?.id ?? ""} />
+
+      <Footer />
+    </div>
+  );
 };
 export default Page;
