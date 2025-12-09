@@ -2,29 +2,28 @@
 
 import { useEffect, useState } from "react";
 
-interface Todo {
+type Todo = {
   id: string;
   task: string;
   teacherId: string;
-}
+};
 
-interface TodoListProps {
+type TodoListProps = {
   teacherId: string;
-}
+};
 
-const TodoList = ({ teacherId }: TodoListProps) => {
+const Todolist = ({ teacherId }: TodoListProps) => {
+  console.log(teacherId, "ggg");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [task, setTask] = useState<string>("");
 
   useEffect(() => {
-    if (!teacherId) return;
-
     const getTodos = async () => {
-      const res = await fetch(`/api/todo`);
+      const res = await fetch(`/api/todo?clerkId=${teacherId}`);
       const data: Todo[] = await res.json();
       setTodos(data);
     };
-
+    if (!teacherId) return;
     getTodos();
   }, [teacherId]);
 
@@ -51,7 +50,7 @@ const TodoList = ({ teacherId }: TodoListProps) => {
 
     setTodos((prev) => prev.filter((t) => t.id !== id));
   };
-
+  console.log(todos);
   return (
     <div>
       <div className="flex gap-2 mb-3">
@@ -86,4 +85,4 @@ const TodoList = ({ teacherId }: TodoListProps) => {
   );
 };
 
-export default TodoList;
+export default Todolist;

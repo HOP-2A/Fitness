@@ -7,7 +7,6 @@ export async function GET(
 ) {
   const { clerkId } = await context.params;
 
-
   if (!clerkId) {
     return NextResponse.json(
       { error: "Missing clerkId parameter" },
@@ -15,25 +14,18 @@ export async function GET(
     );
   }
 
-  try {
-    const user = await prisma.user.findFirst({
-      where: { clerkId },
-      select: {
-        id: true,
-        username: true,
-        email: true,
-      },
-    });
+  const user = await prisma.user.findFirst({
+    where: { clerkId },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+    },
+  });
 
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
-    return NextResponse.json({ user }, { status: 200 });
-  } catch (e) {
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
+
+  return NextResponse.json({ user }, { status: 200 });
 }

@@ -43,7 +43,7 @@ export async function POST(req: Request) {
         },
       });
     }
-    if ((user.public_metadata.role = "TRAINER")) {
+    if ((user.public_metadata.role = "TEACHER")) {
       await prisma.teacher.create({
         data: {
           clerkId: user.id,

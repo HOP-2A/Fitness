@@ -9,6 +9,7 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
+  useUser,
 } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -29,7 +30,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
-
   return (
     <ClerkProvider>
       <html lang="en">
@@ -43,12 +43,15 @@ export default function RootLayout({
                   router.push("/signup");
                 }}
               >
-                Sign-up
+                Sign-up as a Trainer
               </Button>
-
-              <SignedOut>
-                <SignInButton>Sign in</SignInButton>
-              </SignedOut>
+              <Button
+                onClick={() => {
+                  router.push("/teacher/signup");
+                }}
+              >
+                Sign-up as a Teacher
+              </Button>
 
               <SignedIn>
                 <UserButton />

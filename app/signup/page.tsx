@@ -14,8 +14,11 @@ export const SignUp = () => {
 
   const { user } = useUser();
 
-  if (user !== null) {
-    router.push("/");
+  if (user?.publicMetadata.role === "STUDENT") {
+    router.push("/student");
+  }
+  if (user?.publicMetadata.role === "TEACHER") {
+    router.push("/teacher");
   }
 
   const [inputs, setInputs] = useState({
