@@ -1,4 +1,4 @@
-"use client";
+import { Footer } from "../_components/Footer";
 
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
