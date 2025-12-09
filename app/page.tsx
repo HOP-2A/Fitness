@@ -1,14 +1,33 @@
-"use client";
+"use client"
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+type Student = {
+  id: string;
+  username: string;
+};
+
 
 const Page = () => {
-  const router = useRouter();
+  const [student, setStudent] = useState<Student | null>();
   const { user } = useUser();
 
-  if (user === null) {
-    router.push("/welcome");
-  }
-  return <div>hi</div>;
+  const getUser = async () => {
+    if (!user?.id) return; 
+
+    const res = await fetch(`/api/student/${user.id}`);
+    if (!res.ok) return;
+
+    const data = await res.json();
+    setStudent(data.user); 
+  };
+
+  useEffect(() => {
+    getUser();
+  }, [user?.id]);
+
+
+  return <div>{student?.username}</div>;
 };
+
 export default Page;
