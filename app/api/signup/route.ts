@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   const { email, username, password, type } = await req.json();
 
   const client = await clerkClient();
-  console.log(email, username, password, type);
+
   const user = await client.users.createUser({
     emailAddress: [email],
     password,

@@ -38,21 +38,6 @@ export default function RootLayout({
         >
           <div>
             <header>
-              <Button
-                onClick={() => {
-                  router.push("/signup");
-                }}
-              >
-                Sign-up as a Trainer
-              </Button>
-              <Button
-                onClick={() => {
-                  router.push("/teacher/signup");
-                }}
-              >
-                Sign-up as a Teacher
-              </Button>
-
               <SignedIn>
                 <UserButton />
               </SignedIn>

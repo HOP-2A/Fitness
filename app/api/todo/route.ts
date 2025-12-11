@@ -36,7 +36,7 @@ export async function GET(req: Request) {
       clerkId,
     },
   });
-  console.log(teacher);
+
   const todos = await prisma.todo.findMany({
     where: { teacherId: teacher?.id },
     orderBy: { createdAt: "desc" },

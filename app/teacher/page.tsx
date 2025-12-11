@@ -10,9 +10,9 @@ const Page = () => {
   const { user: clerkUser } = useUser();
 
   const user = useAuth(clerkUser?.id);
-  console.log(clerkUser, "user");
+
   if (user === null) {
-    push("/teacher/login");
+    push("/welcome");
   }
 
   return (

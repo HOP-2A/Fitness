@@ -13,7 +13,7 @@ type TodoListProps = {
 };
 
 const Todolist = ({ teacherId }: TodoListProps) => {
-  console.log(teacherId, "ggg");
+
   const [todos, setTodos] = useState<Todo[]>([]);
   const [task, setTask] = useState<string>("");
 
@@ -50,7 +50,7 @@ const Todolist = ({ teacherId }: TodoListProps) => {
 
     setTodos((prev) => prev.filter((t) => t.id !== id));
   };
-  console.log(todos);
+
   return (
     <div>
       <div className="flex gap-2 mb-3">

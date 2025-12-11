@@ -1,5 +1,6 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Student = {
@@ -10,8 +11,15 @@ type Student = {
 const Page = () => {
   const [student, setStudent] = useState<Student | null>();
   const { user } = useUser();
-  console.log(user, "gg");
+  const router = useRouter();
 
+  if (user === null) {
+    router.push("/welcome");
+  }
+  console.log(user?.publicMetadata.role);
+  if (user?.publicMetadata.role === "TEACHER") {
+    router.push("/teacher");
+  }
   useEffect(() => {
     const getUser = async () => {
       if (!user?.id) return;
