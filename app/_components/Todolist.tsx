@@ -13,13 +13,12 @@ type TodoListProps = {
 };
 
 const Todolist = ({ teacherId }: TodoListProps) => {
-
   const [todos, setTodos] = useState<Todo[]>([]);
   const [task, setTask] = useState<string>("");
 
   useEffect(() => {
     const getTodos = async () => {
-      const res = await fetch(`/api/todo?clerkId=${teacherId}`);
+      const res = await fetch(`/api/todo?teacherId=${teacherId}`);
       const data: Todo[] = await res.json();
       setTodos(data);
     };
