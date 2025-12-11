@@ -4,20 +4,39 @@ import { Footer } from "../_components/Footer";
 import Todolist from "../_components/Todolist";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/authProvider";
+import { useEffect, useState } from "react";
 
+type Teacher = {
+  id: string;
+  adminName: string;
+  email: string;
+  createdAt: string;
+};
 const Page = () => {
   const { push } = useRouter();
   const { user: clerkUser } = useUser();
 
   const user = useAuth(clerkUser?.id);
-  console.log(clerkUser, "user");
+
   if (user === null) {
     push("/teacher/login");
   }
+  const [teacher, setTeacher] = useState<Teacher[]>([]);
 
+  useEffect(() => {
+    const getTeacher = async () => {
+      const res = await fetch("/api/teacher");
+      const data: Teacher[] = await res.json();
+      setTeacher(data);
+    };
+    getTeacher();
+    console.log(teacher, "Teacher");
+  }, []);
   return (
     <div>
       {/* <Todolist teacherId={user?.id ?? ""} /> */}
+
+      <div>asd</div>
 
       <Footer />
     </div>

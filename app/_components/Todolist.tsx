@@ -13,7 +13,7 @@ type TodoListProps = {
 };
 
 const Todolist = ({ teacherId }: TodoListProps) => {
-  console.log(teacherId, "ggg");
+  console.log(teacherId, "TEacher id ene shu");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [task, setTask] = useState<string>("");
 
