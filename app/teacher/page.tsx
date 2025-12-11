@@ -17,9 +17,9 @@ const Page = () => {
   const { user: clerkUser } = useUser();
 
   const user = useAuth(clerkUser?.id);
-  console.log(user);
+
   if (user === null) {
-    push("/teacher/login");
+    push("/welcome");
   }
   const [teacher, setTeacher] = useState<Teacher[]>([]);
 

@@ -6,7 +6,7 @@ export async function GET(
   context: { params: Promise<{ clerkId: string }> }
 ) {
   const { clerkId } = await context.params;
-  console.log(clerkId);
+
   if (!clerkId) {
     return NextResponse.json(
       { error: "Missing clerkId parameter" },

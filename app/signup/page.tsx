@@ -54,8 +54,8 @@ export const SignUp = () => {
       return;
     }
 
-    toast.success("Signed up successfully");
-    router.push("/login");
+    toast.success("Signed up successfully now login please . . .");
+    router.push("/welcome");
 
     setInputs({
       email: "",
