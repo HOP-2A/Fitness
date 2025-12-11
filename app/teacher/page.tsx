@@ -17,7 +17,7 @@ const Page = () => {
   const { user: clerkUser } = useUser();
 
   const user = useAuth(clerkUser?.id);
-
+  console.log(user);
   if (user === null) {
     push("/teacher/login");
   }
@@ -30,11 +30,10 @@ const Page = () => {
       setTeacher(data);
     };
     getTeacher();
-    console.log(teacher, "Teacher");
   }, []);
   return (
     <div>
-      {/* <Todolist teacherId={user?.id ?? ""} /> */}
+      <Todolist teacherId={user?.id ?? ""} />
 
       <div>asd</div>
 

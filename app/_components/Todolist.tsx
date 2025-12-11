@@ -13,13 +13,12 @@ type TodoListProps = {
 };
 
 const Todolist = ({ teacherId }: TodoListProps) => {
-  console.log(teacherId, "TEacher id ene shu");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [task, setTask] = useState<string>("");
 
   useEffect(() => {
     const getTodos = async () => {
-      const res = await fetch(`/api/todo?clerkId=${teacherId}`);
+      const res = await fetch(`/api/todo?teacherId=${teacherId}`);
       const data: Todo[] = await res.json();
       setTodos(data);
     };
@@ -50,7 +49,7 @@ const Todolist = ({ teacherId }: TodoListProps) => {
 
     setTodos((prev) => prev.filter((t) => t.id !== id));
   };
-  console.log(todos);
+
   return (
     <div>
       <div className="flex gap-2 mb-3">
