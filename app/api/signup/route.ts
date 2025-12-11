@@ -6,6 +6,7 @@ export async function POST(req: Request) {
   const { email, username, password, type } = await req.json();
 
   const client = await clerkClient();
+  console.log(email, username, password, type);
   const user = await client.users.createUser({
     emailAddress: [email],
     password,
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
 
   if (existingEmail)
     return NextResponse.json(
-      { message: `User created succesfully` },
+      { message: `email already exist nega` },
       { status: 400 }
     );
 
