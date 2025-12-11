@@ -1,17 +1,13 @@
 "use client";
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
+import { SignInButton, SignedOut, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/authProvider";
 
 const Login = () => {
   const { user } = useUser();
   const { push } = useRouter();
+
   if (user === null) {
     return (
       <div>
@@ -24,6 +20,5 @@ const Login = () => {
   if (user !== null) {
     push("/teacher");
   }
-  return <div> hi</div>;
 };
 export default Login;
