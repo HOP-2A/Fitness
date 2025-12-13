@@ -5,7 +5,7 @@ export const GET = async (
   _req: NextRequest,
   context: { params: { clerkId: string } }
 ) => {
-  const { clerkId } = context.params;
+  const { clerkId } = await context.params;
 
   const student = await prisma.user.findUnique({
     where: { clerkId },
