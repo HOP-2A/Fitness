@@ -16,7 +16,7 @@ const Page = () => {
   if (user === null) {
     router.push("/welcome");
   }
-  console.log(user?.publicMetadata.role);
+
   if (user?.publicMetadata.role === "TEACHER") {
     router.push("/teacher");
   }

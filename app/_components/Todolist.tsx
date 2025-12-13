@@ -62,29 +62,36 @@ const Todolist = ({ teacherId }: TodoListProps) => {
   };
 
   return (
-    <div>
-      <div className="flex gap-2 mb-3">
+    <div className="max-w-md mx-auto mt-10 p-6 bg-green-50 rounded-xl shadow-md">
+      <h1 className="text-2xl font-bold text-green-700 mb-4 text-center">
+        My Todos
+      </h1>
+
+      <div className="flex gap-2 mb-4">
         <input
           value={task}
           onChange={(e) => setTask(e.target.value)}
-          placeholder="Write task..."
-          className="border p-2 rounded-md flex-1"
+          placeholder="Write a task..."
+          className="border border-green-300 focus:border-green-500 focus:ring focus:ring-green-200 p-2 rounded-md flex-1 outline-none transition"
         />
         <button
           onClick={addTodo}
-          className="bg-green-600 text-white px-4 py-2 rounded-md"
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md shadow-md transition"
         >
           Add
         </button>
       </div>
 
-      <ul className="space-y-2">
+      <ul className="space-y-3">
         {todos.map((t) => (
-          <li key={t.id} className="flex justify-between border-b pb-1">
-            {t.task}
+          <li
+            key={t.id}
+            className="flex justify-between items-center bg-white p-3 rounded-md shadow-sm border border-green-100"
+          >
+            <span className="text-gray-800">{t.task}</span>
             <button
               onClick={() => deleteTodo(t.id)}
-              className="text-red-500 text-sm"
+              className="text-red-500 hover:text-red-700 text-sm font-semibold"
             >
               Delete
             </button>
