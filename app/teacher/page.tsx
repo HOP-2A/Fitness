@@ -13,29 +13,14 @@ type Teacher = {
   createdAt: string;
 };
 const Page = () => {
-  const { push } = useRouter();
   const { user: clerkUser } = useUser();
 
-  const user = useAuth(clerkUser?.id);
+  const userData = useAuth(clerkUser?.id);
+  const user = userData.user;
 
-  if (user === null) {
-    push("/welcome");
-  }
-  const [teacher, setTeacher] = useState<Teacher[]>([]);
-
-  useEffect(() => {
-    const getTeacher = async () => {
-      const res = await fetch("/api/teacher");
-      const data: Teacher[] = await res.json();
-      setTeacher(data);
-    };
-    getTeacher();
-  }, []);
   return (
     <div>
       <Todolist teacherId={user?.id ?? ""} />
-
-      <div>asd</div>
 
       <Footer />
     </div>

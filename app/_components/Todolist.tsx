@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
 type Todo = {
@@ -13,29 +14,39 @@ type TodoListProps = {
 };
 
 const Todolist = ({ teacherId }: TodoListProps) => {
+  const { user: clerkUser } = useUser();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [task, setTask] = useState<string>("");
 
   useEffect(() => {
-    const getTodos = async () => {
-      const res = await fetch(`/api/todo?teacherId=${teacherId}`);
-      const data: Todo[] = await res.json();
-      setTodos(data);
-    };
-    if (!teacherId) return;
-    getTodos();
-  }, [teacherId]);
+    if (clerkUser) {
+      const getTodos = async () => {
+        const res = await fetch(`/api/todo?teacherId=${clerkUser.id}`);
+        const data: Todo[] = await res.json();
+        setTodos(data);
+      };
+      getTodos();
+    }
+  }, [clerkUser]);
 
   const addTodo = async () => {
-    if (!task) return;
+    if (!task || !teacherId) return;
 
     const res = await fetch("/api/todo", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ task, teacherId }),
     });
 
-    const newTodo: Todo = await res.json();
+    if (!res.ok) {
+      console.error("GG");
+      return;
+    }
+
+    const newTodo = await res.json();
+
     setTodos((prev) => [newTodo, ...prev]);
     setTask("");
   };
