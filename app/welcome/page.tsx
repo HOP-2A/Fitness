@@ -12,7 +12,7 @@ export const Welcome = () => {
   if (!isLoaded) {
     return <div>loading</div>;
   }
-  if (user !== null) {
+  if (user) {
     router.push("/");
   }
 

@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +22,9 @@ import {
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import { useAuth } from "@/providers/authProvider";
+import { useUsers } from "./useUsers";
 
 type ChallengeFormData = {
   id: string;
@@ -34,12 +38,31 @@ type ChallengeFormData = {
   reward: number;
 };
 
+// type User = {
+//   id: string;
+//   username: string;
+//   email: string;
+//   clerkId: string;
+//   coin: number;
+//   followers: number;
+//   following: number;
+//   profilePicture: string | null;
+//   createdAt: Date;
+//   updatedAt: Date;
+// };
+
 export default function ChallengeForm() {
   const { push } = useRouter();
+  const { user: clerkUser } = useUser();
+  const userData = useAuth(clerkUser?.id);
+  const user = userData.user;
+
+  const { users } = useUsers();
+
   const [data, setData] = useState<ChallengeFormData>({
     id: "",
-    traineeId: "nMK5CXR1IxJkAGw4qn0Mo",
-    teacherId: "N9bQMpN9MTVYFAvkMwN1l",
+    traineeId: "",
+    teacherId: "",
     title: "",
     description: "",
     target: "",
@@ -47,6 +70,7 @@ export default function ChallengeForm() {
     status: "PENDING",
     reward: 0,
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputValue = (
@@ -57,10 +81,16 @@ export default function ChallengeForm() {
     setData((prev) => ({
       ...prev,
       [name]: name === "rate" || name === "reward" ? Number(value) : value,
+      teacherId: user?.id || "",
     }));
   };
 
   const handleSubmit = async () => {
+    if (!data.traineeId) {
+      toast.error("Please select a trainee");
+      return;
+    }
+
     if (isSubmitting) return;
     setIsSubmitting(true);
 
@@ -81,160 +111,87 @@ export default function ChallengeForm() {
     toast.success("Challenge submitted!");
     push("/teacher");
   };
-  const Back = () => {
-    push("/teacher");
-  };
+
   return (
-    <div
-      className="flex justify-center pt-10 min-h-screen"
-      style={{ backgroundColor: "#192126" }}
-    >
+    <div className="flex justify-center pt-10 min-h-screen bg-[#192126]">
       <motion.button
-        onClick={Back}
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
-        className="
-    absolute top-6 left-6
-    px-5 py-2 
-    rounded-xl 
-    font-medium 
-    shadow-lg 
-    transition-all 
-    bg-[#2F3A41] 
-    text-[#BBF246]
-    hover:bg-[#3F4A51]
-    hover:shadow-[0_0_12px_#BBF246]
-    active:scale-95
-  "
+        onClick={() => push("/teacher")}
+        className="absolute top-6 left-6 px-5 py-2 rounded-xl bg-[#2F3A41] text-[#BBF246]"
       >
         ← Back
       </motion.button>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="w-full max-w-xl"
-      >
-        <Card
-          className="w-full shadow-lg border-0"
-          style={{ backgroundColor: "#384046", color: "#8B8F92" }}
-        >
+      <div className="w-full max-w-xl">
+        <Card className="border-0 bg-[#384046] text-[#8B8F92]">
           <CardHeader>
-            <CardTitle
-              className="text-2xl font-semibold"
-              style={{ color: "#BBF246" }}
-            >
+            <CardTitle className="text-[#BBF246] text-2xl">
               Challenge Details
             </CardTitle>
           </CardHeader>
 
           <CardContent className="space-y-4">
             <div className="flex flex-col space-y-1">
-              <Label style={{ color: "#FCC46F" }}>Title</Label>
-              <Input
-                name="title"
-                placeholder="Enter challenge title"
-                className="border-0 focus:ring-2"
-                style={{ backgroundColor: "#5E6468", color: "white" }}
-                onChange={handleInputValue}
-              />
-            </div>
-
-            <div className="flex flex-col space-y-1">
-              <Label style={{ color: "#FCC46F" }}>Description</Label>
-              <Textarea
-                name="description"
-                placeholder="Describe the challenge"
-                className="border-0 focus:ring-2"
-                style={{ backgroundColor: "#5E6468", color: "white" }}
-                onChange={handleInputValue}
-              />
-            </div>
-
-            <div className="flex flex-col space-y-1">
-              <Label style={{ color: "#FCC46F" }}>Target</Label>
-              <Input
-                name="target"
-                placeholder="Strength, Endurance, etc."
-                className="border-0 focus:ring-2"
-                style={{ backgroundColor: "#5E6468", color: "white" }}
-                onChange={handleInputValue}
-              />
-            </div>
-
-            <div className="flex flex-col space-y-1">
-              <Label style={{ color: "#FCC46F" }}>Rate</Label>
-              <Input
-                name="rate"
-                type="number"
-                max="5"
-                min="0"
-                placeholder="Enter difficulty rate"
-                className="border-0 focus:ring-2"
-                style={{ backgroundColor: "#5E6468", color: "white" }}
-                onChange={handleInputValue}
-              />
-            </div>
-
-            <div className="flex flex-col space-y-1">
-              <Label style={{ color: "#FCC46F" }}>Status</Label>
-
+              <Label className="text-[#FCC46F]">Trainee</Label>
               <Select
-                value={data.status}
-                onValueChange={(v) =>
-                  setData((prev) => ({
-                    ...prev,
-                    status: v as ChallengeFormData["status"],
-                  }))
+                value={data.traineeId}
+                onValueChange={(value) =>
+                  setData((prev) => ({ ...prev, traineeId: value }))
                 }
               >
-                <SelectTrigger
-                  className="border-0"
-                  style={{ backgroundColor: "#5E6468", color: "white" }}
-                >
-                  <SelectValue placeholder="Select status" />
+                <SelectTrigger className="bg-[#5E6468] text-white border-0">
+                  <SelectValue placeholder="Select trainee" />
                 </SelectTrigger>
 
-                <SelectContent style={{ backgroundColor: "#5E6468" }}>
-                  <SelectItem value="PENDING">Pending</SelectItem>
-                  <SelectItem value="ACTIVE">Active</SelectItem>
-                  <SelectItem value="COMPLETED">Completed</SelectItem>
+                <SelectContent className="bg-[#5E6468]">
+                  {users?.map((trainee) => (
+                    <SelectItem key={trainee.id} value={trainee.id}>
+                      {trainee.username}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
 
-            <div className="flex flex-col space-y-1">
-              <Label style={{ color: "#FCC46F" }}>Reward</Label>
-              <Input
-                name="reward"
-                type="number"
-                min="0"
-                placeholder="Reward points"
-                className="border-0 focus:ring-2"
-                style={{ backgroundColor: "#5E6468", color: "white" }}
-                onChange={handleInputValue}
-              />
-            </div>
+            <Input
+              name="title"
+              placeholder="Title"
+              onChange={handleInputValue}
+            />
+            <Textarea
+              name="description"
+              placeholder="Description"
+              onChange={handleInputValue}
+            />
+            <Input
+              name="target"
+              placeholder="Target"
+              onChange={handleInputValue}
+            />
+            <Input
+              type="number"
+              name="rate"
+              placeholder="Rate"
+              onChange={handleInputValue}
+            />
+            <Input
+              type="number"
+              name="reward"
+              placeholder="Reward"
+              onChange={handleInputValue}
+            />
           </CardContent>
 
           <CardFooter>
             <Button
-              disabled={isSubmitting}
-              className="w-full font-semibold py-3 rounded-xl shadow-md"
-              style={{
-                backgroundColor: "#A48AED",
-                color: "white",
-                opacity: isSubmitting ? 0.6 : 1,
-              }}
+              className="w-full bg-[#A48AED]"
               onClick={handleSubmit}
+              disabled={isSubmitting}
             >
               {isSubmitting ? "Submitting..." : "Submit Challenge"}
             </Button>
           </CardFooter>
         </Card>
-      </motion.div>
+      </div>
     </div>
   );
 }
