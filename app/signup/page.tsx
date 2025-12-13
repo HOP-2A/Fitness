@@ -108,7 +108,7 @@ export const SignUp = () => {
 
         <div className="text-center text-sm text-[#A48AED]">
           Have an account?{" "}
-          <Link href="/login" className="font-semibold hover:text-[#BBF246]">
+          <Link href="/welcome" className="font-semibold hover:text-[#BBF246]">
             Login
           </Link>
         </div>

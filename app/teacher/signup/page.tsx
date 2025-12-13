@@ -98,10 +98,7 @@ export const SignUp = () => {
 
         <div className="text-center text-sm text-[#A48AED]">
           Already a teacher?{" "}
-          <Link
-            href="/teacher/login"
-            className="font-semibold hover:text-[#BBF246]"
-          >
+          <Link href="/welcome" className="font-semibold hover:text-[#BBF246]">
             Login as teacher
           </Link>
         </div>
