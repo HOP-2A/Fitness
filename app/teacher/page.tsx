@@ -6,6 +6,7 @@ import { Footer } from "../_components/Footer";
 import Todolist from "../_components/Todolist";
 import Greeting from "../_components/Greeting";
 import { useAuth } from "@/providers/authProvider";
+import { GetStudent } from "../_components/GetStudent";
 
 const Page = () => {
   const { user: clerkUser, isLoaded } = useUser();
@@ -39,7 +40,11 @@ const Page = () => {
         >
           Give Exercise
         </button>
-        <div className="absolute bottom-20 top-3 right-4 w-80">
+        <div className="fixed top-20 left-4 z-50 animate-slide-in">
+          <GetStudent />
+        </div>
+
+        <div className="absolute bottom-20 top-20 right-4 w-80">
           <Todolist teacherId={user?.id ?? ""} />
         </div>
       </div>
