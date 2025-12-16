@@ -77,19 +77,24 @@ const Todolist = ({ teacherId }: TodoListProps) => {
           Add
         </button>
       </div>
-
       <ul className="space-y-2">
-        {todos.map((t) => (
-          <li key={t.id} className="flex justify-between border-b pb-1">
-            {t.task}
-            <button
-              onClick={() => deleteTodo(t.id)}
-              className="text-red-500 text-sm"
-            >
-              Delete
-            </button>
-          </li>
-        ))}
+        {todos.length === 0 ? (
+          <p className="text-gray-500 text-sm">
+            No todo defined, add one please
+          </p>
+        ) : (
+          todos.map((t) => (
+            <li key={t.id} className="flex justify-between border-b pb-1">
+              {t.task}
+              <button
+                onClick={() => deleteTodo(t.id)}
+                className="text-red-500 text-sm"
+              >
+                Delete
+              </button>
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );
