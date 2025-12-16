@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
-  const { user: clerkUser } = useUser();
+  const { user: clerkUser, isLoaded } = useUser();
   const userData = useAuth(clerkUser?.id);
   const user = userData.user;
   // if (!user) {
@@ -23,6 +23,20 @@ const Page = () => {
   const initials = user?.username
     ? user.username.slice(0, 2).toUpperCase()
     : "U";
+
+  if (!isLoaded) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#0F1419]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/20 border-t-[#BBF246]" />
+
+          <span className="text-sm tracking-wide text-white/70">
+            Loading...
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div

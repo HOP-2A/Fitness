@@ -3,16 +3,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
+import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const router = useRouter();
   return (
     <ClerkProvider>
       <html lang="en">
@@ -37,9 +30,17 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <div>
-            <header>
+            <SignedOut>
+              <RedirectToWelcome />
+            </SignedOut>
+            <header className="fixed top-4 right-4 z-50">
               <SignedIn>
-                <UserButton />
+                <div className="flex items-center gap-3 bg-zinc-900 px-4 py-2 rounded-full shadow-lg">
+                  <UserButton />
+                  <span className="text-sm text-white font-medium">
+                    Profile
+                  </span>
+                </div>
               </SignedIn>
             </header>
           </div>
@@ -51,3 +52,12 @@ export default function RootLayout({
     </ClerkProvider>
   );
 }
+const RedirectToWelcome = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/welcome");
+  }, [router]);
+
+  return null;
+};
