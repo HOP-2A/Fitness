@@ -12,7 +12,7 @@ import { toast } from "sonner";
 export const SignUp = () => {
   const router = useRouter();
 
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   if (user?.publicMetadata.role === "STUDENT") {
     router.push("/student");
@@ -65,6 +65,20 @@ export const SignUp = () => {
 
     setIsLoading(false);
   };
+  
+  if (!isLoaded) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#0F1419]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/20 border-t-[#BBF246]" />
+
+          <span className="text-sm tracking-wide text-white/70">
+            Loading...
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6 bg-[#192126]">
