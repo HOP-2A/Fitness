@@ -2,7 +2,6 @@
 
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Footer } from "../_components/Footer";
 import Todolist from "../_components/Todolist";
 import Greeting from "../_components/Greeting";
 import { useAuth } from "@/providers/authProvider";
