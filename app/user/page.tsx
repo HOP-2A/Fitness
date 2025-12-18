@@ -6,35 +6,16 @@ import { useAuth } from "@/providers/authProvider";
 import { useUser } from "@clerk/nextjs";
 import { motion } from "framer-motion";
 import { Mail, User } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { Footer } from "./_components/Footer";
+import { Footer } from "../_components/Footer";
 
 const Page = () => {
-  const router = useRouter();
-  const { user: clerkUser, isLoaded } = useUser();
+  const { user: clerkUser } = useUser();
   const userData = useAuth(clerkUser?.id);
   const user = userData.user;
-
-  if (clerkUser?.publicMetadata.role === "TEACHER") {
-    router.push("/teacher");
-  }
 
   const initials = user?.username
     ? user.username.slice(0, 2).toUpperCase()
     : "U";
-
-  if (!isLoaded) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-emerald-50 to-white">
-        <div className="flex flex-col items-center gap-4">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-emerald-200 border-t-emerald-500" />
-          <span className="text-sm tracking-wide text-emerald-700">
-            Loading...
-          </span>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gradient-to-b from-emerald-50 to-white">
@@ -46,7 +27,6 @@ const Page = () => {
       >
         <Card className="rounded-3xl border border-emerald-100 shadow-[0_10px_30px_-10px_rgba(16,185,129,0.25)]">
           <CardContent className="p-8 flex flex-col items-center gap-6">
-            {/* Avatar */}
             <div className="relative">
               <div className="absolute inset-0 rounded-full bg-emerald-400/20 blur-md" />
               <Avatar className="w-28 h-28 border-4 border-emerald-100 relative">
@@ -57,7 +37,6 @@ const Page = () => {
               </Avatar>
             </div>
 
-            {/* Username */}
             <div className="text-center space-y-1">
               <h2 className="text-2xl font-semibold text-emerald-800">
                 @{user?.username}
@@ -65,7 +44,6 @@ const Page = () => {
               <p className="text-sm text-emerald-600">User profile</p>
             </div>
 
-            {/* Info */}
             <div className="w-full space-y-4 text-sm">
               <div className="flex items-center gap-3 rounded-xl border border-emerald-100 px-4 py-3 bg-emerald-50/50">
                 <User className="w-4 h-4 text-emerald-600" />
