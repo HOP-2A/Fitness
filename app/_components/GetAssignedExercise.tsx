@@ -70,7 +70,7 @@ const GetAssignedExercise = () => {
             className="group relative overflow-hidden rounded-xl border border-green-300/40
                        bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
                        p-6 transition-all duration-300
-                       hover:scale-[1.03] hover:border-green-400/50 hover:shadow-lg hover:shadow-green-500/20"
+                       hover:scale-[1.03] hover:border-black hover:shadow-lg hover:shadow-green-500/20"
           >
             <span
               className={`absolute top-4 right-4 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide ${statusColor(
@@ -80,11 +80,11 @@ const GetAssignedExercise = () => {
               {ex.status}
             </span>
 
-            <h3 className="text-xl font-semibold text-green-100">{ex.title}</h3>
+            <h3 className="text-xl font-semibold text-black">{ex.title}</h3>
 
-            <p className="mt-2 text-sm text-green-200/90">{ex.description}</p>
+            <p className="mt-2 text-sm text-black">{ex.description}</p>
 
-            <div className="mt-4 flex items-center justify-between text-xs text-green-300">
+            <div className="mt-4 flex items-center justify-between text-xs text-black">
               <span className="flex items-center gap-1">
                 ⭐ Rate: <strong>{ex.rate}</strong>
               </span>
@@ -93,12 +93,12 @@ const GetAssignedExercise = () => {
               </span>
             </div>
 
-            <div className="mt-2 text-xs text-green-400/70">
+            <div className="mt-2 text-xs text-black">
               Created on {new Date(ex.createdAt).toLocaleDateString()}
             </div>
 
             <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 via-emerald-400/10 to-green-500/10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 via-emerald-400/10 to-s-500/10" />
             </div>
           </div>
         ))
