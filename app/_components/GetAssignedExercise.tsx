@@ -34,8 +34,8 @@ const GetAssignedExercise = () => {
 
   if (!isLoaded) {
     return (
-      <div className="py-16 text-center text-sm text-gray-400 animate-pulse">
-        Fetching your exercises…
+      <div className="py-16 text-center text-sm text-green-300 animate-pulse">
+        Loading your exercises…
       </div>
     );
   }
@@ -43,49 +43,62 @@ const GetAssignedExercise = () => {
   const statusColor = (status: string) => {
     switch (status) {
       case "PENDING":
-        return "bg-yellow-500/20 text-yellow-400";
+        return "bg-yellow-200/30 text-yellow-600 border-yellow-300/50";
       case "COMPLETED":
-        return "bg-green-500/20 text-green-400";
+        return "bg-green-200/30 text-green-700 border-green-400/50";
       case "OVERDUE":
-        return "bg-red-500/20 text-red-400";
+        return "bg-red-200/30 text-red-600 border-red-400/50";
       default:
-        return "bg-gray-500/20 text-gray-400";
+        return "bg-gray-200/30 text-gray-500 border-gray-400/50";
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto space-y-4">
-      <h2 className="text-xl font-semibold text-white">Assigned Exercises</h2>
+    <div className="max-w-2xl mx-auto space-y-6">
+      <h2 className="text-3xl font-extrabold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent mb-6">
+        Assigned Exercises
+      </h2>
 
       {exercises.length === 0 ? (
-        <div className="rounded-lg border border-white/10 bg-white/5 p-6 text-sm text-white/50">
-          No exercises assigned yet.
+        <div className="rounded-xl border border-green-300/40 bg-green-900/10 p-6 text-sm text-green-200 shadow-md shadow-green-400/10">
+          🌱 No exercises assigned yet.
         </div>
       ) : (
         exercises.map((ex) => (
           <div
             key={ex.id}
-            className="group relative overflow-hidden rounded-lg
-                       bg-gray-900/40 p-4 transition hover:bg-gray-900/60"
+            className="group relative overflow-hidden rounded-xl border border-green-300/40
+                       bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+                       p-6 transition-all duration-300
+                       hover:scale-[1.03] hover:border-green-400/50 hover:shadow-lg hover:shadow-green-500/20"
           >
             <span
-              className={`absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-medium ${statusColor(
+              className={`absolute top-4 right-4 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide ${statusColor(
                 ex.status
               )}`}
             >
               {ex.status}
             </span>
 
-            <h3 className="text-lg font-semibold text-white">{ex.title}</h3>
-            <p className="mt-1 text-sm text-gray-300">{ex.description}</p>
+            <h3 className="text-xl font-semibold text-green-100">{ex.title}</h3>
 
-            <div className="mt-2 flex items-center justify-between text-xs text-gray-400">
-              <span>Rate: {ex.rate}</span>
-              <span>Reward: {ex.reward}</span>
+            <p className="mt-2 text-sm text-green-200/90">{ex.description}</p>
+
+            <div className="mt-4 flex items-center justify-between text-xs text-green-300">
+              <span className="flex items-center gap-1">
+                ⭐ Rate: <strong>{ex.rate}</strong>
+              </span>
+              <span className="flex items-center gap-1">
+                💰 Reward: <strong>{ex.reward}</strong>
+              </span>
             </div>
 
-            <div className="mt-1 text-xs text-gray-500">
-              Created: {new Date(ex.createdAt).toLocaleDateString()}
+            <div className="mt-2 text-xs text-green-400/70">
+              Created on {new Date(ex.createdAt).toLocaleDateString()}
+            </div>
+
+            <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 via-emerald-400/10 to-green-500/10" />
             </div>
           </div>
         ))

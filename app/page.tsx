@@ -1,15 +1,13 @@
 "use client";
 
-import { useAuth } from "@/providers/authProvider";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import GetAssignedExercise from "./_components/GetAssignedExercise";
+import { Footer } from "./_components/Footer";
 
 const Page = () => {
   const router = useRouter();
   const { user: clerkUser, isLoaded } = useUser();
-  const userData = useAuth(clerkUser?.id);
-  const user = userData.user;
 
   if (clerkUser?.publicMetadata.role === "TEACHER") {
     router.push("/teacher");
@@ -17,11 +15,10 @@ const Page = () => {
 
   if (!isLoaded) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0F1419]">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-green-100 to-green-300">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/20 border-t-[#BBF246]" />
-
-          <span className="text-sm tracking-wide text-white/70">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-green-200 border-t-green-500" />
+          <span className="text-sm tracking-wide text-green-700">
             Loading...
           </span>
         </div>
@@ -29,7 +26,14 @@ const Page = () => {
     );
   }
 
-  return <GetAssignedExercise />;
+  return (
+    <div className="relative min-h-screen bg-green-50">
+      <div className="absolute top-4 left-4">
+        <GetAssignedExercise />
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default Page;
