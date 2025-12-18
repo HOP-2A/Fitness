@@ -129,7 +129,7 @@ export default function ChallengeForm() {
                   <SelectValue placeholder="Select trainee" />
                 </SelectTrigger>
 
-                <SelectContent className="bg-[#3A4047]">
+                <SelectContent className="bg-[#3A4047] text-[#FFD580]">
                   {users?.map((trainee) => (
                     <SelectItem key={trainee.id} value={trainee.id}>
                       {trainee.username}
