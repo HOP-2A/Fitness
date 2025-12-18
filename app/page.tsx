@@ -28,7 +28,7 @@ const Page = () => {
 
   return (
     <div className="relative min-h-screen bg-green-50">
-      <div className="absolute top-4 left-4">
+      <div className=" top-4 left-4">
         <GetAssignedExercise />
       </div>
       <Footer />
