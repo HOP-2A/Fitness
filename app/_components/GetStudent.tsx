@@ -24,7 +24,7 @@ export const GetStudent = () => {
   }, []);
 
   return (
-    <div className="w-80 border border-[#3B434D] rounded-xl shadow-lg p-4 bg-[#1E2429]">
+    <div className="w-80 border border-[#3B434D] rounded-xl shadow-lg p-4 bg-[#192126]">
       <h2 className="text-xl font-bold text-[#A3FFAB] mb-3 flex items-center gap-2">
         🌱 Students
       </h2>
@@ -33,7 +33,7 @@ export const GetStudent = () => {
         {users.map((user) => (
           <li
             key={user.id}
-            className="p-3 rounded-lg border border-[#3B434D] bg-[#2C333A] text-white hover:bg-[#37404B] transition-colors shadow-sm hover:cursor-pointer"
+            className="p-3 rounded-lg border border-[#3B434D] bg-[#192126] text-white hover:bg-[#37404B] transition-colors shadow-sm hover:cursor-pointer"
             onClick={() => push(`/teacher/${user.id}`)}
           >
             <p className="font-semibold">{user.username}</p>

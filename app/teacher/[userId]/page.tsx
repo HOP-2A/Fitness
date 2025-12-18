@@ -65,8 +65,8 @@ export default function ExercisePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0b0b] p-8 text-white">
-      <div className="mb-8 flex items-center justify-between rounded-xl bg-[#141414] border border-white/10 p-5">
+    <div className="min-h-screen bg-[#192126] p-8 text-white">
+      <div className="mb-8 flex items-center justify-between rounded-xl bg-[#161c20] border border-white/10 p-5">
         <div className="flex items-center gap-4">
           <button
             onClick={() => router.back()}
@@ -94,7 +94,7 @@ export default function ExercisePage() {
           {exercises.map((ex) => (
             <div
               key={ex.id}
-              className="rounded-xl bg-[#141414] border border-white/10 p-5 shadow-lg hover:shadow-green-500/10 transition"
+              className="rounded-xl bg-[#161c20] border border-white/10 p-5 shadow-lg hover:shadow-green-500/10 transition"
             >
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-lg font-semibold">{ex.title}</h3>

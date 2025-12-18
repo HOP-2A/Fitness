@@ -30,7 +30,7 @@ const Page = () => {
   const handleGiveExercise = () => push("/teacher/exercise");
 
   return (
-    <div className="min-h-screen bg-[#0F1419] text-white relative flex flex-col items-center p-8">
+    <div className="min-h-screen bg-[#192126] text-white relative flex flex-col items-center p-8">
       <Greeting />
 
       <button

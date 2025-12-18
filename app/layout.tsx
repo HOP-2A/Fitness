@@ -27,7 +27,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
         >
           <div>
             <SignedOut>
@@ -45,13 +45,21 @@ export default function RootLayout({
             </header>
           </div>
 
-          {children}
+          <main className="flex-grow">{children}</main>
+
+          <footer className="w-full py-4 bg-[#192126]">
+            <div className="text-center text-white text-sm">
+              © 2025 Kenomu · Learn today, lead tomorrow.
+            </div>
+          </footer>
+
           <Toaster richColors />
         </body>
       </html>
     </ClerkProvider>
   );
 }
+
 const RedirectToWelcome = () => {
   const router = useRouter();
 
