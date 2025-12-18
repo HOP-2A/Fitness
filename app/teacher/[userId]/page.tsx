@@ -48,6 +48,15 @@ export default function ExercisePage() {
     fetchExercises();
   }, [isLoaded, userId]);
 
+  const deleteTask = async (id: string) => {
+    await fetch("/api/deleteTask", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    setExercises((prev) => prev.filter((d) => d.id !== id));
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0b0b0b] text-white">
@@ -109,9 +118,7 @@ export default function ExercisePage() {
                   {ex.status}
                 </span>
               </div>
-
               <p className="text-sm text-white/70 mb-3">{ex.description}</p>
-
               <div className="flex items-center justify-between text-sm">
                 <span className="text-white/60">🎯 {ex.target}</span>
 
@@ -119,10 +126,12 @@ export default function ExercisePage() {
                   +{ex.rate} pts
                 </span>
               </div>
-
               <div className="mt-3 text-xs text-white/40">
                 {new Date(ex.createdAt).toLocaleDateString()}
               </div>
+              <button className="bg-red-700" onClick={() => deleteTask(ex.id)}>
+                Delete
+              </button>
             </div>
           ))}
         </div>
