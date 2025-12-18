@@ -17,11 +17,10 @@ const Page = () => {
 
   if (!isLoaded) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0F1419]">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-emerald-50 to-white">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/20 border-t-[#BBF246]" />
-
-          <span className="text-sm tracking-wide text-white/70">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-emerald-200 border-t-emerald-500" />
+          <span className="text-sm tracking-wide text-emerald-700">
             Loading...
           </span>
         </div>

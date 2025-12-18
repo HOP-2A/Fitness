@@ -1,4 +1,4 @@
-import { ChartColumnBig, House, ListOrdered, Rocket, User } from "lucide-react";
+import { House, ListOrdered, Rocket, User } from "lucide-react";
 import Link from "next/link";
 
 export const Footer = () => {
@@ -12,17 +12,14 @@ export const Footer = () => {
       <div className="hover:cursor-pointer">
         <Rocket />
       </div>
-      <Link href="/Leaderboard">
+      <Link href="/leader">
         <div className="hover:cursor-pointer">
           <ListOrdered />
         </div>
       </Link>
 
-      <div className="hover:cursor-pointer">
-        <ChartColumnBig />
-      </div>
       <div>
-        <Link href="">
+        <Link href="/user">
           <User />
         </Link>
       </div>
