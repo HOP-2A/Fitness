@@ -48,7 +48,6 @@ export const Leaderboard = () => {
                   hover:scale-[1.01]
                 `}
               >
-                {/* User Info */}
                 <div className="space-y-1">
                   <p className="text-lg font-semibold text-emerald-800">
                     {index + 1}. {user.username}
@@ -58,7 +57,6 @@ export const Leaderboard = () => {
                   </p>
                 </div>
 
-                {/* Coins */}
                 <div className="flex items-center gap-2">
                   <span className="px-4 py-1.5 rounded-full text-sm font-semibold bg-emerald-200 text-emerald-800">
                     {user.coin} 🪙
