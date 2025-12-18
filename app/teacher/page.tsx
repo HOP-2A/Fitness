@@ -18,8 +18,7 @@ const Page = () => {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#0F1419]">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/20 border-t-[#BBF246]" />
-
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/20 border-t-[#A3FFAB]" />
           <span className="text-sm tracking-wide text-white/70">
             Loading...
           </span>
@@ -31,24 +30,23 @@ const Page = () => {
   const handleGiveExercise = () => push("/teacher/exercise");
 
   return (
-    <div>
-      <div className="relative min-h-screen bg-green-50 text-green-800 flex flex-col items-center p-8">
-        <Greeting />
-        <button
-          onClick={handleGiveExercise}
-          className="px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors mt-4"
-        >
-          Give Exercise
-        </button>
-        <div className="fixed top-20 left-4 z-50 animate-slide-in">
-          <GetStudent />
-        </div>
+    <div className="min-h-screen bg-[#0F1419] text-white relative flex flex-col items-center p-8">
+      <Greeting />
 
-        <div className="absolute bottom-20 top-20 right-4 w-80">
-          <Todolist teacherId={user?.id ?? ""} />
-        </div>
+      <button
+        onClick={handleGiveExercise}
+        className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50"
+      >
+        Give Exercise
+      </button>
+
+      <div className="fixed top-24 left-4 z-50 animate-slide-in">
+        <GetStudent />
       </div>
-      <Footer />
+
+      <div className="absolute bottom-20 top-24 right-4 w-80">
+        <Todolist teacherId={user?.id ?? ""} />
+      </div>
     </div>
   );
 };

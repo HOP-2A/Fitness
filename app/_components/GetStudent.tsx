@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type User = {
@@ -12,6 +13,7 @@ type User = {
 export const GetStudent = () => {
   const [users, setUsers] = useState<User[]>([]);
 
+  const { push } = useRouter();
   useEffect(() => {
     const getUser = async () => {
       const res = await fetch("/api/student");
@@ -20,18 +22,22 @@ export const GetStudent = () => {
     };
     getUser();
   }, []);
-  return (
-    <div className="w-80 border-2 border-green-400 rounded-xl shadow-lg p-4 bg-white">
-      <h2 className="text-xl font-bold text-green-600 mb-3">🌱 Students</h2>
 
-      <ul className="space-y-2 max-h-60 overflow-y-auto">
+  return (
+    <div className="w-80 border border-[#3B434D] rounded-xl shadow-lg p-4 bg-[#1E2429]">
+      <h2 className="text-xl font-bold text-[#A3FFAB] mb-3 flex items-center gap-2">
+        🌱 Students
+      </h2>
+
+      <ul className="space-y-2 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-[#A3FFAB]/50 scrollbar-track-[#2C333A]">
         {users.map((user) => (
           <li
             key={user.id}
-            className="p-2 rounded-md border border-green-300 text-green-800 hover:bg-green-100 transition"
+            className="p-3 rounded-lg border border-[#3B434D] bg-[#2C333A] text-white hover:bg-[#37404B] transition-colors shadow-sm hover:cursor-pointer"
+            onClick={() => push(`/teacher/${user.id}`)}
           >
             <p className="font-semibold">{user.username}</p>
-            <p className="text-sm">{user.email}</p>
+            <p className="text-sm text-gray-300">{user.email}</p>
           </li>
         ))}
       </ul>

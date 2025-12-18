@@ -38,19 +38,6 @@ type ChallengeFormData = {
   reward: number;
 };
 
-// type User = {
-//   id: string;
-//   username: string;
-//   email: string;
-//   clerkId: string;
-//   coin: number;
-//   followers: number;
-//   following: number;
-//   profilePicture: string | null;
-//   createdAt: Date;
-//   updatedAt: Date;
-// };
-
 export default function ChallengeForm() {
   const { push } = useRouter();
   const { user: clerkUser } = useUser();
@@ -113,36 +100,36 @@ export default function ChallengeForm() {
   };
 
   return (
-    <div className="flex justify-center pt-10 min-h-screen bg-[#192126]">
+    <div className="flex justify-center pt-10 min-h-screen bg-[#1A1F23]">
       <motion.button
         onClick={() => push("/teacher")}
-        className="absolute top-6 left-6 px-5 py-2 rounded-xl bg-[#2F3A41] text-[#BBF246]"
+        className="absolute top-6 left-6 px-5 py-2 rounded-xl bg-[#2C353C] text-[#B6E0FE] hover:bg-[#3B4A54] transition-colors"
       >
         ← Back
       </motion.button>
 
       <div className="w-full max-w-xl">
-        <Card className="border-0 bg-[#384046] text-[#8B8F92]">
+        <Card className="border-0 bg-[#242B31] text-[#E0E0E0] shadow-lg">
           <CardHeader>
-            <CardTitle className="text-[#BBF246] text-2xl">
+            <CardTitle className="text-[#A3FFAB] text-2xl">
               Challenge Details
             </CardTitle>
           </CardHeader>
 
           <CardContent className="space-y-4">
             <div className="flex flex-col space-y-1">
-              <Label className="text-[#FCC46F]">Trainee</Label>
+              <Label className="text-[#FFD580]">Trainee</Label>
               <Select
                 value={data.traineeId}
                 onValueChange={(value) =>
                   setData((prev) => ({ ...prev, traineeId: value }))
                 }
               >
-                <SelectTrigger className="bg-[#5E6468] text-white border-0">
+                <SelectTrigger className="bg-[#3A4047] text-white border-0 hover:bg-[#4B525B] transition-colors">
                   <SelectValue placeholder="Select trainee" />
                 </SelectTrigger>
 
-                <SelectContent className="bg-[#5E6468]">
+                <SelectContent className="bg-[#3A4047]">
                   {users?.map((trainee) => (
                     <SelectItem key={trainee.id} value={trainee.id}>
                       {trainee.username}
@@ -156,34 +143,39 @@ export default function ChallengeForm() {
               name="title"
               placeholder="Title"
               onChange={handleInputValue}
+              className="bg-[#3A4047] placeholder-[#AAAAAA] text-white border-0 focus:ring-2 focus:ring-[#A3FFAB] transition"
             />
             <Textarea
               name="description"
               placeholder="Description"
               onChange={handleInputValue}
+              className="bg-[#3A4047] placeholder-[#AAAAAA] text-white border-0 focus:ring-2 focus:ring-[#A3FFAB] transition"
             />
             <Input
               name="target"
               placeholder="Target"
               onChange={handleInputValue}
+              className="bg-[#3A4047] placeholder-[#AAAAAA] text-white border-0 focus:ring-2 focus:ring-[#A3FFAB] transition"
             />
             <Input
               type="number"
               name="rate"
               placeholder="Rate"
               onChange={handleInputValue}
+              className="bg-[#3A4047] placeholder-[#AAAAAA] text-white border-0 focus:ring-2 focus:ring-[#A3FFAB] transition"
             />
             <Input
               type="number"
               name="reward"
               placeholder="Reward"
               onChange={handleInputValue}
+              className="bg-[#3A4047] placeholder-[#AAAAAA] text-white border-0 focus:ring-2 focus:ring-[#A3FFAB] transition"
             />
           </CardContent>
 
           <CardFooter>
             <Button
-              className="w-full bg-[#A48AED]"
+              className="w-full bg-[#A3FFAB] text-[#1A1F23] font-semibold hover:bg-[#8AE086] transition-colors"
               onClick={handleSubmit}
               disabled={isSubmitting}
             >
