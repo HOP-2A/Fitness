@@ -42,20 +42,6 @@ export const Footer = () => {
           <span className="text-sm font-medium">Profile</span>
         </Link>
       </div>
-
-      <Link
-        href="/leader"
-        className="text-[#A3FFAB] hover:text-white transition-colors"
-      >
-        <ListOrdered />
-      </Link>
-
-      <Link
-        href="/user"
-        className="text-[#A3FFAB] hover:text-white transition-colors"
-      >
-        <User />
-      </Link>
     </div>
   );
 };
