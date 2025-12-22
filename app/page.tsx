@@ -32,6 +32,8 @@ const Page = () => {
         <GetAssignedExercise />
       </div>
       <Footer />
+
+      <GetAssignedExercise />
     </div>
   );
 };
