@@ -10,17 +10,16 @@ export const Footer = () => {
           justify-between
           gap-6
           min-h-[220px]
-          bg-white/90
-          backdrop-blur-md
-          border border-gray-200
+          bg-black
+          border border-gray-800
           rounded-2xl
           px-6 py-6
-          shadow-lg
+          shadow-xl
         "
       >
         <Link
           href="/"
-          className="flex items-center gap-4 text-gray-600 hover:text-black transition"
+          className="flex items-center gap-4 text-white hover:text-gray-400 transition"
         >
           <House size={22} />
           <span className="text-sm font-medium">Home</span>
@@ -28,7 +27,7 @@ export const Footer = () => {
 
         <Link
           href="/leader"
-          className="flex items-center gap-4 text-gray-600 hover:text-black transition"
+          className="flex items-center gap-4 text-white hover:text-gray-400 transition"
         >
           <ListOrdered size={22} />
           <span className="text-sm font-medium">Leaderboard</span>
@@ -36,7 +35,7 @@ export const Footer = () => {
 
         <Link
           href="/user"
-          className="flex items-center gap-4 text-gray-600 hover:text-black transition"
+          className="flex items-center gap-4 text-white hover:text-gray-400 transition"
         >
           <User size={22} />
           <span className="text-sm font-medium">Profile</span>

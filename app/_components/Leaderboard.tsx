@@ -6,7 +6,7 @@ type User = {
   id: number;
   username: string;
   email: string;
-  coin: string;
+  coin: number;
   createdAt: string;
 };
 
