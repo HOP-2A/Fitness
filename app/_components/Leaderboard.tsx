@@ -1,9 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type User = {
-  id: number;
+  id: string;
   username: string;
   email: string;
   coin: number;
@@ -12,7 +13,7 @@ type User = {
 
 export const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState<User[]>([]);
-
+  const router = useRouter();
   useEffect(() => {
     const getUser = async () => {
       const res = await fetch("/api/leaderboard");
@@ -21,7 +22,9 @@ export const Leaderboard = () => {
     };
     getUser();
   }, []);
-
+  const DetailHaruulah = (id: string) => {
+    router.push(`/leaderDetail/${id}`);
+  };
   return (
     <div className="min-h-screen bg-[#192126] py-12 px-4">
       <div className="max-w-4xl mx-auto">
@@ -47,6 +50,7 @@ export const Leaderboard = () => {
                   }
                   shadow hover:scale-[1.01]
                 `}
+                onClick={() => DetailHaruulah(user.id)}
               >
                 <div className="space-y-1">
                   <p className="text-lg font-semibold text-emerald-200">
