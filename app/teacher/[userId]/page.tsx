@@ -179,6 +179,10 @@ export default function ExercisePage() {
                   Edit
                 </button>
               </div>
+              <button className="bg-red-700" onClick={() => deleteTask(ex.id)}>
+                Delete
+              </button>
+              <button>edit</button>
             </div>
           ))}
         </div>

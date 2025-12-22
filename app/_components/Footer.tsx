@@ -1,22 +1,59 @@
-import { House, ListOrdered, Rocket, User } from "lucide-react";
+import { House, ListOrdered, User } from "lucide-react";
 import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <div className="fixed bottom-0 z-50 flex justify-between w-screen px-8 py-4 bg-[#192126] border-t border-[#3B434D]">
-      <Link href="/" className="text-[#A3FFAB] hover:text-white transition-colors">
-        <House />
-      </Link>
+    <div className="fixed top-10 right-450 z-50 bottom-200">
+      <div
+        className="
+          flex flex-col
+          justify-between
+          gap-6
+          min-h-[220px]
+          bg-white/90
+          backdrop-blur-md
+          border border-gray-200
+          rounded-2xl
+          px-6 py-6
+          shadow-lg
+        "
+      >
+        <Link
+          href="/"
+          className="flex items-center gap-4 text-gray-600 hover:text-black transition"
+        >
+          <House size={22} />
+          <span className="text-sm font-medium">Home</span>
+        </Link>
 
-      <div className="text-[#A3FFAB] hover:text-white transition-colors cursor-pointer">
-        <Rocket />
+        <Link
+          href="/leader"
+          className="flex items-center gap-4 text-gray-600 hover:text-black transition"
+        >
+          <ListOrdered size={22} />
+          <span className="text-sm font-medium">Leaderboard</span>
+        </Link>
+
+        <Link
+          href="/user"
+          className="flex items-center gap-4 text-gray-600 hover:text-black transition"
+        >
+          <User size={22} />
+          <span className="text-sm font-medium">Profile</span>
+        </Link>
       </div>
 
-      <Link href="/leader" className="text-[#A3FFAB] hover:text-white transition-colors">
+      <Link
+        href="/leader"
+        className="text-[#A3FFAB] hover:text-white transition-colors"
+      >
         <ListOrdered />
       </Link>
 
-      <Link href="/user" className="text-[#A3FFAB] hover:text-white transition-colors">
+      <Link
+        href="/user"
+        className="text-[#A3FFAB] hover:text-white transition-colors"
+      >
         <User />
       </Link>
     </div>
