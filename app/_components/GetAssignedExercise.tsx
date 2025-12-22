@@ -33,7 +33,7 @@ const GetAssignedExercise = () => {
   }, [isLoaded, user]);
 
   const showDetail = (id: string) => {
-    router.push(`/detail?id=${id}`);
+    router.push(`/detail/${id}`);
   };
 
   if (!isLoaded) {
