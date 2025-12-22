@@ -61,7 +61,7 @@ const GetAssignedExercise = () => {
 
       {exercises.length === 0 ? (
         <div className="rounded-xl border border-green-300/40 bg-green-900/10 p-6 text-sm text-green-200 shadow-md shadow-green-400/10">
-          🌱 No exercises assigned yet.
+          🌱 No exercises assigned yet. 
         </div>
       ) : (
         exercises.map((ex) => (

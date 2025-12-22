@@ -3,26 +3,22 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <div className="fixed bottom-0 flex justify-between w-screen  px-8 py-4 bg-white">
-      <div className="flex gap-2">
-        <Link href="/">
-          <House />
-        </Link>
-      </div>
-      <div className="hover:cursor-pointer">
-        <Rocket />
-      </div>
-      <Link href="/leader">
-        <div className="hover:cursor-pointer">
-          <ListOrdered />
-        </div>
+    <div className="fixed bottom-0 z-50 flex justify-between w-screen px-8 py-4 bg-[#192126] border-t border-[#3B434D]">
+      <Link href="/" className="text-[#A3FFAB] hover:text-white transition-colors">
+        <House />
       </Link>
 
-      <div>
-        <Link href="/user">
-          <User />
-        </Link>
+      <div className="text-[#A3FFAB] hover:text-white transition-colors cursor-pointer">
+        <Rocket />
       </div>
+
+      <Link href="/leader" className="text-[#A3FFAB] hover:text-white transition-colors">
+        <ListOrdered />
+      </Link>
+
+      <Link href="/user" className="text-[#A3FFAB] hover:text-white transition-colors">
+        <User />
+      </Link>
     </div>
   );
 };

@@ -15,10 +15,10 @@ const Page = () => {
 
   if (!isLoaded) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-green-100 to-green-300">
+      <div className="flex min-h-screen items-center justify-center bg-[#192126]">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-green-200 border-t-green-500" />
-          <span className="text-sm tracking-wide text-green-700">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#3B434D] border-t-[#A3FFAB]" />
+          <span className="text-sm tracking-wide text-[#A3FFAB]">
             Loading...
           </span>
         </div>
@@ -27,8 +27,8 @@ const Page = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-green-50">
-      <div className=" top-4 left-4">
+    <div className="relative min-h-screen bg-[#192126] text-white">
+      <div className="top-4 left-4">
         <GetAssignedExercise />
       </div>
       <Footer />
