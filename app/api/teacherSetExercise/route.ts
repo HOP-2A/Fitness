@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { traineeId, teacherId, title, description, target, rate } = body;
+  const { traineeId, teacherId, title, description, target, rate, reward } =
+    body;
 
   if (!traineeId || !teacherId || !title) {
     return NextResponse.json(
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
       target,
       rate,
       status: "PENDING",
+      reward: reward || 0,
     },
   });
 

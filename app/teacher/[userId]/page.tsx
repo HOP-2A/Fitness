@@ -40,6 +40,7 @@ export default function ExercisePage() {
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(
     null
   );
+  const [coinAnim, setCoinAnim] = useState<number | null>(null);
 
   const fetchExercises = async () => {
     try {
@@ -110,25 +111,42 @@ export default function ExercisePage() {
   };
 
   const toggleStatusModal = (ex?: Exercise) => {
+    if (ex?.status === "APPROVE") return;
     setSelectedExercise(ex || null);
     setShowStatusModal(!showStatusModal);
   };
 
   const handleStatusChange = async (status: "APPROVE" | "DONE" | "PENDING") => {
     if (!selectedExercise) return;
+
     try {
       const res = await fetch("/api/changeStatus", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: selectedExercise.id, status }),
       });
+
       if (!res.ok) throw new Error("Failed to update status");
+
+      const data = await res.json();
+
+      if (status === "APPROVE" && student && data.newCoin && data.addedCoin) {
+        setStudent({ ...student, coin: data.newCoin });
+        setCoinAnim(data.addedCoin);
+        setTimeout(() => setCoinAnim(null), 1200);
+      }
 
       setExercises((prev) =>
         prev.map((ex) =>
           ex.id === selectedExercise.id ? { ...ex, status } : ex
         )
       );
+      if (status === "APPROVE" && student && data.newCoin && data.addedCoin) {
+        setStudent({ ...student, coin: data.newCoin });
+        setCoinAnim(data.addedCoin);
+        setTimeout(() => setCoinAnim(null), 1200);
+      }
+
       setShowStatusModal(false);
     } catch (err) {
       console.error(err);
@@ -176,7 +194,22 @@ export default function ExercisePage() {
           <div>
             <h1 className="text-xl font-semibold">👤 {student?.username}</h1>
             <p className="text-sm text-white/60">Email: {student?.email}</p>
-            <p className="text-sm text-white/60">Coin: {student?.coin}</p>
+            <p className="relative text-sm text-white/60 overflow-hidden">
+              Coin: <span className="font-semibold">{student?.coin}</span>
+              <AnimatePresence>
+                {coinAnim && (
+                  <motion.span
+                    className="absolute left-16 text-green-400 font-bold"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: -20 }}
+                    exit={{ opacity: 0, y: -40 }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    +{coinAnim}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </p>
           </div>
         </div>
         <div className="px-4 py-2 rounded-lg bg-green-500/20 text-green-400 text-sm">
@@ -212,23 +245,30 @@ export default function ExercisePage() {
                   </div>
                   <p className="text-sm text-white/70 mb-3">{ex.description}</p>
                   <div className="flex justify-between text-sm">
-                    <span className="text-white/60">🎯 {ex.target}</span>
+                    <div className="flex gap-4">
+                      <span className="text-white/60">🎯 {ex.target}</span>
+                      <span className="text-white/60">⛃ {ex.reward}</span>
+                    </div>
+
                     <span className="text-green-400">level: {ex.rate} </span>
                   </div>
-                  <div className="mt-4 flex gap-2">
-                    <button
-                      onClick={() => deleteTask(ex.id)}
-                      className="text-xs px-3 py-1 rounded bg-red-600/80 hover:bg-red-600"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => setEditingExercise(ex)}
-                      className="text-xs px-3 py-1 rounded bg-blue-600/80 hover:bg-blue-600"
-                    >
-                      Edit
-                    </button>
-                  </div>
+
+                  {ex.status !== "APPROVE" && (
+                    <div className="mt-4 flex gap-2">
+                      <button
+                        onClick={() => deleteTask(ex.id)}
+                        className="text-xs px-3 py-1 rounded bg-red-600/80 hover:bg-red-600"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => setEditingExercise(ex)}
+                        className="text-xs px-3 py-1 rounded bg-blue-600/80 hover:bg-blue-600"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -329,6 +369,7 @@ export default function ExercisePage() {
         )}
       </AnimatePresence>
 
+      {/* Status Modal */}
       <AnimatePresence>
         {showStatusModal && selectedExercise && (
           <motion.div
