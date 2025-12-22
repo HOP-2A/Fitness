@@ -23,9 +23,9 @@ export const Leaderboard = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white py-12 px-4">
+    <div className="min-h-screen bg-[#192126] py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-semibold text-center mb-10 text-emerald-800">
+        <h1 className="text-3xl font-semibold text-center mb-10 text-emerald-300">
           🏆 Leaderboard
         </h1>
 
@@ -42,26 +42,24 @@ export const Leaderboard = () => {
                   border transition-all
                   ${
                     isTopThree
-                      ? "border-emerald-300 bg-emerald-100/60 shadow-[0_10px_25px_-10px_rgba(16,185,129,0.35)]"
-                      : "border-emerald-100 bg-white shadow-[0_8px_20px_-12px_rgba(16,185,129,0.25)]"
+                      ? "border-emerald-600 bg-emerald-900/40"
+                      : "border-gray-700 bg-gray-900"
                   }
-                  hover:scale-[1.01]
+                  shadow hover:scale-[1.01]
                 `}
               >
                 <div className="space-y-1">
-                  <p className="text-lg font-semibold text-emerald-800">
+                  <p className="text-lg font-semibold text-emerald-200">
                     {index + 1}. {user.username}
                   </p>
-                  <p className="text-sm text-emerald-600 truncate max-w-[220px]">
+                  <p className="text-sm text-gray-400 truncate max-w-[220px]">
                     {user.email}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="px-4 py-1.5 rounded-full text-sm font-semibold bg-emerald-200 text-emerald-800">
-                    {user.coin} 🪙
-                  </span>
-                </div>
+                <span className="px-4 py-1.5 rounded-full text-sm font-semibold bg-emerald-800 text-emerald-200">
+                  {user.coin} 🪙
+                </span>
               </div>
             );
           })}
