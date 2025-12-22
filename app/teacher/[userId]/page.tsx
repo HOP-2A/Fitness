@@ -114,7 +114,7 @@ export default function ExercisePage() {
     setShowStatusModal(!showStatusModal);
   };
 
-  const handleStatusChange = async (status: "PENDING" | "DONE" | "APPROVE") => {
+  const handleStatusChange = async (status: "APPROVE" | "DONE" | "PENDING") => {
     if (!selectedExercise) return;
     try {
       const res = await fetch("/api/changeStatus", {
@@ -184,52 +184,58 @@ export default function ExercisePage() {
         </div>
       </div>
 
-      {/* Exercises List */}
-      {exercises.length === 0 ? (
-        <div className="text-white/50 text-sm">No exercises assigned yet</div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {exercises.map((ex) => (
-            <div
-              key={ex.id}
-              className="rounded-xl bg-[#161c20] border border-white/10 p-5"
-            >
-              <div className="flex justify-between mb-2">
-                <h3 className="text-lg font-semibold">{ex.title}</h3>
-                <span
-                  className={`cursor-pointer text-xs px-3 py-1 rounded-full ${getStatusColor(
-                    ex.status
-                  )}`}
-                  onClick={() => toggleStatusModal(ex)}
-                >
-                  {ex.status}
-                </span>
-              </div>
-              <p className="text-sm text-white/70 mb-3">{ex.description}</p>
-              <div className="flex justify-between text-sm">
-                <span className="text-white/60">🎯 {ex.target}</span>
-                <span className="text-green-400">level: {ex.rate} </span>
-              </div>
-              <div className="mt-4 flex gap-2">
-                <button
-                  onClick={() => deleteTask(ex.id)}
-                  className="text-xs px-3 py-1 rounded bg-red-600/80 hover:bg-red-600"
-                >
-                  Delete
-                </button>
-                <button
-                  onClick={() => setEditingExercise(ex)}
-                  className="text-xs px-3 py-1 rounded bg-blue-600/80 hover:bg-blue-600"
-                >
-                  Edit
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      {["PENDING", "DONE", "APPROVE"].map((status) => {
+        const filtered = exercises.filter((ex) => ex.status === status);
+        if (filtered.length === 0) return null;
 
-      {/* Edit Exercise Modal */}
+        return (
+          <div key={status} className="mb-6">
+            <h2 className="text-lg font-semibold mb-3">
+              {status} ({filtered.length})
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {filtered.map((ex) => (
+                <div
+                  key={ex.id}
+                  className="rounded-xl bg-[#161c20] border border-white/10 p-5"
+                >
+                  <div className="flex justify-between mb-2">
+                    <h3 className="text-lg font-semibold">{ex.title}</h3>
+                    <span
+                      className={`cursor-pointer text-xs px-3 py-1 rounded-full ${getStatusColor(
+                        ex.status
+                      )}`}
+                      onClick={() => toggleStatusModal(ex)}
+                    >
+                      {ex.status}
+                    </span>
+                  </div>
+                  <p className="text-sm text-white/70 mb-3">{ex.description}</p>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-white/60">🎯 {ex.target}</span>
+                    <span className="text-green-400">level: {ex.rate} </span>
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <button
+                      onClick={() => deleteTask(ex.id)}
+                      className="text-xs px-3 py-1 rounded bg-red-600/80 hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => setEditingExercise(ex)}
+                      className="text-xs px-3 py-1 rounded bg-blue-600/80 hover:bg-blue-600"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+
       <AnimatePresence>
         {editingExercise && (
           <motion.div
@@ -323,7 +329,6 @@ export default function ExercisePage() {
         )}
       </AnimatePresence>
 
-      {/* Status Modal */}
       <AnimatePresence>
         {showStatusModal && selectedExercise && (
           <motion.div

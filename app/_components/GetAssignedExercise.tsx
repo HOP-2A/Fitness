@@ -4,13 +4,16 @@ import { useAuth } from "@/providers/authProvider";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
+type ExerciseStatus = "PENDING" | "DONE" | "APPROVE";
 
 type Exercise = {
   id: string;
   title: string;
-  status: string;
+  status: ExerciseStatus;
   rate: number;
-  reward: string;
+  reward: number;
 };
 
 const GetAssignedExercise = () => {
@@ -18,7 +21,12 @@ const GetAssignedExercise = () => {
   const { user: clerkUser, isLoaded } = useUser();
   const userData = useAuth(clerkUser?.id);
   const user = userData.user;
+
   const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [showStatusModal, setShowStatusModal] = useState(false);
+  const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(
+    null
+  );
 
   useEffect(() => {
     if (!isLoaded || !user) return;
@@ -32,8 +40,35 @@ const GetAssignedExercise = () => {
     fetchExercises();
   }, [isLoaded, user]);
 
-  const showDetail = (id: string) => {
-    router.push(`/detail/${id}`);
+  const handleStatusChange = async (status: ExerciseStatus) => {
+    if (!selectedExercise) return;
+
+    await fetch("/api/changeStatus", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: selectedExercise.id,
+        status,
+      }),
+    });
+
+    setExercises((prev) =>
+      prev.map((ex) => (ex.id === selectedExercise.id ? { ...ex, status } : ex))
+    );
+
+    setShowStatusModal(false);
+    setSelectedExercise(null);
+  };
+
+  const statusColor = (status: ExerciseStatus) => {
+    switch (status) {
+      case "PENDING":
+        return "bg-yellow-200/30 text-yellow-600 border-yellow-300/50";
+      case "DONE":
+        return "bg-green-200/30 text-green-700 border-green-400/50";
+      case "APPROVE":
+        return "bg-purple-200/30 text-purple-700 border-purple-400/50";
+    }
   };
 
   if (!isLoaded) {
@@ -44,70 +79,105 @@ const GetAssignedExercise = () => {
     );
   }
 
-  const statusColor = (status: string) => {
-    switch (status) {
-      case "PENDING":
-        return "bg-yellow-200/30 text-yellow-600 border-yellow-300/50";
-      case "COMPLETED":
-        return "bg-green-200/30 text-green-700 border-green-400/50";
-      case "OVERDUE":
-        return "bg-red-200/30 text-red-600 border-red-400/50";
-      default:
-        return "bg-gray-200/30 text-gray-500 border-gray-400/50";
-    }
-  };
-
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <h2 className="text-3xl font-extrabold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent mb-6">
+      <h2 className="text-3xl font-extrabold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
         Assigned Exercises
       </h2>
 
       {exercises.length === 0 ? (
-        <div className="rounded-xl border border-green-300/40 bg-green-900/10 p-6 text-sm text-green-200 shadow-md shadow-green-400/10">
-          🌱 No exercises assigned yet.
+        <div className="rounded-xl border border-green-300/40 bg-green-900/10 p-6 text-sm text-green-200">
+          🌱 No exercises assigned yet
         </div>
       ) : (
         exercises.map((ex) => (
           <div
             key={ex.id}
-            className="group relative overflow-hidden rounded-xl border border-green-300/40
+            className="relative rounded-xl border border-green-300/40
                        bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-                       p-6 transition-all duration-300
-                       hover:scale-[1.03] hover:border-black hover:shadow-lg hover:shadow-green-500/20"
-            onClick={() => showDetail(ex.id)}
+                       p-6 transition hover:scale-[1.02]"
           >
-            <span
-              className={`absolute top-4 right-4 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide ${statusColor(
-                ex.status
-              )}`}
+            <button
+              onClick={() => {
+                if (ex.status === "APPROVE") return;
+                setSelectedExercise(ex);
+                setShowStatusModal(true);
+              }}
+              className={`absolute top-4 right-4 rounded-full border px-3 py-1
+              text-xs font-semibold tracking-wide transition
+              ${
+                ex.status === "APPROVE"
+                  ? "cursor-not-allowed opacity-70"
+                  : "hover:scale-105 cursor-pointer"
+              }
+              ${statusColor(ex.status)}`}
             >
               {ex.status}
-            </span>
+            </button>
 
-            <h3 className="text-xl font-semibold text-black">{ex.title}</h3>
+            <h3 className="text-xl font-semibold text-white">{ex.title}</h3>
 
-            <div className="mt-4 flex items-center justify-between text-xs text-black">
-              <span className="flex items-center gap-1">
-                ⭐ Rate: <strong>{ex.rate}</strong>
-              </span>
-              <span className="flex items-center gap-1">
-                💰 Reward: <strong>{ex.reward}</strong>
-              </span>
+            <div className="mt-4 flex justify-between text-xs text-white">
+              <span>⭐ Rate: {ex.rate}</span>
+              <span>💰 Reward: {ex.reward}</span>
             </div>
 
-            <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 via-emerald-400/10 to-s-500/10" />
-            </div>
-            <div
-              onClick={() => showDetail(ex.id)}
-              className="text-black cursor-pointer"
+            <button
+              className="mt-4 text-sm underline text-white"
+              onClick={() => router.push(`/detail/${ex.id}`)}
             >
-              See Details...
-            </div>
+              See Details →
+            </button>
           </div>
         ))
       )}
+
+      <AnimatePresence>
+        {showStatusModal && selectedExercise && (
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center bg-black/40 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-[#161c20] p-5 rounded-xl border border-white/10 w-[260px]"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+            >
+              <h3 className="text-sm font-bold mb-4 text-white text-center">
+                Change Status
+              </h3>
+
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => handleStatusChange("PENDING")}
+                  className="py-2 rounded bg-yellow-500/20
+                             text-yellow-400 hover:bg-yellow-500/30"
+                >
+                  🟡 PENDING
+                </button>
+
+                <button
+                  onClick={() => handleStatusChange("DONE")}
+                  className="py-2 rounded bg-green-500/20
+                             text-green-400 hover:bg-green-500/30"
+                >
+                  🟢 DONE
+                </button>
+              </div>
+
+              <button
+                className="mt-4 w-full text-xs text-white/50 hover:text-white"
+                onClick={() => setShowStatusModal(false)}
+              >
+                Cancel
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
