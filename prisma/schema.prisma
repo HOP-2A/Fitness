@@ -15,7 +15,7 @@ enum AttendanceStatus {
 
 enum ExerciseStatus {
   APPROVE
-  CANCEL
+  DONE
   PENDING
 }
 

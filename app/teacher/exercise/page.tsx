@@ -46,10 +46,28 @@ export default function ChallengeForm() {
 
   const { users } = useUsers();
 
+  const targets = [
+    "Chest",
+    "Back",
+    "Shoulders",
+    "Biceps",
+    "Triceps",
+    "Legs",
+    "Quadriceps",
+    "Hamstrings",
+    "Glutes",
+    "Calves",
+    "Abs",
+    "Obliques",
+    "Forearms",
+    "Neck",
+    "Full Body",
+  ];
+
   const [data, setData] = useState<ChallengeFormData>({
     id: "",
     traineeId: "",
-    teacherId: "",
+    teacherId: user?.id || "",
     title: "",
     description: "",
     target: "",
@@ -64,7 +82,6 @@ export default function ChallengeForm() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-
     setData((prev) => ({
       ...prev,
       [name]: name === "rate" || name === "reward" ? Number(value) : value,
@@ -75,6 +92,10 @@ export default function ChallengeForm() {
   const handleSubmit = async () => {
     if (!data.traineeId) {
       toast.error("Please select a trainee");
+      return;
+    }
+    if (!data.target) {
+      toast.error("Please select a target muscle");
       return;
     }
 
@@ -139,6 +160,28 @@ export default function ChallengeForm() {
               </Select>
             </div>
 
+            <div className="flex flex-col space-y-1">
+              <Label className="text-[#FFD580]">Target Muscle</Label>
+              <Select
+                value={data.target}
+                onValueChange={(value) =>
+                  setData((prev) => ({ ...prev, target: value }))
+                }
+              >
+                <SelectTrigger className="bg-[#3A4047] text-white border-0 hover:bg-[#4B525B] transition-colors">
+                  <SelectValue placeholder="Select target muscle" />
+                </SelectTrigger>
+
+                <SelectContent className="bg-[#3A4047] text-[#FFD580]">
+                  {targets.map((muscle) => (
+                    <SelectItem key={muscle} value={muscle}>
+                      {muscle}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
             <Input
               name="title"
               placeholder="Title"
@@ -152,14 +195,10 @@ export default function ChallengeForm() {
               className="bg-[#3A4047] placeholder-[#AAAAAA] text-white border-0 focus:ring-2 focus:ring-[#A3FFAB] transition"
             />
             <Input
-              name="target"
-              placeholder="Target"
-              onChange={handleInputValue}
-              className="bg-[#3A4047] placeholder-[#AAAAAA] text-white border-0 focus:ring-2 focus:ring-[#A3FFAB] transition"
-            />
-            <Input
               type="number"
               name="rate"
+              min="0"
+              max="5"
               placeholder="Rate"
               onChange={handleInputValue}
               className="bg-[#3A4047] placeholder-[#AAAAAA] text-white border-0 focus:ring-2 focus:ring-[#A3FFAB] transition"
@@ -168,6 +207,8 @@ export default function ChallengeForm() {
               type="number"
               name="reward"
               placeholder="Reward"
+              min="0"
+              max="100"
               onChange={handleInputValue}
               className="bg-[#3A4047] placeholder-[#AAAAAA] text-white border-0 focus:ring-2 focus:ring-[#A3FFAB] transition"
             />
