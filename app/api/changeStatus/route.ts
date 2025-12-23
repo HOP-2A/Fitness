@@ -13,6 +13,44 @@ export async function POST(request: Request) {
       );
     }
 
+    const exercise = await prisma.assignedExercise.findUnique({
+      where: { id },
+    });
+
+    if (!exercise) {
+      return NextResponse.json(
+        { error: "Exercise not found" },
+        { status: 404 }
+      );
+    }
+
+    if (status === "APPROVE") {
+      if (exercise.status === "APPROVE") {
+        return NextResponse.json(
+          { error: "Exercise already approved" },
+          { status: 400 }
+        );
+      }
+
+      const [userUpdated, exerciseUpdated] = await prisma.$transaction([
+        prisma.user.update({
+          where: { id: exercise.traineeId },
+          data: { coin: { increment: exercise.reward } },
+        }),
+        prisma.assignedExercise.update({
+          where: { id },
+          data: { status: "APPROVE" },
+        }),
+      ]);
+
+      return NextResponse.json({
+        success: true,
+        newCoin: userUpdated.coin,
+        addedCoin: exercise.reward,
+        exercise: exerciseUpdated,
+      });
+    }
+
     const updatedExercise = await prisma.assignedExercise.update({
       where: { id },
       data: { status },
