@@ -1,98 +1,114 @@
 "use client";
 
-import { useAuth } from "@/providers/authProvider";
-import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 
-type Product = {
+interface ShopItem {
   id: string;
   productName: string;
   title: string;
   image: string;
   price: number;
   stock: number;
-};
+}
 
-const ShopPage = () => {
-  const router = useRouter();
-  const { user: clerkUser, isLoaded } = useUser();
-  const userData = useAuth(clerkUser?.id);
-  const user = userData.user;
-
-  const [products, setProducts] = useState<Product[]>([]);
+export default function ShopPage() {
+  const [items, setItems] = useState<ShopItem[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const router = useRouter();
   useEffect(() => {
-    if (!isLoaded || !user) return;
+    async function fetchItems() {
+      const res = await fetch("/api/shop/getProducts");
+      const data: ShopItem[] = await res.json();
+      setItems(data);
+      setLoading(false);
+    }
 
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("/api/shop/getProduct");
-        const data = await res.json();
-        setProducts(data);
-      } catch (err) {
-        console.error("Failed to fetch products", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchItems();
+  }, []);
 
-    fetchProducts();
-  }, [isLoaded, user]);
-
-  if (!isLoaded || loading) {
+  if (loading)
     return (
-      <div className="p-10 text-center text-white min-h-screen bg-[#192126]">
-        Loading shop...
+      <div
+        style={{
+          color: "white",
+          backgroundColor: "#111",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "1.5rem",
+        }}
+      >
+        Loading...
       </div>
     );
-  }
 
   return (
-    <div className="p-8 mx-auto min-h-screen bg-[#192126] ">
-      <h1 className="text-3xl font-bold mb-8 text-white">🛒 Shop</h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <Card
-            key={product.id}
-            className="rounded-2xl shadow-lg cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl bg-gradient-to-b from-[#261E19] via-[#3a6bbf] to-[#37a3e7] hover:from-[#3b1f1a] hover:via-[#4a7fd0] hover:to-[#4bb8f2]"
-            onClick={() => router.push(`/shop/${product.id}`)}
+    <div
+      style={{
+        backgroundColor: "#111",
+        color: "white",
+        minHeight: "100vh",
+        padding: "2rem",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <h1 style={{ borderBottom: "2px solid #333", paddingBottom: "0.5rem" }}>
+        Shop Items
+      </h1>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+          gap: "1.5rem",
+          marginTop: "2rem",
+        }}
+      >
+        {items.map((item) => (
+          <div
+            key={item.id}
+            style={{
+              backgroundColor: "#1a1a1a",
+              padding: "1rem",
+              borderRadius: "8px",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.5)",
+              transition: "transform 0.2s",
+            }}
+            onClick={() => router.push(`/shop/${item.id}`)}
           >
-            <CardContent className="p-4 flex flex-col">
-              <div className="relative w-full h-40 mb-4">
-                <Image
-                  src={product.image}
-                  alt={product.title}
-                  fill
-                  className="object-cover rounded-xl"
-                />
-              </div>
-
-              <h2 className="font-semibold text-lg text-white">
-                {product.productName}
-              </h2>
-              <p className="text-sm text-gray-300 mb-2">{product.title}</p>
-
-              <div className="flex justify-between items-center mt-auto">
-                <span className="font-bold text-lg text-white">
-                  {product.price}₮
-                </span>
-
-                <Button disabled={product.stock <= 0} className="rounded-xl">
-                  {product.stock > 0 ? "Buy" : "Out of stock"}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+            <img
+              src={item.image}
+              alt={item.productName}
+              style={{
+                width: "100%",
+                height: "150px",
+                objectFit: "cover",
+                borderRadius: "6px",
+                marginBottom: "0.5rem",
+              }}
+            />
+            <h2 style={{ margin: "0.5rem 0" }}>{item.title}</h2>
+            <p>Product: {item.productName}</p>
+            <p>Price: {item.price} coin</p>
+            <p>Stock: {item.stock}</p>
+            <button
+              style={{
+                marginTop: "0.5rem",
+                padding: "0.5rem 1rem",
+                backgroundColor: "#ff6600",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              Buy Now
+            </button>
+          </div>
         ))}
       </div>
     </div>
   );
-};
-
-export default ShopPage;
+}
