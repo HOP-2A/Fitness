@@ -1,9 +1,11 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
+
 type Detail = {
-  id: number;
+  id: string;
   teacherId: string;
   teacher: string;
   title: string;
@@ -15,10 +17,12 @@ type Detail = {
   createdAt: string;
   updatedAt: string;
 };
+
 export default function DetailPage() {
   const params = useParams();
+  const router = useRouter();
   const id = params.id as string;
-  console.log(id);
+
   const [exercise, setExercise] = useState<Detail | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -35,41 +39,90 @@ export default function DetailPage() {
     loadExercise();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
-  if (!exercise) return <div>No data found</div>;
-  console.log(exercise.id);
+  if (loading)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-zinc-500">
+        Loading...
+      </div>
+    );
+
+  if (!exercise)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-zinc-500">
+        No data found
+      </div>
+    );
 
   return (
-    <div className="p-6 space-y-3 rounded-lg border">
-      <h1 className="text-2xl font-bold">{exercise.title}</h1>
+    <div className="min-h-screen bg-gradient-to-b from-black to-zinc-900 px-4 py-8">
+      {/* Back */}
+      <button
+        onClick={() => router.push("/ ")}
+        className="flex items-center gap-2 text-zinc-400 hover:text-white transition mb-8"
+      >
+        <ArrowLeft size={18} />
+        Back
+      </button>
 
-      {exercise.description && (
-        <p className="text-gray-600">{exercise.description}</p>
-      )}
+      <div className="max-w-md mx-auto rounded-3xl bg-zinc-900/80 backdrop-blur border border-zinc-800 p-7 space-y-6 shadow-2xl">
+        <div className="space-y-2">
+          <h1 className="text-2xl font-bold text-white tracking-tight">
+            {exercise.title}
+          </h1>
 
-      <div className="text-sm text-gray-500 space-y-1">
-        {exercise.target && (
-          <p>
-            <span className="font-medium">Target:</span> {exercise.target}
-          </p>
-        )}
+          {exercise.description && (
+            <p className="text-sm leading-relaxed text-zinc-400">
+              {exercise.description}
+            </p>
+          )}
+        </div>
 
-        <p>
-          <span className="font-medium">Rate:</span> {exercise.rate}
-        </p>
+        <div className="flex justify-between items-center">
+          <span className="text-xs uppercase tracking-wide text-zinc-500">
+            Status
+          </span>
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium
+              ${
+                exercise.status === "APPROVE"
+                  ? "bg-emerald-500/10 text-emerald-400"
+                  : exercise.status === "PENDING"
+                  ? "bg-yellow-500/10 text-yellow-400"
+                  : "bg-red-500/10 text-red-400"
+              }
+            `}
+          >
+            {exercise.status}
+          </span>
+        </div>
 
-        <p>
-          <span className="font-medium">Status:</span> {exercise.status}
-        </p>
+        <div className="space-y-4 text-sm">
+          {exercise.target && (
+            <div className="flex justify-between text-zinc-300">
+              <span className="text-zinc-500">Target</span>
+              <span>{exercise.target}</span>
+            </div>
+          )}
 
-        <p>
-          <span className="font-medium">Reward:</span> {exercise.reward} 🪙
-        </p>
+          <div className="flex justify-between text-zinc-300">
+            <span className="text-zinc-500">Rate</span>
+            <span>{exercise.rate}</span>
+          </div>
 
-        <p>
-          <span className="font-medium">Created at:</span>{" "}
-          {new Date(exercise.createdAt).toLocaleDateString()}
-        </p>
+          <div className="flex justify-between text-zinc-300">
+            <span className="text-zinc-500">Reward</span>
+            <span className="font-semibold text-white">
+              {exercise.reward} 🪙
+            </span>
+          </div>
+        </div>
+
+        <div className="pt-4 border-t border-zinc-800 text-xs text-zinc-500 flex justify-between">
+          <span>
+            Created {new Date(exercise.createdAt).toLocaleDateString()}
+          </span>
+          <span className="text-zinc-400">Teacher Task</span>
+        </div>
       </div>
     </div>
   );
