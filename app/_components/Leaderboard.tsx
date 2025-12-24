@@ -28,8 +28,6 @@ export const Leaderboard = () => {
   };
   return (
     <div className="min-h-screen bg-[#192126] py-12 px-4">
-      <CoinPage />
-
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-semibold text-center mb-10 text-emerald-300">
           🏆 Leaderboard
@@ -71,6 +69,9 @@ export const Leaderboard = () => {
             );
           })}
         </div>
+      </div>
+      <div className="fixed top-17 right-4.5 z-50">
+        <CoinPage />
       </div>
     </div>
   );

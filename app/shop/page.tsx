@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BuyProduct from "../_components/BuyProduct";
 import CoinPage from "../_components/ShowCoin";
+import { Footer } from "../_components/Footer";
+import { ArrowLeft } from "lucide-react";
 
 interface ShopItem {
   id: string;
@@ -56,11 +58,23 @@ export default function ShopPage() {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <CoinPage />
+      <button
+        onClick={() => router.push("/ ")}
+        className="flex items-center gap-2 text-zinc-400 hover:text-white transition mb-8"
+      >
+        <ArrowLeft size={18} />
+        Back
+      </button>
+      <div className="flex items-center gap-6 mb-6">
+        <h1 style={{ borderBottom: "2px solid #333", paddingBottom: "0.5rem" }}>
+          Shop Items
+        </h1>
 
-      <h1 style={{ borderBottom: "2px solid #333", paddingBottom: "0.5rem" }}>
-        Shop Items
-      </h1>
+        <div className="flex items-center justify-between">
+          <CoinPage />
+        </div>
+      </div>
+
       <div
         style={{
           display: "grid",
