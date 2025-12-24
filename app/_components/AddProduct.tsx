@@ -3,13 +3,12 @@
 import { useState } from "react";
 
 export default function AddProductState() {
-  // 1️⃣ Бүх input-г тус тусад нь state болгож үүсгэнэ
   const [productName, setProductName] = useState("");
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
-  const [price, setPrice] = useState(0);
-  const [stock, setStock] = useState(0);
-  const [dailyLimit, setDailyLimit] = useState(0);
+  const [price, setPrice] = useState("");
+  const [stock, setStock] = useState("");
+  const [dailyLimit, setDailyLimit] = useState("");
 
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,15 +18,28 @@ export default function AddProductState() {
     setLoading(true);
     setMessage("");
 
-    // 2️⃣ Хоосон утга байгаа эсэхийг шалгах
-    if (!productName || !title || !image) {
-      setMessage("❌ Please fill in all text fields");
+    if (
+      !productName ||
+      !title ||
+      !image ||
+      price === "" ||
+      stock === "" ||
+      dailyLimit === ""
+    ) {
+      setMessage("❌ Please fill in all fields");
       setLoading(false);
       return;
     }
 
-    // 3️⃣ Fetch POST хийх
-    const body = { productName, title, image, price, stock, dailyLimit };
+    const body = {
+      productName,
+      title,
+      image,
+      price: Number(price),
+      stock: Number(stock),
+      dailyLimit: Number(dailyLimit),
+    };
+
     try {
       const res = await fetch("/api/shop/postProduct", {
         method: "POST",
@@ -37,13 +49,12 @@ export default function AddProductState() {
 
       if (res.ok) {
         setMessage("✅ Product added successfully");
-        // 4️⃣ Submit болсны дараа бүх state-г reset хийх
         setProductName("");
         setTitle("");
         setImage("");
-        setPrice(0);
-        setStock(0);
-        setDailyLimit(0);
+        setPrice("");
+        setStock("");
+        setDailyLimit("");
       } else {
         setMessage("❌ Failed to add product");
       }
@@ -68,45 +79,46 @@ export default function AddProductState() {
             onChange={(e) => setProductName(e.target.value)}
             placeholder="Product Name"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-400"
           />
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Title"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-400"
           />
           <input
             value={image}
             onChange={(e) => setImage(e.target.value)}
             placeholder="Image URL"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-400"
           />
+
           <input
             value={price}
-            onChange={(e) => setPrice(Number(e.target.value))}
+            onChange={(e) => setPrice(e.target.value)}
             type="number"
             placeholder="Price"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-500"
           />
           <input
             value={stock}
-            onChange={(e) => setStock(Number(e.target.value))}
+            onChange={(e) => setStock(e.target.value)}
             type="number"
             placeholder="Stock"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-500"
           />
           <input
             value={dailyLimit}
-            onChange={(e) => setDailyLimit(Number(e.target.value))}
+            onChange={(e) => setDailyLimit(e.target.value)}
             type="number"
             placeholder="Daily Limit"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-500"
           />
 
           <button
