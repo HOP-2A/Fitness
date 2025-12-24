@@ -2,95 +2,111 @@
 
 import { useState } from "react";
 
-export default function AddProduct() {
-  const [loading, setLoading] = useState(false);
+export default function AddProductState() {
+  // 1️⃣ Бүх input-г тус тусад нь state болгож үүсгэнэ
+  const [productName, setProductName] = useState("");
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState(0);
+  const [stock, setStock] = useState(0);
+  const [dailyLimit, setDailyLimit] = useState(0);
+
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setMessage("");
 
-    const formData = new FormData(e.currentTarget);
-
-    const body = {
-      productName: formData.get("productName"),
-      title: formData.get("title"),
-      image: formData.get("image"),
-      price: Number(formData.get("price")),
-      stock: Number(formData.get("stock")),
-      dailyLimit: Number(formData.get("dailyLimit")),
-    };
-
-    const res = await fetch("/api/shop/postProduct", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      setMessage(data.error || "Something went wrong");
-    } else {
-      setMessage("✅ Product added successfully");
-      e.currentTarget.reset();
+    // 2️⃣ Хоосон утга байгаа эсэхийг шалгах
+    if (!productName || !title || !image) {
+      setMessage("❌ Please fill in all text fields");
+      setLoading(false);
+      return;
     }
 
-    setLoading(false);
+    // 3️⃣ Fetch POST хийх
+    const body = { productName, title, image, price, stock, dailyLimit };
+    try {
+      const res = await fetch("/api/shop/postProduct", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (res.ok) {
+        setMessage("✅ Product added successfully");
+        // 4️⃣ Submit болсны дараа бүх state-г reset хийх
+        setProductName("");
+        setTitle("");
+        setImage("");
+        setPrice(0);
+        setStock(0);
+        setDailyLimit(0);
+      } else {
+        setMessage("❌ Failed to add product");
+      }
+    } catch {
+      setMessage("❌ Failed to add product");
+    } finally {
+      setLoading(false);
+      setTimeout(() => setMessage(""), 3000);
+    }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black">
-      <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-lg">
+    <div className="min-h-screen flex items-center justify-center bg-[#192126]">
+      <div className="w-full max-w-md bg-[#192126] border-zinc-800 rounded-xl p-6 shadow-lg">
         <h2 className="text-white text-xl font-semibold mb-6 text-center">
           Add New Product
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            name="productName"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
             placeholder="Product Name"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md focus:outline-none focus:border-white"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
           />
-
           <input
-            name="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="Title"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md focus:outline-none focus:border-white"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
           />
-
           <input
-            name="image"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
             placeholder="Image URL"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md focus:outline-none focus:border-white"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
           />
-
           <input
-            name="price"
+            value={price}
+            onChange={(e) => setPrice(Number(e.target.value))}
             type="number"
             placeholder="Price"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md focus:outline-none focus:border-white"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
           />
-
           <input
-            name="stock"
+            value={stock}
+            onChange={(e) => setStock(Number(e.target.value))}
             type="number"
             placeholder="Stock"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md focus:outline-none focus:border-white"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
           />
-
           <input
-            name="dailyLimit"
+            value={dailyLimit}
+            onChange={(e) => setDailyLimit(Number(e.target.value))}
             type="number"
             placeholder="Daily Limit"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md focus:outline-none focus:border-white"
+            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md"
           />
 
           <button
