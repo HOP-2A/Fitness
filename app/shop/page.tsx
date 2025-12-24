@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import BuyProduct from "../_components/BuyProduct";
+import CoinPage from "../_components/ShowCoin";
 
 interface ShopItem {
   id: string;
@@ -54,6 +56,8 @@ export default function ShopPage() {
         fontFamily: "Arial, sans-serif",
       }}
     >
+      <CoinPage />
+
       <h1 style={{ borderBottom: "2px solid #333", paddingBottom: "0.5rem" }}>
         Shop Items
       </h1>
@@ -92,19 +96,8 @@ export default function ShopPage() {
             <p>Product: {item.productName}</p>
             <p>Price: {item.price} coin</p>
             <p>Stock: {item.stock}</p>
-            <button
-              style={{
-                marginTop: "0.5rem",
-                padding: "0.5rem 1rem",
-                backgroundColor: "#ff6600",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Buy Now
+            <button onClick={() => router.push(`/shop/${item.id}`)}>
+              See Details
             </button>
           </div>
         ))}

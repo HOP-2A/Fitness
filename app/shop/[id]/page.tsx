@@ -1,5 +1,7 @@
 "use client";
 
+import BuyProductPage from "@/app/_components/BuyProduct";
+import CoinPage from "@/app/_components/ShowCoin";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -58,6 +60,8 @@ export default function ShopItemDetail() {
       <p>Teacher ID: {item.teacherId}</p>
       <p>Created At: {new Date(item.createdAt).toLocaleString()}</p>
       <p>Updated At: {new Date(item.updatedAt).toLocaleString()}</p>
+      <BuyProductPage />
+      <CoinPage />
     </div>
   );
 }
