@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import GetAssignedExercise from "./_components/GetAssignedExercise";
 import { Footer } from "./_components/Footer";
+import CoinPage from "./_components/ShowCoin";
 
 const Page = () => {
   const router = useRouter();
@@ -32,6 +33,7 @@ const Page = () => {
         <GetAssignedExercise />
       </div>
       <Footer />
+      <CoinPage />
     </div>
   );
 };

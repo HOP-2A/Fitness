@@ -1,4 +1,4 @@
-import { House, ListOrdered, User } from "lucide-react";
+import { House, ListOrdered, Store, User } from "lucide-react";
 import Link from "next/link";
 
 export const Footer = () => {
@@ -39,6 +39,14 @@ export const Footer = () => {
         >
           <User size={22} />
           <span className="text-sm font-medium">Profile</span>
+        </Link>
+
+        <Link
+          href="/shop"
+          className="flex items-center gap-4 text-white hover:text-gray-400 transition"
+        >
+          <Store size={22} />
+          <span className="text-sm font-medium">Shop</span>
         </Link>
       </div>
     </div>

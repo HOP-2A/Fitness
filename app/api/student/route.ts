@@ -8,6 +8,7 @@ export async function GET() {
       username: true,
       email: true,
       createdAt: true,
+      coin: true,
     },
   });
 

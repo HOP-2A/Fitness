@@ -6,13 +6,14 @@ import Todolist from "../_components/Todolist";
 import Greeting from "../_components/Greeting";
 import { useAuth } from "@/providers/authProvider";
 import { GetStudent } from "../_components/GetStudent";
+import AddProductPage from "../_components/AddProduct";
 
 const Page = () => {
   const { user: clerkUser, isLoaded } = useUser();
   const { push } = useRouter();
   const userData = useAuth(clerkUser?.id);
   const user = userData.user;
-
+  console.log(clerkUser?.id);
   if (!isLoaded) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#0F1419]">
@@ -46,6 +47,7 @@ const Page = () => {
       <div className="absolute bottom-20 top-24 right-4 w-80">
         <Todolist teacherId={user?.id ?? ""} />
       </div>
+      <AddProductPage />
     </div>
   );
 };

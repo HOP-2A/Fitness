@@ -26,8 +26,8 @@ model User {
   clerkId        String  @unique
   profilePicture String?
   coin           Int     @default(0)
-  followers      Int     @default(0)
-  following      Int     @default(0)
+
+  purchases Purchase[]
 
   exercises  AssignedExercise[]
   attendance Attendance[]
@@ -36,22 +36,48 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-// model Teacher {
-//   id        String @id @default(nanoid())
-//   adminName String
-//   password  String
-//   email     String @unique
+model ShopItem {
+  id          String @id @default(nanoid())
+  productName String
+  title       String
+  image       String
+  price       Int
 
-//   assignedExercises AssignedExercise[]
+  stock      Int
+  dailyLimit Int
+  soldToday  Int @default(0)
 
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
+  teacherId String
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+
+  purchases Purchase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Purchase {
+  id String @id @default(nanoid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  itemId String
+  item   ShopItem @relation(fields: [itemId], references: [id])
+
+  quantity   Int @default(1)
+  totalPrice Int
+
+  createdAt DateTime @default(now())
+}
+
 model Teacher {
   id        String @id @default(nanoid())
   adminName String
   email     String @unique
   clerkId   String @unique
+
+  shopItems ShopItem[]
 
   assignedExercises AssignedExercise[]
   todos             Todo[]
