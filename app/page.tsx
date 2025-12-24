@@ -33,7 +33,9 @@ const Page = () => {
         <GetAssignedExercise />
       </div>
       <Footer />
-      <CoinPage />
+      <div className="fixed top-17 right-4.5 z-50">
+        <CoinPage />
+      </div>
     </div>
   );
 };

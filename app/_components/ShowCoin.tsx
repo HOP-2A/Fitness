@@ -41,15 +41,17 @@ export default function CoinPage() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Your Coin</h1>
+    <div className="p-4 rounded-3xl border border-[#3B434D] bg-[#1E272E] shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)]">
+      <h1 className="text-2xl font-bold mb-4 text-white">Your Coin</h1>
       {userCoin ? (
         <div>
           <p>
-            <span className="font-semibold">Username:</span> {userCoin.username}
+            <span className="font-semibold text-white">Username:</span>{" "}
+            <span className="text-white">{userCoin.username}</span>
           </p>
           <p>
-            <span className="font-semibold">Coin:</span> {userCoin.coin}
+            <span className="font-semibold text-white">Coin:</span>{" "}
+            <span className="text-white">{userCoin.coin}</span>
           </p>
         </div>
       ) : (

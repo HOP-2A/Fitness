@@ -58,7 +58,9 @@ const Page = () => {
             </div>
           </CardContent>
         </Card>
-        <CoinPage />
+        <div className="fixed top-17 right-4.5 z-50">
+          <CoinPage />
+        </div>
       </motion.div>
 
       <Footer />
