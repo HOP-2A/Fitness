@@ -50,6 +50,17 @@ export default function ShopItemDetail() {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!item) return <p>No item found</p>;
 
+  const timeAgo = (dateString: string) => {
+    const createdDate = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - createdDate.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "Today";
+    if (diffDays === 1) return "1 day ago";
+    return `${diffDays} days ago`;
+  };
+
   return (
     <div className="min-h-screen bg-[#192126] flex justify-center px-4 py-10">
       <button
@@ -89,15 +100,10 @@ export default function ShopItemDetail() {
               <span className="text-gray-400">Sold Today:</span>{" "}
               <span className="text-white">{item.soldToday}</span>
             </p>
-            <p>
-              <span className="text-gray-400">Teacher ID:</span>{" "}
-              <span className="text-white">{item.teacherId}</span>
-            </p>
           </div>
 
           <div className="text-xs text-gray-400 pt-3 space-y-1">
-            <p>Created: {new Date(item.createdAt).toLocaleString()}</p>
-            <p>Updated: {new Date(item.updatedAt).toLocaleString()}</p>
+            <p>Created: {timeAgo(item.createdAt)}</p>
           </div>
         </div>
 
