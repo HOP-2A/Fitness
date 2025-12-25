@@ -67,9 +67,9 @@ export default function AddProductState() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#192126]">
-      <div className="w-full max-w-md bg-[#192126] border-zinc-800 rounded-xl p-6 shadow-lg">
-        <h2 className="text-[#A3FFAB] text-xl font-semibold mb-6 text-center">
+    <div className="flex items-center justify-center p-4 absolute top-45">
+      <div className="w-full max-w-md bg-[#1F262C] border border-zinc-700 rounded-2xl p-6 shadow-2xl hover:shadow-[#A3FFAB]/30 transition-all duration-300">
+        <h2 className="text-[#A3FFAB] text-2xl font-bold mb-6 text-center tracking-wide">
           Add New Product
         </h2>
 
@@ -79,51 +79,52 @@ export default function AddProductState() {
             onChange={(e) => setProductName(e.target.value)}
             placeholder="Product Name"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-400"
+            className="w-full bg-[#0E1113] border border-zinc-600 text-white px-4 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
           />
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Title"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-400"
+            className="w-full bg-[#0E1113] border border-zinc-600 text-white px-4 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
           />
           <input
             value={image}
             onChange={(e) => setImage(e.target.value)}
             placeholder="Image URL"
             required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-400"
+            className="w-full bg-[#0E1113] border border-zinc-600 text-white px-4 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
           />
-
-          <input
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            type="number"
-            placeholder="Price"
-            required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-500"
-          />
-          <input
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
-            type="number"
-            placeholder="Stock"
-            required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-500"
-          />
-          <input
-            value={dailyLimit}
-            onChange={(e) => setDailyLimit(e.target.value)}
-            type="number"
-            placeholder="Daily Limit"
-            required
-            className="w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded-md placeholder:text-gray-500"
-          />
+          <div className="grid grid-cols-3 gap-3">
+            <input
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              type="number"
+              placeholder="Price"
+              required
+              className="w-full bg-[#0E1113] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
+            />
+            <input
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
+              type="number"
+              placeholder="Stock"
+              required
+              className="w-full bg-[#0E1113] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
+            />
+            <input
+              value={dailyLimit}
+              onChange={(e) => setDailyLimit(e.target.value)}
+              type="number"
+              placeholder="Daily Limit"
+              required
+              className="w-full bg-[#0E1113] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
+            />
+          </div>
 
           <button
             disabled={loading}
-            className="w-full bg-[#A3FFAB] text-[#1E2429] py-2 rounded-md font-medium hover:bg-gray-200 transition disabled:opacity-50"
+            className="w-full bg-gradient-to-r from-[#A3FFAB] to-[#6BD48F] text-[#1E2429] py-2 rounded-lg font-semibold hover:scale-105 hover:shadow-lg transition transform disabled:opacity-50"
           >
             {loading ? "Posting..." : "Post Product"}
           </button>

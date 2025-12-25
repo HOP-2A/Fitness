@@ -40,11 +40,11 @@ const Page = () => {
         Give Exercise
       </button>
 
-      <div className="fixed top-24 left-4 z-50 animate-slide-in">
+      <div className="fixed top-45 left-34 z-50 animate-slide-in">
         <GetStudent />
       </div>
 
-      <div className="absolute bottom-20 top-24 right-4 w-80">
+      <div className="fixed bottom-20 top-45 right-34 w-80">
         <Todolist teacherId={user?.id ?? ""} />
       </div>
       <AddProductPage />
