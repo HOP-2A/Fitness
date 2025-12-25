@@ -24,7 +24,7 @@ export const GetStudent = () => {
   }, []);
 
   return (
-    <div className="w-80 border border-[#3B434D] rounded-xl shadow-lg p-4 bg-[#192126]">
+    <div className="w-80 border border-[#3B434D] rounded-xl shadow-lg p-4 bg-[#192126] hover:shadow-[#A3FFAB]/30 transition-all duration-300">
       <h2 className="text-xl font-bold text-[#A3FFAB] mb-3 flex items-center gap-2">
         🌱 Students
       </h2>
