@@ -2,57 +2,96 @@ import { prisma } from "@/lib/db";
 import { clerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+type ClerkError = {
+  code: string;
+  message: string;
+};
+
+type ClerkErrorResponse = {
+  errors: ClerkError[];
+};
+
 export async function POST(req: Request) {
-  const { email, username, password, type } = await req.json();
+  try {
+    const { email, username, password, type } = await req.json();
 
-  const client = await clerkClient();
+    if (!email || !username || !password) {
+      return NextResponse.json(
+        { error: "All fields should be filled" },
+        { status: 400 }
+      );
+    }
 
-  const user = await client.users.createUser({
-    emailAddress: [email],
-    password,
-    skipPasswordChecks: true,
-    skipPasswordRequirement: true,
-    publicMetadata: {
-      role: type,
-    },
-  });
+    const [userEmail, teacherEmail] = await Promise.all([
+      prisma.user.findUnique({ where: { email } }),
+      prisma.teacher.findUnique({ where: { email } }),
+    ]);
 
-  if (!email || !username || !password)
+    if (userEmail || teacherEmail) {
+      return NextResponse.json(
+        { error: "Email already exists" },
+        { status: 400 }
+      );
+    }
+
+    const existingUsername = await prisma.user.findUnique({
+      where: { username },
+    });
+
+    if (existingUsername) {
+      return NextResponse.json(
+        { error: "Username already taken" },
+        { status: 400 }
+      );
+    }
+
+    const client = await clerkClient();
+    const clerkUser = await client.users.createUser({
+      emailAddress: [email],
+      password,
+      skipPasswordChecks: false,
+      skipPasswordRequirement: false,
+      publicMetadata: {
+        role: type,
+      },
+    });
+
+    const newUser = await prisma.user.create({
+      data: {
+        clerkId: clerkUser.id,
+        email,
+        username,
+      },
+    });
+
     return NextResponse.json(
-      { message: `all fields should be filled` },
-      { status: 400 }
+      { message: "User created successfully", user: newUser },
+      { status: 200 }
     );
+  } catch (err: unknown) {
+    console.error("SIGNUP ERROR 👉", err);
 
-  const existingEmail = await prisma.user.findUnique({
-    where: { email },
-  });
+    if (
+      typeof err === "object" &&
+      err !== null &&
+      "errors" in err &&
+      Array.isArray((err as ClerkErrorResponse).errors)
+    ) {
+      const clerkError = (err as ClerkErrorResponse).errors[0];
 
-  if (existingEmail)
+      if (clerkError.code === "form_identifier_exists") {
+        return NextResponse.json(
+          { error: "Email already exists" },
+          { status: 400 }
+        );
+      }
+
+      return NextResponse.json({ error: clerkError.message }, { status: 400 });
+    }
+
     return NextResponse.json(
-      { message: `email already exist nega` },
-      { status: 400 }
+      { error: "Unexpected server error" },
+      { status: 500 }
     );
-
-  const existingUsername = await prisma.user.findUnique({
-    where: { username },
-  });
-
-  if (existingUsername)
-    return NextResponse.json(
-      { message: `User already taken` },
-      { status: 400 }
-    );
-
-  const newUser = await prisma.user.create({
-    data: {
-      clerkId: user.id,
-      email,
-      username,
-    },
-  });
-
-  return NextResponse.json(
-    { message: `User created successfully ${newUser}` },
-    { status: 200 }
-  );
+  }
 }

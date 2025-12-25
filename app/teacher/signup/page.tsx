@@ -47,7 +47,7 @@ export const SignUp = () => {
     const data = await res.json();
 
     if (res.ok) {
-      toast.success("Signed up successfully now login please");
+      toast.success("Signed up successfully now sign in please");
       router.push("/welcome");
     } else {
       toast.error(data.error || "Error while signing up");
