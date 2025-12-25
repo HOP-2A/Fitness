@@ -56,7 +56,7 @@ const Todolist = ({ teacherId }: TodoListProps) => {
   };
 
   return (
-    <div className="max-w-xl mx-auto bg-[#1E2429] rounded-xl shadow-lg p-6">
+    <div className="max-w-xl mx-auto bg-[#1E2429] rounded-xl shadow-lg p-6 hover:shadow-[#A3FFAB]/30 transition-all duration-300">
       <h2 className="text-xl font-semibold text-[#A3FFAB] mb-4 flex items-center gap-2">
         📋 Todo List
       </h2>

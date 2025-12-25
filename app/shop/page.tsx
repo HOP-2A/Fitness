@@ -51,29 +51,37 @@ export default function ShopPage() {
         Back
       </button>
 
-      <div className="flex items-center gap-6 mb-6">
-        <h1 style={{ borderBottom: "2px solid #333", paddingBottom: "0.5rem" }}>
-          Shop Items
-        </h1>
-        <CoinPage />
+      <div className="flex gap-10 h-32 items-center">
+        <div className="flex items-center mb-6">
+          <h1
+            style={{ borderBottom: "2px solid #333", paddingBottom: "0.5rem" }}
+          >
+            Shop Items
+          </h1>
+        </div>
+
+        <input
+          type="text"
+          placeholder="Search product name..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            padding: "10px",
+            borderRadius: "6px",
+            width: "500px",
+            height: "50px",
+            marginBottom: "1.5rem",
+            backgroundColor: "#111",
+            color: "white",
+            border: "1px solid #333",
+            outline: "none",
+          }}
+        />
       </div>
 
-      <input
-        type="text"
-        placeholder="Search product name..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{
-          padding: "10px",
-          borderRadius: "6px",
-          width: "250px",
-          marginBottom: "1.5rem",
-          backgroundColor: "#111",
-          color: "white",
-          border: "1px solid #333",
-          outline: "none",
-        }}
-      />
+      <div className="absolute right-4 top-17">
+        <CoinPage />
+      </div>
 
       <div
         style={{
