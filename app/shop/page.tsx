@@ -2,9 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import BuyProduct from "../_components/BuyProduct";
 import CoinPage from "../_components/ShowCoin";
-import { Footer } from "../_components/Footer";
 import { ArrowLeft } from "lucide-react";
 
 interface ShopItem {
@@ -18,35 +16,22 @@ interface ShopItem {
 
 export default function ShopPage() {
   const [items, setItems] = useState<ShopItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+
   const router = useRouter();
+
   useEffect(() => {
-    async function fetchItems() {
-      const res = await fetch("/api/shop/getProducts");
-      const data: ShopItem[] = await res.json();
-      setItems(data);
-      setLoading(false);
-    }
+    const timer = setTimeout(() => {
+      async function fetchItems() {
+        const res = await fetch(`/api/shop/search?q=${search}`);
+        const data: ShopItem[] = await res.json();
+        setItems(data);
+      }
+      fetchItems();
+    }, 100);
 
-    fetchItems();
-  }, []);
-
-  if (loading)
-    return (
-      <div
-        style={{
-          color: "white",
-          backgroundColor: "#192126",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "1.5rem",
-        }}
-      >
-        Loading...
-      </div>
-    );
+    return () => clearTimeout(timer);
+  }, [search]);
 
   return (
     <div
@@ -59,28 +44,42 @@ export default function ShopPage() {
       }}
     >
       <button
-        onClick={() => router.push("/ ")}
-        className="flex items-center gap-2 text-zinc-400 hover:text-white transition mb-8"
+        onClick={() => router.push("/")}
+        className="flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
       >
         <ArrowLeft size={18} />
         Back
       </button>
+
       <div className="flex items-center gap-6 mb-6">
         <h1 style={{ borderBottom: "2px solid #333", paddingBottom: "0.5rem" }}>
           Shop Items
         </h1>
-
-        <div className="flex items-center justify-between">
-          <CoinPage />
-        </div>
+        <CoinPage />
       </div>
+
+      <input
+        type="text"
+        placeholder="Search product name..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          padding: "10px",
+          borderRadius: "6px",
+          width: "250px",
+          marginBottom: "1.5rem",
+          backgroundColor: "#111",
+          color: "white",
+          border: "1px solid #333",
+          outline: "none",
+        }}
+      />
 
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
           gap: "1.5rem",
-          marginTop: "2rem",
         }}
       >
         {items.map((item) => (
@@ -91,7 +90,7 @@ export default function ShopPage() {
               padding: "1rem",
               borderRadius: "8px",
               boxShadow: "0 4px 8px rgba(0,0,0,0.5)",
-              transition: "transform 0.2s",
+              cursor: "pointer",
             }}
             onClick={() => router.push(`/shop/${item.id}`)}
           >
@@ -110,9 +109,7 @@ export default function ShopPage() {
             <p>Product: {item.productName}</p>
             <p>Price: {item.price} coin</p>
             <p>Stock: {item.stock}</p>
-            <button onClick={() => router.push(`/shop/${item.id}`)}>
-              See Details
-            </button>
+            <p>See Detail...</p>
           </div>
         ))}
       </div>
