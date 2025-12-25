@@ -69,7 +69,7 @@ export default function AddProductState() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#192126]">
       <div className="w-full max-w-md bg-[#192126] border-zinc-800 rounded-xl p-6 shadow-lg">
-        <h2 className="text-white text-xl font-semibold mb-6 text-center">
+        <h2 className="text-[#A3FFAB] text-xl font-semibold mb-6 text-center">
           Add New Product
         </h2>
 
@@ -123,7 +123,7 @@ export default function AddProductState() {
 
           <button
             disabled={loading}
-            className="w-full bg-white text-black py-2 rounded-md font-medium hover:bg-gray-200 transition disabled:opacity-50"
+            className="w-full bg-[#A3FFAB] text-[#1E2429] py-2 rounded-md font-medium hover:bg-gray-200 transition disabled:opacity-50"
           >
             {loading ? "Posting..." : "Post Product"}
           </button>
