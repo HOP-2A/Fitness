@@ -36,7 +36,7 @@ export default function ShopPage() {
       <div
         style={{
           color: "white",
-          backgroundColor: "#111",
+          backgroundColor: "#192126",
           height: "100vh",
           display: "flex",
           justifyContent: "center",
@@ -51,7 +51,7 @@ export default function ShopPage() {
   return (
     <div
       style={{
-        backgroundColor: "#111",
+        backgroundColor: "#192126",
         color: "white",
         minHeight: "100vh",
         padding: "2rem",
