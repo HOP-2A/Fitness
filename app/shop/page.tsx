@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CoinPage from "../_components/ShowCoin";
 import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface ShopItem {
   id: string;
@@ -100,7 +101,7 @@ export default function ShopPage() {
               boxShadow: "0 4px 8px rgba(0,0,0,0.5)",
               cursor: "pointer",
             }}
-            onClick={() => router.push(`/shop/${item.id}`)}
+            className="flex flex-col justify-between"
           >
             <img
               src={item.image}
@@ -117,7 +118,12 @@ export default function ShopPage() {
             <p>Product: {item.productName}</p>
             <p>Price: {item.price} coin</p>
             <p>Stock: {item.stock}</p>
-            <p>See Detail...</p>
+            <Button
+              onClick={() => router.push(`/shop/${item.id}`)}
+              variant={"outline"}
+            >
+              See Detail...
+            </Button>
           </div>
         ))}
       </div>
