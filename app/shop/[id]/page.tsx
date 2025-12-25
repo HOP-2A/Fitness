@@ -2,7 +2,7 @@
 
 import BuyProductPage from "@/app/_components/BuyProduct";
 import CoinPage from "@/app/_components/ShowCoin";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface ShopItem {
@@ -22,11 +22,14 @@ interface ShopItem {
 export default function ShopItemDetail() {
   const pathname = usePathname();
   const parts = pathname.split("/");
+  const router = useRouter();
   const id = parts[2];
   const [item, setItem] = useState<ShopItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const butsah = () => {
+    router.push("/shop");
+  };
   useEffect(() => {
     const fetchItem = async () => {
       const res = await fetch(`/api/shop/getSingleProduct?id=${id}`);
@@ -50,6 +53,9 @@ export default function ShopItemDetail() {
 
   return (
     <div className="min-h-screen bg-[#192126] flex items-center justify-center px-4 py-10 gap-5">
+      <div className="bg-amber-50" onClick={butsah}>
+        Back
+      </div>
       <div className="relative max-w-xl w-full rounded-3xl border border-[#3B434D] bg-[#1E272E] shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)] p-8 text-gray-200 space-y-4">
         <h2 className="text-2xl font-semibold text-[#A3FFAB]">{item.title}</h2>
 
