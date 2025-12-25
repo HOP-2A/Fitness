@@ -72,13 +72,17 @@ export default function BuyProductPage() {
   if (!item) return <p>Product not found</p>;
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <p>Price: {item.price} coins</p>
-      <p>Stock: {item.stock}</p>
+    <div
+      style={{ padding: "2rem" }}
+      className="flex flex-col gap-3 content-start"
+    >
+      <p className="font-bold">Price: {item.price} coins</p>
+      <p className="font-bold">Stock: {item.stock}</p>
 
-      <label>
+      <label className="border border-[#A3FFAB] rounded-xl p-3 text-center font-semibold">
         Quantity:
         <input
+          className="border rounded-xl p-1 text-center"
           type="number"
           min={1}
           max={item.stock}
@@ -92,6 +96,7 @@ export default function BuyProductPage() {
         onClick={handlePurchase}
         style={{ marginLeft: "1rem", padding: "0.5rem 1rem" }}
         disabled={quantity > item.stock || quantity < 1}
+        className="border border-[#A3FFAB] rounded-xl p-3 text-center font-semibold hover:bg-[#A3FFAB] hover:text-black transition cursor-pointer"
       >
         Buy
       </button>
