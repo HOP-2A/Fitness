@@ -36,7 +36,7 @@ export default function ShopPage() {
       <div
         style={{
           color: "white",
-          backgroundColor: "#192126",
+          backgroundColor: "#111",
           height: "100vh",
           display: "flex",
           justifyContent: "center",

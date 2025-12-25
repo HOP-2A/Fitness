@@ -28,33 +28,45 @@ export const Leaderboard = () => {
   };
   return (
     <div className="min-h-screen bg-[#192126] py-12 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-xl mx-auto">
         <h1 className="text-3xl font-semibold text-center mb-10 text-emerald-300">
           🏆 Leaderboard
         </h1>
 
         <div className="grid gap-4">
           {leaderboard.map((user, index) => {
-            const isTopThree = index < 3;
+            // Determine top 3 styling
+            let borderClass = "border-gray-700";
+            let bgClass = "bg-gray-900";
+            let textClass = "text-gray-200";
+
+            if (index === 0) {
+              borderClass = "border-yellow-400";
+              bgClass = "bg-yellow-900/30";
+              textClass = "text-yellow-300";
+            } else if (index === 1) {
+              borderClass = "border-gray-400";
+              bgClass = "bg-gray-800/30";
+              textClass = "text-gray-300";
+            } else if (index === 2) {
+              borderClass = "border-orange-600";
+              bgClass = "bg-orange-900/30";
+              textClass = "text-orange-300";
+            }
 
             return (
               <div
                 key={user.id}
                 className={`
-                  flex justify-between items-center
-                  rounded-2xl px-6 py-4
-                  border transition-all
-                  ${
-                    isTopThree
-                      ? "border-emerald-600 bg-emerald-900/40"
-                      : "border-gray-700 bg-gray-900"
-                  }
-                  shadow hover:scale-[1.01]
-                `}
+              flex justify-between items-center
+              rounded-2xl px-6 py-4
+              border ${borderClass} ${bgClass} ${textClass}
+              shadow hover:scale-[1.01] transition-all
+            `}
                 onClick={() => DetailHaruulah(user.id)}
               >
                 <div className="space-y-1">
-                  <p className="text-lg font-semibold text-emerald-200">
+                  <p className={`text-lg font-semibold ${textClass}`}>
                     {index + 1}. {user.username}
                   </p>
                   <p className="text-sm text-gray-400 truncate max-w-[220px]">
@@ -62,7 +74,9 @@ export const Leaderboard = () => {
                   </p>
                 </div>
 
-                <span className="px-4 py-1.5 rounded-full text-sm font-semibold bg-emerald-800 text-emerald-200">
+                <span
+                  className={`px-4 py-1.5 rounded-full text-sm font-semibold ${bgClass} ${textClass}`}
+                >
                   {user.coin} 🪙
                 </span>
               </div>
@@ -70,6 +84,7 @@ export const Leaderboard = () => {
           })}
         </div>
       </div>
+
       <div className="fixed top-17 right-4.5 z-50">
         <CoinPage />
       </div>
