@@ -3,19 +3,19 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <div className="fixed top-10 right-450 z-50 bottom-200">
+    <div className="fixed top-10 left-6 z-50">
       <div
         className="
-          flex flex-col
-          justify-between
-          gap-6
-          min-h-[220px]
-          bg-black
-          border border-gray-800
-          rounded-2xl
-          px-6 py-6
-          shadow-xl
-        "
+      flex flex-col
+      justify-between
+      px-6 py-6
+      gap-6
+      h-[calc(100vh-5rem)]
+      bg-black
+      border border-gray-800
+      rounded-2xl
+      shadow-xl
+    "
       >
         <Link
           href="/"
