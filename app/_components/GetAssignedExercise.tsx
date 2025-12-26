@@ -14,6 +14,7 @@ type Exercise = {
   status: ExerciseStatus;
   rate: number;
   reward: number;
+  createdAt: string;
 };
 
 const GetAssignedExercise = () => {
@@ -39,6 +40,20 @@ const GetAssignedExercise = () => {
 
     fetchExercises();
   }, [isLoaded, user]);
+
+  const timeAgo = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+
+    const diffMs = now.getTime() - date.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "Today";
+    if (diffDays === 1) return "Yesterday";
+    if (diffDays < 7) return `${diffDays} days ago`;
+
+    return date.toLocaleDateString();
+  };
 
   const handleStatusChange = async (status: ExerciseStatus) => {
     if (!selectedExercise) return;
@@ -94,8 +109,8 @@ const GetAssignedExercise = () => {
           <div
             key={ex.id}
             className="relative rounded-xl border border-green-300/40
-                       bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-                       p-6 transition hover:scale-[1.02]"
+              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+              p-6 transition hover:scale-[1.02]"
           >
             <button
               onClick={() => {
@@ -104,18 +119,29 @@ const GetAssignedExercise = () => {
                 setShowStatusModal(true);
               }}
               className={`absolute top-4 right-4 rounded-full border px-3 py-1
-              text-xs font-semibold tracking-wide transition
-              ${
-                ex.status === "APPROVE"
-                  ? "cursor-not-allowed opacity-70"
-                  : "hover:scale-105 cursor-pointer"
-              }
-              ${statusColor(ex.status)}`}
+                text-xs font-semibold tracking-wide transition
+                ${
+                  ex.status === "APPROVE"
+                    ? "cursor-not-allowed opacity-70"
+                    : "hover:scale-105 cursor-pointer"
+                }
+                ${statusColor(ex.status)}`}
             >
               {ex.status}
             </button>
 
-            <h3 className="text-xl font-semibold text-white">{ex.title}</h3>
+            <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+              {ex.title}
+              {timeAgo(ex.createdAt) === "Today" && (
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-400">
+                  NEW
+                </span>
+              )}
+            </h3>
+
+            <p className="mt-1 text-xs text-white/50">
+              📅 Posted: {timeAgo(ex.createdAt)}
+            </p>
 
             <div className="mt-4 flex justify-between text-xs text-white">
               <span>⭐ Rate: {ex.rate}</span>
@@ -154,7 +180,7 @@ const GetAssignedExercise = () => {
                 <button
                   onClick={() => handleStatusChange("PENDING")}
                   className="py-2 rounded bg-yellow-500/20
-                             text-yellow-400 hover:bg-yellow-500/30"
+                    text-yellow-400 hover:bg-yellow-500/30"
                 >
                   🟡 PENDING
                 </button>
@@ -162,7 +188,7 @@ const GetAssignedExercise = () => {
                 <button
                   onClick={() => handleStatusChange("DONE")}
                   className="py-2 rounded bg-green-500/20
-                             text-green-400 hover:bg-green-500/30"
+                    text-green-400 hover:bg-green-500/30"
                 >
                   🟢 DONE
                 </button>
