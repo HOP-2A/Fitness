@@ -10,9 +10,13 @@ export async function GET(
   if (!userId) {
     return NextResponse.json({ error: "User ID required" }, { status: 400 });
   }
+
   const exercises = await prisma.assignedExercise.findMany({
     where: {
       traineeId: userId,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 
