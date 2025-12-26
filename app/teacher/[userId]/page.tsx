@@ -246,8 +246,15 @@ export default function ExercisePage() {
                   <p className="text-sm text-white/70 mb-3">{ex.description}</p>
                   <div className="flex justify-between text-sm">
                     <div className="flex gap-4">
-                      <span className="text-white/60">🎯 {ex.target}</span>
-                      <span className="text-white/60">⛃ {ex.reward}</span>
+                      <span className="text-white/75">Target Muscle:</span>
+                      <span className="text-white font-bold">
+                        🎯 {ex.target}
+                      </span>
+                      <span className="text-white/75">|</span>
+                      <span className="text-white/75">Reward:</span>
+                      <span className="text-white font-bold">
+                        🪙 {ex.reward}
+                      </span>
                     </div>
 
                     <span className="text-green-400">level: {ex.rate} </span>
