@@ -251,16 +251,16 @@ export default function ExercisePage() {
                     </div>
 
                     <span className="text-green-400">level: {ex.rate} </span>
+                    <button
+                      onClick={() => deleteTask(ex.id)}
+                      className="text-xs px-3 py-1 rounded bg-red-600/80 hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
                   </div>
 
                   {ex.status !== "APPROVE" && (
                     <div className="mt-4 flex gap-2">
-                      <button
-                        onClick={() => deleteTask(ex.id)}
-                        className="text-xs px-3 py-1 rounded bg-red-600/80 hover:bg-red-600"
-                      >
-                        Delete
-                      </button>
                       <button
                         onClick={() => setEditingExercise(ex)}
                         className="text-xs px-3 py-1 rounded bg-blue-600/80 hover:bg-blue-600"
@@ -369,7 +369,6 @@ export default function ExercisePage() {
         )}
       </AnimatePresence>
 
-      {/* Status Modal */}
       <AnimatePresence>
         {showStatusModal && selectedExercise && (
           <motion.div
