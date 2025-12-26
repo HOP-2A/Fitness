@@ -41,20 +41,20 @@ export default function DetailPage() {
 
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-zinc-500">
+      <div className="min-h-screen flex items-center justify-center bg-[#192126] text-zinc-500">
         Loading...
       </div>
     );
 
   if (!exercise)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-zinc-500">
+      <div className="min-h-screen flex items-center justify-center bg-[#192126] text-zinc-500">
         No data found
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-zinc-900 px-4 py-8">
+    <div className="min-h-screen bg-[#192126] px-4 py-8">
       {/* Back */}
       <button
         onClick={() => router.push("/ ")}
@@ -64,25 +64,25 @@ export default function DetailPage() {
         Back
       </button>
 
-      <div className="max-w-md mx-auto rounded-3xl bg-zinc-900/80 backdrop-blur border border-zinc-800 p-7 space-y-6 shadow-2xl">
+      <div className="max-w-[1700px] max-h-full mx-auto rounded-3xl bg-zinc-900/80 backdrop-blur border border-zinc-800 p-7 space-y-6 shadow-2xl">
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-white tracking-tight">
+          <h1 className="text-8xl font-bold text-white tracking-tight">
             {exercise.title}
           </h1>
 
           {exercise.description && (
-            <p className="text-sm leading-relaxed text-zinc-400">
+            <p className="text-2xl leading-relaxed text-zinc-400">
               {exercise.description}
             </p>
           )}
         </div>
 
-        <div className="flex justify-between items-center">
-          <span className="text-xs uppercase tracking-wide text-zinc-500">
+        <div className="flex justify-between items-center h-[70px]">
+          <span className="text-3xl uppercase tracking-wide text-zinc-500">
             Status
           </span>
           <span
-            className={`px-3 py-1 rounded-full text-xs font-medium
+            className={`px-3 py-1 rounded-full text-3xl font-medium
               ${
                 exercise.status === "APPROVE"
                   ? "bg-emerald-500/10 text-emerald-400"
@@ -96,20 +96,20 @@ export default function DetailPage() {
           </span>
         </div>
 
-        <div className="space-y-4 text-sm">
+        <div className="space-y-4 text-3xl">
           {exercise.target && (
-            <div className="flex justify-between text-zinc-300">
+            <div className="flex justify-between h-[70px] text-zinc-300">
               <span className="text-zinc-500">Target</span>
               <span>{exercise.target}</span>
             </div>
           )}
 
-          <div className="flex justify-between text-zinc-300">
+          <div className="flex justify-between h-[70px] text-zinc-300">
             <span className="text-zinc-500">Rate</span>
             <span>{exercise.rate}</span>
           </div>
 
-          <div className="flex justify-between text-zinc-300">
+          <div className="flex justify-between h-[70px] text-zinc-300">
             <span className="text-zinc-500">Reward</span>
             <span className="font-semibold text-white">
               {exercise.reward} 🪙
@@ -117,7 +117,7 @@ export default function DetailPage() {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-zinc-800 text-xs text-zinc-500 flex justify-between">
+        <div className="pt-4 border-t border-zinc-800 text-xl text-zinc-500 flex justify-between">
           <span>
             Created {new Date(exercise.createdAt).toLocaleDateString()}
           </span>
