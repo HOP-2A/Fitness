@@ -18,7 +18,6 @@ interface ShopItem {
 export default function ShopPage() {
   const [items, setItems] = useState<ShopItem[]>([]);
   const [search, setSearch] = useState("");
-
   const router = useRouter();
 
   useEffect(() => {
@@ -44,88 +43,95 @@ export default function ShopPage() {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <button
-        onClick={() => router.push("/")}
-        className="flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
-      >
-        <ArrowLeft size={18} />
-        Back
-      </button>
-
-      <div className="flex gap-10 h-32 items-center">
-        <div className="flex items-center mb-6">
-          <h1
-            style={{ borderBottom: "2px solid #333", paddingBottom: "0.5rem" }}
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <button
+            onClick={() => router.push("/")}
+            className="flex items-center gap-2 text-zinc-400 hover:text-white transition mb-4"
           >
-            Shop Items
-          </h1>
-        </div>
+            <ArrowLeft size={18} />
+            Back
+          </button>
 
-        <input
-          type="text"
-          placeholder="Search product name..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: "10px",
-            borderRadius: "6px",
-            width: "500px",
-            height: "50px",
-            marginBottom: "1.5rem",
-            backgroundColor: "#111",
-            color: "white",
-            border: "1px solid #333",
-            outline: "none",
-          }}
-        />
-      </div>
-
-      <div className="absolute right-4 top-17">
-        <CoinPage />
-      </div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-          gap: "1.5rem",
-        }}
-      >
-        {items.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              backgroundColor: "#1a1a1a",
-              padding: "1rem",
-              borderRadius: "8px",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.5)",
-              cursor: "pointer",
-            }}
-            className="flex flex-col justify-between"
-          >
-            <img
-              src={item.image}
-              alt={item.productName}
+          <div className="flex items-center gap-6 mb-8">
+            <h1
               style={{
-                width: "100%",
-                height: "150px",
-                objectFit: "cover",
+                borderBottom: "2px solid #333",
+                paddingBottom: "0.5rem",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Shop Items
+            </h1>
+
+            <input
+              type="text"
+              placeholder="Search product name..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{
+                padding: "10px",
                 borderRadius: "6px",
-                marginBottom: "0.5rem",
+                width: "420px",
+                height: "45px",
+                backgroundColor: "#111",
+                color: "white",
+                border: "1px solid #333",
+                outline: "none",
               }}
             />
-            <h2 style={{ margin: "0.5rem 0" }}>{item.title}</h2>
-            <p>Product: {item.productName}</p>
-            <p>Price: {item.price} coin</p>
-            <p>Stock: {item.stock}</p>
-            <Button
-              onClick={() => router.push(`/shop/${item.id}`)}
-              variant={"outline"}
-            >
-              See Detail...
-            </Button>
           </div>
-        ))}
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+              gap: "1.5rem",
+            }}
+          >
+            {items.map((item) => (
+              <div
+                key={item.id}
+                style={{
+                  backgroundColor: "#1a1a1a",
+                  padding: "1rem",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.5)",
+                }}
+                className="flex flex-col justify-between"
+              >
+                <img
+                  src={item.image}
+                  alt={item.productName}
+                  style={{
+                    width: "100%",
+                    height: "150px",
+                    objectFit: "cover",
+                    borderRadius: "6px",
+                    marginBottom: "0.5rem",
+                  }}
+                />
+
+                <h2 className="text-lg font-semibold">{item.title}</h2>
+                <p>Product: {item.productName}</p>
+                <p>Price: {item.price} coin</p>
+                <p>Stock: {item.stock}</p>
+
+                <Button
+                  onClick={() => router.push(`/shop/${item.id}`)}
+                  variant="outline"
+                  className="mt-3"
+                >
+                  See Detail...
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="w-[320px] sticky top-8 h-fit">
+          <CoinPage />
+        </div>
       </div>
     </div>
   );

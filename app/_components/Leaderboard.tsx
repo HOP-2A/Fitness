@@ -35,7 +35,6 @@ export const Leaderboard = () => {
 
         <div className="grid gap-4">
           {leaderboard.map((user, index) => {
-            // Determine top 3 styling
             let borderClass = "border-gray-700";
             let bgClass = "bg-gray-900";
             let textClass = "text-gray-200";

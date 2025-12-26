@@ -14,48 +14,56 @@ export default function CoinPage() {
 
   useEffect(() => {
     const fetchCoin = async () => {
-      const res = await fetch("/api/getCoin");
-
-      if (!res.ok) {
-        setError("Failed to fetch coin");
+      try {
+        const res = await fetch("/api/getCoin");
+        if (!res.ok) throw new Error("Fetch failed");
+        const data = await res.json();
+        setUserCoin(data);
+      } catch {
+        setError("Failed to load data");
+      } finally {
         setLoading(false);
-        return;
       }
-
-      const data = await res.json();
-
-      if (!data) {
-        setError("No data returned");
-        setLoading(false);
-        return;
-      }
-
-      setUserCoin(data);
-      setLoading(false);
     };
 
     fetchCoin();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-
   return (
-    <div className="p-4 rounded-3xl border border-[#3B434D] bg-[#1E272E] shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)]">
-      <h1 className="text-2xl font-bold mb-4 text-white">Your Coin</h1>
-      {userCoin ? (
-        <div>
-          <p>
-            <span className="font-semibold text-white">Username:</span>{" "}
-            <span className="text-white">{userCoin.username}</span>
-          </p>
-          <p>
-            <span className="font-semibold text-white">Coin:</span>{" "}
-            <span className="text-white">{userCoin.coin}</span>
-          </p>
+    <div
+      className="w-[360px] rounded-[32px] border border-white/10 
+      bg-gradient-to-br from-[#1E272E] to-[#0E1318]
+      shadow-[0_25px_80px_-20px_rgba(0,0,0,0.9)] p-6"
+    >
+      <h1 className="text-white text-2xl font-bold mb-6 flex items-center gap-2">
+        💰 Your Coins
+      </h1>
+
+      {loading && (
+        <div className="space-y-4 animate-pulse">
+          <div className="h-14 rounded-xl bg-white/5" />
+          <div className="h-14 rounded-xl bg-white/5" />
         </div>
-      ) : (
-        <p>No user data</p>
+      )}
+
+      {error && <p className="text-red-400">{error}</p>}
+
+      {userCoin && !loading && (
+        <div className="space-y-5">
+          <div className="rounded-2xl bg-white/5 px-5 py-4 flex justify-between">
+            <span className="text-gray-400 text-sm">Username</span>
+            <span className="text-white font-semibold truncate max-w-[180px]">
+              {userCoin.username}
+            </span>
+          </div>
+
+          <div className="rounded-2xl bg-white/5 px-5 py-4 flex justify-between">
+            <span className="text-gray-400 text-sm">Balance</span>
+            <span className="text-yellow-400 font-bold text-2xl">
+              {userCoin.coin}
+            </span>
+          </div>
+        </div>
       )}
     </div>
   );
