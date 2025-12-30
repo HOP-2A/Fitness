@@ -31,8 +31,9 @@ export default function CoinPage() {
 
   return (
     <div
-      className="w-[360px] rounded-[32px] border border-white/10 
-      bg-gradient-to-br from-[#1E272E] to-[#0E1318]
+      className="w-[360px] rounded-xl border border-green-300/40
+              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+              p-6 transition hover:scale-[1.02]
       shadow-[0_25px_80px_-20px_rgba(0,0,0,0.9)] p-6"
     >
       <h1 className="text-white text-2xl font-bold mb-6 flex items-center gap-2">

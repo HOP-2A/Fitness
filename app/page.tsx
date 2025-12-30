@@ -28,7 +28,7 @@ const Page = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#192126] text-white">
+    <div className="relative min-h-screen bg-gradient-to-b from-blue-800 to-red text-white">
       <div className="top-4 left-4">
         <GetAssignedExercise />
       </div>

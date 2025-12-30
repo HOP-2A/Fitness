@@ -51,10 +51,10 @@ export default function LeaderDetail() {
     );
 
   return (
-    <div className="min-h-screen bg-black px-4 py-6">
+    <div className="min-h-screen bg-gradient-to-b from-blue-800 to-red px-4 py-6">
       <button
         onClick={() => router.push("/leader")}
-        className="flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
+        className="flex items-center gap-2 text-black hover:text-white transition mb-6"
       >
         <ArrowLeft size={18} />
         Back

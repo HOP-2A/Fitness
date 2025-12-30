@@ -76,8 +76,12 @@ export default function BuyProductPage() {
       style={{ padding: "2rem" }}
       className="flex flex-col gap-3 content-start"
     >
-      <p className="font-bold">Price: {item.price} coins</p>
-      <p className="font-bold">Stock: {item.stock}</p>
+      <p className="font-bold">
+        Price: <span className="text-[#A3FFAB]">{item.price}</span> coins
+      </p>
+      <p className="font-bold">
+        Stock: <span className="text-[#A3FFAB]">{item.stock}</span>
+      </p>
 
       <label className="border border-[#A3FFAB] rounded-xl p-3 text-center font-semibold">
         Quantity:
