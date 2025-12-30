@@ -62,23 +62,27 @@ export default function ShopItemDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-[#192126] flex justify-center px-4 py-10">
+    <div className="min-h-screen bg-gradient-to-b from-blue-800 to-red flex justify-center px-4 py-10">
       <button
         onClick={() => router.push("/shop")}
-        className="flex items-center gap-2 text-zinc-400 hover:text-white transition absolute left-5 top-5"
+        className="flex items-center gap-2 text-black hover:text-white transition absolute left-5 top-5"
       >
         <ArrowLeft size={18} /> Back
       </button>
 
-      <div className="w-full h-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 rounded-3xl border border-[#3B434D] bg-[#1E272E] shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)] p-6 text-gray-200 space-y-4">
+      <div className="w-full h-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 ">
+        <div
+          className="md:col-span-2 rounded-xl border border-green-300/40
+              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+              p-6 transition hover:scale-[1.02] shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)] p-6 text-gray-200 space-y-4"
+        >
           <h2 className="text-2xl font-semibold text-[#A3FFAB]">
             {item.title}
           </h2>
 
-          <p className="text-sm text-gray-400">
-            Product Name:{" "}
-            <span className="text-gray-200">{item.productName}</span>
+          <p className="text-sm text-white">
+            Product Name:
+            <span className="text-[#A3FFAB]">{item.productName}</span>
           </p>
 
           <img
@@ -89,16 +93,16 @@ export default function ShopItemDetail() {
 
           <div className="grid grid-cols-2 gap-4 text-sm pt-2">
             <p>
-              <span className="text-gray-400">Stock:</span>{" "}
-              <span className="text-white">{item.stock}</span>
+              <span className="text-white">Stock:</span>{" "}
+              <span className="text-[#A3FFAB]">{item.stock}</span>
             </p>
             <p>
-              <span className="text-gray-400">Daily Limit:</span>{" "}
-              <span className="text-white">{item.dailyLimit}</span>
+              <span className="text-white">Daily Limit:</span>{" "}
+              <span className="text-[#A3FFAB]">{item.dailyLimit}</span>
             </p>
             <p>
-              <span className="text-gray-400">Sold Today:</span>{" "}
-              <span className="text-white">{item.soldToday}</span>
+              <span className="text-white">Sold Today:</span>{" "}
+              <span className="text-[#A3FFAB]">{item.soldToday}</span>
             </p>
           </div>
 
@@ -107,15 +111,23 @@ export default function ShopItemDetail() {
           </div>
         </div>
 
-        <div className="rounded-3xl border border-[#3B434D] bg-[#1E272E] shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)] p-6 text-white space-y-6">
+        <div
+          className="rounded-xl border border-green-300/40
+              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+              p-6 transition hover:scale-[1.02] shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)] p-6 text-white space-y-6"
+        >
           <div className="text-center">
-            <p className="text-sm text-gray-400">Price</p>
+            <p className="text-sm text-white">Price</p>
             <p className="text-3xl font-bold text-[#A3FFAB]">
               {item.price} Coins
             </p>
           </div>
 
-          <div className="border border-[#3B434D] rounded-xl p-4">
+          <div
+            className="rounded-xl border border-green-300/40
+              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+              p-6 transition hover:scale-[1.02] p-4"
+          >
             <BuyProductPage />
           </div>
         </div>

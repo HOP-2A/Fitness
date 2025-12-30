@@ -36,18 +36,18 @@ export default function ShopPage() {
   return (
     <div
       style={{
-        backgroundColor: "#192126",
         color: "white",
         minHeight: "100vh",
         padding: "2rem",
         fontFamily: "Arial, sans-serif",
       }}
+      className="bg-gradient-to-b from-blue-800 to-red"
     >
       <div className="flex gap-8">
         <div className="flex-1">
           <button
             onClick={() => router.push("/")}
-            className="flex items-center gap-2 text-zinc-400 hover:text-white transition mb-4"
+            className="flex items-center gap-2 text-black hover:text-white transition mb-4"
           >
             <ArrowLeft size={18} />
             Back
@@ -74,9 +74,9 @@ export default function ShopPage() {
                 borderRadius: "6px",
                 width: "420px",
                 height: "45px",
-                backgroundColor: "#111",
-                color: "white",
-                border: "1px solid #333",
+                backgroundColor: "emerald-900/20",
+                color: "green-900/10",
+                border: "1px solid #A7F3D0",
                 outline: "none",
               }}
             />
@@ -93,12 +93,13 @@ export default function ShopPage() {
               <div
                 key={item.id}
                 style={{
-                  backgroundColor: "#1a1a1a",
+                  backgroundColor:
+                    "bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10",
                   padding: "1rem",
                   borderRadius: "8px",
                   boxShadow: "0 4px 8px rgba(0,0,0,0.5)",
                 }}
-                className="flex flex-col justify-between"
+                className="flex flex-col justify-between rounded-xl border border-green-300/40"
               >
                 <img
                   src={item.image}
@@ -120,7 +121,7 @@ export default function ShopPage() {
                 <Button
                   onClick={() => router.push(`/shop/${item.id}`)}
                   variant="outline"
-                  className="mt-3"
+                  className="mt-3 rounded-xl border border-green-300/40"
                 >
                   See Detail...
                 </Button>
