@@ -60,7 +60,11 @@ export default function LeaderDetail() {
         Back
       </button>
 
-      <div className="max-w-md mx-auto rounded-2xl bg-zinc-900 border border-zinc-800 p-6 space-y-6 shadow-xl">
+      <div
+        className="max-w-md mx-auto rounded-xl border border-green-300/40
+              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+              p-6 transition hover:scale-[1.02] p-6 space-y-6 shadow-xl"
+      >
         <div className="flex items-center gap-4">
           <div>
             <h1 className="text-xl font-semibold text-white">
@@ -70,16 +74,28 @@ export default function LeaderDetail() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 text-center">
-          <div className="rounded-xl bg-zinc-800 py-3">
+        <div className="grid grid-cols-3 gap-4 text-center ">
+          <div
+            className="rounded-xl border border-green-300/40
+              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+              p-6 transition hover:scale-[1.02] py-3"
+          >
             <p className="text-lg font-bold text-white">{leader.coin}</p>
             <p className="text-xs text-zinc-400">Coins</p>
           </div>
-          <div className="rounded-xl bg-zinc-800 py-3">
+          <div
+            className="rounded-xl border border-green-300/40
+              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+              p-6 transition hover:scale-[1.02] py-3"
+          >
             <p className="text-lg font-bold text-white">{leader.followers}</p>
             <p className="text-xs text-zinc-400">Followers</p>
           </div>
-          <div className="rounded-xl bg-zinc-800 py-3">
+          <div
+            className="rounded-xl border border-green-300/40
+              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
+              p-6 transition hover:scale-[1.02] py-3"
+          >
             <p className="text-lg font-bold text-white">{leader.following}</p>
             <p className="text-xs text-zinc-400">Following</p>
           </div>
