@@ -6,18 +6,21 @@ export const Footer = () => {
     <div className="fixed top-0 left-0 h-screen z-50">
       <div
         className="
-          flex flex-col
-          items-start
-          pt-8
-          pb-20
-          px-6
-          gap-16        
-          h-full
-          w-56
-          bg-black
-          border-r border-gray-800
-          rounded-none
-        "
+    flex flex-col
+    items-start
+    pt-8
+    pb-20
+    px-6
+    gap-16
+    h-full
+    w-56
+
+    bg-gradient-to-b from-[#111827] to-[#1F2937]
+    border-r border-gray-700
+
+    text-gray-200
+    shadow-lg
+  "
       >
         <Link
           href="/"

@@ -41,7 +41,7 @@ export default function ShopPage() {
         padding: "2rem",
         fontFamily: "Arial, sans-serif",
       }}
-      className="bg-gradient-to-b from-blue-800 to-red"
+      className="bg-gradient-to-b from-blue-800 to-blue-400"
     >
       <div className="flex gap-8">
         <div className="flex-1">
