@@ -47,11 +47,11 @@ export default function RootLayout({
 
           <main className="flex-grow">{children}</main>
 
-          <footer className="w-full py-4 bg-[#192126]">
+          {/* <footer className="w-full py-4 bg-[#192126]">
             <div className="text-center text-white text-sm">
               © 2025 Kenomu · Learn today, lead tomorrow.
             </div>
-          </footer>
+          </footer> */}
 
           <Toaster richColors />
         </body>
