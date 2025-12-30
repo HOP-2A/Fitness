@@ -61,7 +61,11 @@ export default function CoinPage() {
           <div className="rounded-2xl bg-white/5 px-5 py-4 flex justify-between">
             <span className="text-gray-400 text-sm">Balance</span>
             <span className="text-yellow-400 font-bold text-2xl">
+<<<<<<< HEAD
               {userCoin.coin}🤑
+=======
+              {userCoin.coin}🪙
+>>>>>>> 048c680 (css)
             </span>
           </div>
         </div>
