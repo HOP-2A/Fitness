@@ -5,9 +5,10 @@ import { usePathname } from "next/navigation";
 
 type ShopItem = {
   id: string;
-
   price: number;
   stock: number;
+  dailyLimit: number;
+  soldToday: number;
 };
 
 export default function BuyProductPage() {
@@ -34,7 +35,7 @@ export default function BuyProductPage() {
 
         setItem(data.Detail);
         setLoading(false);
-      } catch (err) {
+      } catch {
         setError("Failed to connect to server");
         setLoading(false);
       }
@@ -42,6 +43,14 @@ export default function BuyProductPage() {
 
     fetchItem();
   }, [id]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (!item) return <p>Product not found</p>;
+
+  // ✅ DAILY LIMIT логик
+  const remainingToday = item.dailyLimit - item.soldToday;
+  const maxQty = Math.min(item.stock, remainingToday);
 
   const handlePurchase = async () => {
     if (!item) return;
@@ -59,29 +68,29 @@ export default function BuyProductPage() {
         alert(data.error || "Purchase failed");
       } else {
         alert("Purchase successful!");
-        setItem({ ...item, stock: item.stock - quantity });
+
+        // ✅ frontend дээр stock + soldToday update
+        setItem({
+          ...item,
+          stock: item.stock - quantity,
+          soldToday: item.soldToday + quantity,
+        });
+
         setQuantity(1);
       }
-    } catch (err) {
+    } catch {
       alert("Failed to connect to server");
     }
   };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!item) return <p>Product not found</p>;
 
   return (
     <div
       style={{ padding: "2rem" }}
       className="flex flex-col gap-3 content-start"
     >
-      <p className="font-bold">
-        Price: <span className="text-[#A3FFAB]">{item.price}</span> coins
-      </p>
-      <p className="font-bold">
-        Stock: <span className="text-[#A3FFAB]">{item.stock}</span>
-      </p>
+      <p className="font-bold">Price: {item.price} coins</p>
+      <p className="font-bold">Stock: {item.stock}</p>
+      <p className="font-bold">Remaining today: {remainingToday}</p>
 
       <label className="border border-[#A3FFAB] rounded-xl p-3 text-center font-semibold">
         Quantity:
@@ -89,9 +98,14 @@ export default function BuyProductPage() {
           className="border rounded-xl p-1 text-center"
           type="number"
           min={1}
-          max={item.stock}
+          max={maxQty}
           value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
+          onChange={(e) => {
+            const value = Number(e.target.value);
+            if (value >= 1 && value <= maxQty) {
+              setQuantity(value);
+            }
+          }}
           style={{ marginLeft: "0.5rem", width: "60px" }}
         />
       </label>
@@ -99,7 +113,7 @@ export default function BuyProductPage() {
       <button
         onClick={handlePurchase}
         style={{ marginLeft: "1rem", padding: "0.5rem 1rem" }}
-        disabled={quantity > item.stock || quantity < 1}
+        disabled={quantity < 1 || quantity > maxQty}
         className="border border-[#A3FFAB] rounded-xl p-3 text-center font-semibold hover:bg-[#A3FFAB] hover:text-black transition cursor-pointer"
       >
         Buy
