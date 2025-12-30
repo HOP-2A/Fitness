@@ -101,6 +101,8 @@ export default function AddProductState() {
               onChange={(e) => setPrice(e.target.value)}
               type="number"
               placeholder="Price"
+              max={1000}
+              min={1}
               required
               className="w-full bg-[#0E1113] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
             />
@@ -110,6 +112,8 @@ export default function AddProductState() {
               type="number"
               placeholder="Stock"
               required
+              max={200}
+              min={1}
               className="w-full bg-[#0E1113] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
             />
             <input
@@ -118,6 +122,8 @@ export default function AddProductState() {
               type="number"
               placeholder="Daily Limit"
               required
+              max={100}
+              min={1}
               className="w-full bg-[#0E1113] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
             />
           </div>

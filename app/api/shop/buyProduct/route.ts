@@ -33,11 +33,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
   }
 
-  const totalPrice = item.price * qty;
+  if (item.soldToday + qty > item.dailyLimit) {
+    return NextResponse.json(
+      { error: "Daily limit exceeded" },
+      { status: 400 }
+    );
+  }
 
   if (item.stock < qty) {
     return NextResponse.json({ error: "Not enough stock" }, { status: 400 });
   }
+
+  const totalPrice = item.price * qty;
 
   if (user.coin < totalPrice) {
     return NextResponse.json({ error: "Not enough coin" }, { status: 400 });
@@ -59,7 +66,7 @@ export async function POST(req: Request) {
       },
     });
 
-    return await tx.purchase.create({
+    return tx.purchase.create({
       data: {
         userId: user.id,
         itemId: item.id,
