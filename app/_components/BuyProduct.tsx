@@ -48,7 +48,6 @@ export default function BuyProductPage() {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!item) return <p>Product not found</p>;
 
-  // ✅ DAILY LIMIT логик
   const remainingToday = item.dailyLimit - item.soldToday;
   const maxQty = Math.min(item.stock, remainingToday);
 
@@ -69,7 +68,6 @@ export default function BuyProductPage() {
       } else {
         alert("Purchase successful!");
 
-        // ✅ frontend дээр stock + soldToday update
         setItem({
           ...item,
           stock: item.stock - quantity,
