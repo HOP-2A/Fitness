@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/providers/authProvider";
 import { useUser } from "@clerk/nextjs";
 import { motion } from "framer-motion";
-import { Mail, Router, User } from "lucide-react";
+import { Mail, User } from "lucide-react";
 import { Footer } from "../_components/Footer";
 import CoinPage from "../_components/ShowCoin";
 
@@ -19,69 +19,47 @@ const Page = () => {
     : "U";
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-gradient-to-b from-blue-800 to-red">
+    <div className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#050B14]">
+      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-green-500/20 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 -right-40 w-[500px] h-[500px] bg-emerald-500/20 rounded-full blur-[120px]" />
+
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: "easeOut" }}
-        className="flex justify-center mx-auto mt-24 px-4 w-full"
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="relative z-10 flex justify-center px-4 pt-28"
       >
-        <Card
-          className="relative w-[800px] rounded-xl border border-green-300/40
-              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-              p-6 transition hover:scale-[1.02] overflow-hidden"
-        >
-          <div className="absolute inset-0 pointer-events-none shadow-[0_0_50px_-15px_rgba(163,255,171,0.18)]" />
-
-          <CardContent className="relative p-8 flex flex-col gap-6">
+        <Card className="w-full max-w-3xl rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+          <CardContent className="p-8 space-y-8">
             <div className="flex items-center gap-6">
-              <div className="relative shrink-0">
-                <div className="absolute inset-0 rounded-full bg-[#A3FFAB]/25 blur-lg" />
-                <Avatar
-                  className="w-24 h-24 rounded-full border border-green-300/40
-              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-              p-6 transition hover:scale-[1.02]"
-                >
-                  <AvatarImage src={user?.profilePicture || undefined} />
-                  <AvatarFallback
-                    className="text-xl font-semibold rounded-full border border-green-300/40
-              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-              p-6 transition hover:scale-[1.02] text-[#A3FFAB]"
-                  >
-                    {initials}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
+              <Avatar className="w-24 h-24 border border-white/20">
+                <AvatarImage src={user?.profilePicture || undefined} />
+                <AvatarFallback className="bg-emerald-500/20 text-emerald-300 text-xl font-bold">
+                  {initials}
+                </AvatarFallback>
+              </Avatar>
 
-              <div className="flex flex-col">
-                <h2 className="text-2xl font-semibold text-[#A3FFAB] tracking-wide">
+              <div>
+                <h2 className="text-2xl font-semibold text-white">
                   @{user?.username}
                 </h2>
-                <span className="text-sm text-gray-400">Account Overview</span>
+                <p className="text-sm text-gray-400">Account Overview</p>
               </div>
             </div>
 
-            <div className="h-px bg-gradient-to-r from-transparent via-[#3B434D] to-transparent" />
+            <div className="h-px bg-white/10" />
 
-            <div className="space-y-4 pl-[7.5rem]">
-              <div
-                className="group flex items-start gap-3 rounded-xl border border-green-300/40
-              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-              p-6 transition hover:scale-[1.02]"
-              >
-                <User className="w-4 h-4 text-[#A3FFAB] mt-1 shrink-0" />
-                <span className="text-gray-200 break-all text-sm">
+            <div className="space-y-4">
+              <div className="flex gap-3 items-start rounded-xl border border-white/10 bg-white/5 p-4">
+                <User className="w-4 h-4 text-emerald-400 mt-1" />
+                <span className="text-sm text-gray-200 break-all">
                   {user?.clerkId}
                 </span>
               </div>
 
-              <div
-                className="group flex items-start gap-3 rounded-xl rounded-xl border border-green-300/40
-              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-              p-6 transition hover:scale-[1.02]"
-              >
-                <Mail className="w-4 h-4 text-[#A3FFAB] mt-1 shrink-0" />
-                <span className="text-gray-200 break-all text-sm">
+              <div className="flex gap-3 items-start rounded-xl border border-white/10 bg-white/5 p-4">
+                <Mail className="w-4 h-4 text-emerald-400 mt-1" />
+                <span className="text-sm text-gray-200 break-all">
                   {user?.email}
                 </span>
               </div>
@@ -89,7 +67,7 @@ const Page = () => {
           </CardContent>
         </Card>
 
-        <div className="fixed top-17 right-4.5 z-50">
+        <div className="fixed bottom-195 right-6 z-50 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl p-3">
           <CoinPage />
         </div>
       </motion.div>
