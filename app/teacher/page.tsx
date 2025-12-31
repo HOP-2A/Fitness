@@ -30,24 +30,32 @@ const Page = () => {
   const handleGiveExercise = () => push("/teacher/exercise");
 
   return (
-    <div className="min-h-screen bg-[#192126] text-white relative flex flex-col items-center p-8">
-      <Greeting />
-
-      <button
-        onClick={handleGiveExercise}
-        className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50"
-      >
-        Give Exercise
-      </button>
-
-      <div className="fixed top-45 left-34 z-50 animate-slide-in">
-        <GetStudent />
+    <div className="min-h-screen bg-[#1F262C] text-white relative flex flex-col p-8">
+      <div className="flex justify-between p-6">
+        <div className="flex flex-col">
+          <span className="text-2xl font-bold flex">Dashboard</span>
+          <Greeting />
+        </div>
+        <div className="flex justify-end">
+          <button
+            onClick={handleGiveExercise}
+            className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50"
+          >
+            Give Exercise
+          </button>
+        </div>
       </div>
-
-      <div className="fixed bottom-20 top-45 right-34 w-80">
-        <Todolist teacherId={user?.id ?? ""} />
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
+        <div>
+          <GetStudent />
+        </div>
+        <div className="md:col-span-2">
+          <AddProductPage />
+        </div>
+        <div>
+          <Todolist teacherId={user?.id ?? ""} />
+        </div>
       </div>
-      <AddProductPage />
     </div>
   );
 };

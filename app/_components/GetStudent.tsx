@@ -24,16 +24,21 @@ export const GetStudent = () => {
   }, []);
 
   return (
-    <div className="w-80 border border-[#3B434D] rounded-xl shadow-lg p-4 bg-[#192126] hover:shadow-[#A3FFAB]/30 transition-all duration-300">
-      <h2 className="text-xl font-bold text-[#A3FFAB] mb-3 flex items-center gap-2">
-        🌱 Students
-      </h2>
+    <div className="w-full border border-[#3B434D] rounded-xl shadow-lg p-4 bg-[#1F262C] hover:shadow-[#A3FFAB]/30 transition-all duration-300">
+      <div className="flex justify-between">
+        <h2 className="text-xl font-bold text-[#A3FFAB] mb-3 flex items-center gap-2">
+          🌱 Students
+        </h2>
+        <div className="border border-[#3B434D] rounded h-[24px] w-[24px] flex justify-center items-center text-">
+          {users.length}
+        </div>
+      </div>
 
-      <ul className="space-y-2 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-[#A3FFAB]/50 scrollbar-track-[#2C333A]">
+      <ul className="space-y-2  overflow-y-auto">
         {users.map((user) => (
           <li
             key={user.id}
-            className="p-3 rounded-lg border border-[#3B434D] bg-[#192126] text-white hover:bg-[#37404B] transition-colors shadow-sm hover:cursor-pointer"
+            className="p-3 rounded-lg border border-[#3B434D] bg-[#0E1113] text-white hover:bg-[#37404B] transition-colors shadow-sm hover:cursor-pointer"
             onClick={() => push(`/teacher/${user.id}`)}
           >
             <p className="font-semibold">{user.username}</p>
