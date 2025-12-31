@@ -96,7 +96,7 @@ const GetAssignedExercise = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <h2 className="text-3xl font-extrabold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+      <h2 className="text-3xl font-extrabold text-black ">
         Assigned Exercises
       </h2>
 
@@ -130,7 +130,7 @@ const GetAssignedExercise = () => {
               {ex.status}
             </button>
 
-            <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+            <h3 className="text-xl font-semibold text-black flex items-center gap-2">
               {ex.title}
               {timeAgo(ex.createdAt) === "Today" && (
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-400">
@@ -139,17 +139,17 @@ const GetAssignedExercise = () => {
               )}
             </h3>
 
-            <p className="mt-1 text-xs text-white/50">
+            <p className="mt-1 text-xs text-gray-300">
               📅 Posted: {timeAgo(ex.createdAt)}
             </p>
 
-            <div className="mt-4 flex justify-between text-xs text-white">
+            <div className="mt-4 flex justify-between text-xs text-black">
               <span>⭐ Rate: {ex.rate}</span>
               <span>💰 Reward: {ex.reward}</span>
             </div>
 
             <button
-              className="mt-4 text-sm underline text-white"
+              className="mt-4 text-sm underline text-black"
               onClick={() => router.push(`/detail/${ex.id}`)}
             >
               See Details →
