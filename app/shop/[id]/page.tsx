@@ -46,9 +46,9 @@ export default function ShopItemDetail() {
     fetchItem();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!item) return <p>No item found</p>;
+  if (loading) return <p className="text-center mt-20">Loading...</p>;
+  if (error) return <p className="text-red-500 text-center mt-20">{error}</p>;
+  if (!item) return <p className="text-center mt-20">No item found</p>;
 
   const timeAgo = (dateString: string) => {
     const createdDate = new Date(dateString);
@@ -62,79 +62,82 @@ export default function ShopItemDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-800 to-red flex justify-center px-4 py-10">
-      <button
-        onClick={() => router.push("/shop")}
-        className="flex items-center gap-2 text-black hover:text-white transition absolute left-5 top-5"
-      >
-        <ArrowLeft size={18} /> Back
-      </button>
-
-      <div className="w-full h-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 ">
-        <div
-          className="md:col-span-2 rounded-xl border border-green-300/40
-              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-              p-6 transition hover:scale-[1.02] shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)] p-6 text-gray-200 space-y-4"
-        >
-          <h2 className="text-2xl font-semibold text-[#A3FFAB]">
-            {item.title}
-          </h2>
-
-          <p className="text-sm text-white">
-            Product Name:
-            <span className="text-[#A3FFAB]">{item.productName}</span>
-          </p>
-
-          <img
-            src={item.image}
-            alt={item.title}
-            className="w-full max-h-[400px] object-cover rounded-xl border border-[#3B434D]"
-          />
-
-          <div className="grid grid-cols-2 gap-4 text-sm pt-2">
-            <p>
-              <span className="text-white">Stock:</span>{" "}
-              <span className="text-[#A3FFAB]">{item.stock}</span>
-            </p>
-            <p>
-              <span className="text-white">Daily Limit:</span>{" "}
-              <span className="text-[#A3FFAB]">{item.dailyLimit}</span>
-            </p>
-            <p>
-              <span className="text-white">Sold Today:</span>{" "}
-              <span className="text-[#A3FFAB]">{item.soldToday}</span>
-            </p>
-          </div>
-
-          <div className="text-xs text-gray-400 pt-3 space-y-1">
-            <p>Created: {timeAgo(item.createdAt)}</p>
-          </div>
-        </div>
-
-        <div
-          className="rounded-xl border border-green-300/40
-              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-              p-6 transition hover:scale-[1.02] shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)] p-6 text-white space-y-6"
-        >
-          <div className="text-center">
-            <p className="text-sm text-white">Price</p>
-            <p className="text-3xl font-bold text-[#A3FFAB]">
-              {item.price} Coins
-            </p>
-          </div>
-
-          <div
-            className="rounded-xl border border-green-300/40
-              bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
-              p-6 transition hover:scale-[1.02] p-4"
-          >
-            <BuyProductPage />
-          </div>
+    <div className="min-h-screen bg-slate-50 relative">
+      <div className="fixed top-17 right-44 z-50 flex flex-col items-end gap-4">
+        <div className="w-[300px]">
+          <CoinPage variant="shop" />
         </div>
       </div>
 
-      <div className="fixed top-20 right-5 z-50">
-        <CoinPage />
+      <div className="mx-auto max-w-7xl px-6 py-6">
+        <button
+          onClick={() => router.push("/shop")}
+          className="mb-6 flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
+        >
+          <ArrowLeft size={16} />
+          Back
+        </button>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+              <img
+                src={item.image}
+                alt={item.productName}
+                className="w-full h-[360px] object-cover bg-slate-100"
+              />
+
+              <div className="p-6 space-y-4">
+                <h1 className="text-2xl font-semibold text-slate-900">
+                  {item.productName}
+                </h1>
+
+                <p className="text-sm text-slate-500">{item.title}</p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm pt-2">
+                  <p>
+                    <span className="text-slate-400 text-xs">Stock</span>
+                    <br />
+                    <span className="font-medium text-slate-800">
+                      {item.stock}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="text-slate-400 text-xs">Daily Limit</span>
+                    <br />
+                    <span className="font-medium text-slate-800">
+                      {item.dailyLimit}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="text-slate-400 text-xs">Sold Today</span>
+                    <br />
+                    <span className="font-medium text-slate-800">
+                      {item.soldToday}
+                    </span>
+                  </p>
+                </div>
+
+                <p className="text-xs text-slate-400">
+                  Created: {timeAgo(item.createdAt)}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 space-y-4">
+              <div className="text-center">
+                <p className="text-xs text-slate-500">Price</p>
+                <p className="text-3xl font-semibold text-emerald-600">
+                  {item.price} coins
+                </p>
+              </div>
+
+              <BuyProductPage />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

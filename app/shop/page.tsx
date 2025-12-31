@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import CoinPage from "../_components/ShowCoin";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import CoinPage from "../_components/ShowCoin";
 
 interface ShopItem {
   id: string;
@@ -21,117 +21,112 @@ export default function ShopPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      async function fetchItems() {
-        const res = await fetch(`/api/shop/search?q=${search}`);
-        const data: ShopItem[] = await res.json();
-        setItems(data);
-      }
-      fetchItems();
-    }, 100);
+    const timer = setTimeout(async () => {
+      const res = await fetch(`/api/shop/search?q=${search}`);
+      const data: ShopItem[] = await res.json();
+      setItems(data);
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [search]);
 
   return (
-    <div
-      style={{
-        color: "white",
-        minHeight: "100vh",
-        padding: "2rem",
-        fontFamily: "Arial, sans-serif",
-      }}
-      className="bg-gradient-to-b from-blue-800 to-blue-400"
-    >
-      <div className="flex gap-8">
-        <div className="flex-1">
+    <div className="min-h-screen bg-slate-50">
+      <div className="mx-auto max-w-7xl px-6 py-6">
+        <div className="flex items-center gap-4 mb-6">
           <button
             onClick={() => router.push("/")}
-            className="flex items-center gap-2 text-black hover:text-white transition mb-4"
+            className="flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeft size={16} />
             Back
           </button>
 
-          <div className="flex items-center gap-6 mb-8">
-            <h1
-              style={{
-                borderBottom: "2px solid #333",
-                paddingBottom: "0.5rem",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Shop Items
-            </h1>
+          <input
+            type="text"
+            placeholder="Search product name..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="ml-auto w-[320px] rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
+          />
+        </div>
 
-            <input
-              type="text"
-              placeholder="Search product name..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              style={{
-                padding: "10px",
-                borderRadius: "6px",
-                width: "420px",
-                height: "45px",
-                backgroundColor: "emerald-900/20",
-                color: "green-900/10",
-                border: "1px solid #A7F3D0",
-                outline: "none",
-              }}
-            />
-          </div>
+        <div className="mb-8">
+          <h1 className="text-2xl font-semibold text-slate-900">Shop Items</h1>
+          <p className="text-sm text-slate-500">
+            Browse our fitness equipment and accessories
+          </p>
+        </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-              gap: "1.5rem",
-            }}
-          >
+        <div className="flex gap-8">
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {items.map((item) => (
               <div
                 key={item.id}
-                style={{
-                  backgroundColor:
-                    "bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10",
-                  padding: "1rem",
-                  borderRadius: "8px",
-                  boxShadow: "0 4px 8px rgba(0,0,0,0.5)",
-                }}
-                className="flex flex-col justify-between rounded-xl border border-green-300/40"
+                className="
+                  group
+                  flex flex-col
+                  rounded-xl
+                  border border-slate-200
+                  bg-white
+                  shadow-sm
+                  transition-all
+                  hover:-translate-y-0.5
+                  hover:shadow-lg
+                "
               >
-                <img
-                  src={item.image}
-                  alt={item.productName}
-                  style={{
-                    width: "100%",
-                    height: "150px",
-                    objectFit: "cover",
-                    borderRadius: "6px",
-                    marginBottom: "0.5rem",
-                  }}
-                />
+                <div className="overflow-hidden rounded-t-xl bg-slate-100">
+                  <img
+                    src={item.image}
+                    alt={item.productName}
+                    className="
+                      h-[180px]
+                      w-full
+                      object-cover
+                      transition-transform
+                      duration-300
+                      group-hover:scale-105
+                    "
+                  />
+                </div>
 
-                <h2 className="text-lg font-semibold">{item.title}</h2>
-                <p>Product: {item.productName}</p>
-                <p>Price: {item.price} coin</p>
-                <p>Stock: {item.stock}</p>
+                <div className="flex flex-col p-4 flex-1">
+                  <h2 className="text-base font-semibold text-slate-900 leading-tight mb-0.5">
+                    {item.productName}
+                  </h2>
 
-                <Button
-                  onClick={() => router.push(`/shop/${item.id}`)}
-                  variant="outline"
-                  className="mt-3 rounded-xl border border-green-300/40"
-                >
-                  See Detail...
-                </Button>
+                  <p className="text-xs text-slate-500 mb-2">{item.title}</p>
+
+                  <div className="text-sm space-y-1 mb-4">
+                    <p className="font-semibold text-emerald-600">
+                      {item.price} coin
+                    </p>
+                    <p className="text-xs text-slate-400">
+                      Stock: {item.stock}
+                    </p>
+                  </div>
+
+                  <Button
+                    onClick={() => router.push(`/shop/${item.id}`)}
+                    className="
+                      mt-auto
+                      h-9
+                      rounded-lg
+                      bg-slate-900
+                      text-white
+                      hover:bg-slate-800
+                    "
+                  >
+                    See Detail
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
-        </div>
 
-        <div className="w-[320px] sticky top-8 h-fit">
-          <CoinPage />
+          <div className="w-[300px] sticky top-6 h-fit">
+            <CoinPage variant="shop" />
+          </div>
         </div>
       </div>
     </div>
