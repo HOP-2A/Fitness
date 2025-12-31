@@ -56,7 +56,7 @@ const Todolist = ({ teacherId }: TodoListProps) => {
   };
 
   return (
-    <div className="max-w-xl mx-auto bg-[#1E2429] rounded-xl shadow-lg p-6 hover:shadow-[#A3FFAB]/30 transition-all duration-300">
+    <div className="w-full mx-auto bg-[#1F262C] rounded-xl shadow-lg p-6 hover:shadow-[#A3FFAB]/30 transition-all duration-300 flex flex-col justify-end border border-[#3B434D] rounded">
       <h2 className="text-xl font-semibold text-[#A3FFAB] mb-4 flex items-center gap-2">
         📋 Todo List
       </h2>
@@ -66,7 +66,7 @@ const Todolist = ({ teacherId }: TodoListProps) => {
           value={task}
           onChange={(e) => setTask(e.target.value)}
           placeholder="Write a new task..."
-          className="flex-1 rounded-lg bg-[#2C333A] border border-[#3B434D] px-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] transition"
+          className="flex-1 rounded-lg bg-[#0E1113] border border-[#3B434D] px-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] transition"
         />
         <button
           onClick={addTodo}

@@ -16,7 +16,7 @@ const Greeting = () => {
     style = { color: "#6A5ACD" };
   }
 
-  return <h1 style={style}>{greeting}</h1>;
+  return <span style={style}>{greeting}</span>;
 };
 
 export default Greeting;

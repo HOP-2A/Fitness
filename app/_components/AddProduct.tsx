@@ -67,13 +67,13 @@ export default function AddProductState() {
   }
 
   return (
-    <div className="flex items-center justify-center p-4 absolute top-45">
-      <div className="w-full max-w-md bg-[#1F262C] border border-zinc-700 rounded-2xl p-6 shadow-2xl hover:shadow-[#A3FFAB]/30 transition-all duration-300">
+    <div className="flex items-center justify-center">
+      <div className="w-full bg-[#1F262C] border border-zinc-700 rounded-2xl p-6 shadow-2xl hover:shadow-[#A3FFAB]/30 transition-all duration-300">
         <h2 className="text-[#A3FFAB] text-2xl font-bold mb-6 text-center tracking-wide">
           Add New Product
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 w-full">
           <input
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
