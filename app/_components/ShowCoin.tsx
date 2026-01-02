@@ -37,13 +37,13 @@ export default function CoinPage({ variant = "default" }: CoinPageProps) {
   const isShop = variant === "shop";
 
   const containerClass = isShop
-    ? "w-[300px] rounded-xl border border-slate-200 bg-white shadow-sm p-5"
+    ? "w-[275px] rounded-xl border border-slate-200 bg-gradient-to-br from-[#020617] via-[#050B14] to-[#0F172A] shadow-sm p-5"
     : `w-[360px] rounded-xl border border-green-300/40
        bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
        shadow-[0_25px_80px_-20px_rgba(0,0,0,0.9)] p-6 transition hover:scale-[1.02]`;
 
   const titleClass = isShop
-    ? "text-sm font-semibold text-slate-900 flex items-center gap-2 mb-4"
+    ? "text-sm font-semibold text-slate-200 flex items-center gap-2 mb-4"
     : "text-white text-2xl font-bold mb-6 flex items-center gap-2";
 
   const boxClass = isShop
