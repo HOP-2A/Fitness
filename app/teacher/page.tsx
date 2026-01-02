@@ -6,7 +6,6 @@ import Todolist from "../_components/Todolist";
 import Greeting from "../_components/Greeting";
 import { useAuth } from "@/providers/authProvider";
 import { GetStudent } from "../_components/GetStudent";
-import AddProductPage from "../_components/AddProduct";
 
 const Page = () => {
   const { user: clerkUser, isLoaded } = useUser();

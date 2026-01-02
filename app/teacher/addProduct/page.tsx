@@ -70,15 +70,15 @@ const Page = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#1F262C] text-white relative flex flex-col p-8 items-center justify-center">
-      <motion.button
-        onClick={() => push("/teacher")}
-        className="absolute top-6 left-6 px-5 py-2 rounded-xl bg-[#2C353C] text-[#B6E0FE] hover:bg-[#3B4A54] transition-colors"
-      >
-        ← Back
-      </motion.button>
-      <div className="flex items-center justify-center w-[1000px]">
-        <div className="w-full bg-[#1F262C] border border-zinc-700 rounded-2xl p-6 shadow-2xl hover:shadow-[#A3FFAB]/30 transition-all duration-300">
+    <div className="min-h-screen bg-[#1F262C] text-white relative flex flex-col p-8">
+      <div className="flex items-center justify-center ">
+        <motion.button
+          onClick={() => push("/teacher")}
+          className="absolute top-6 left-6 px-5 py-2 rounded-xl bg-[#2C353C] text-[#B6E0FE] hover:bg-[#3B4A54] transition-colors"
+        >
+          ← Back
+        </motion.button>
+        <div className="bg-[#1F262C] border border-zinc-700 rounded-2xl p-6 shadow-2xl hover:shadow-[#A3FFAB]/30 transition-all duration-300 w-[1000px]">
           <h2 className="text-[#A3FFAB] text-2xl font-bold mb-6 text-center tracking-wide">
             Add New Product
           </h2>
