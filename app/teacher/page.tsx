@@ -30,6 +30,7 @@ const Page = () => {
 
   const addProductPush = () => push("/teacher/addProduct");
 
+  const seeProductPush = () => push("/teacher/seeProducts");
   return (
     <div className="min-h-screen bg-[#1F262C] text-white relative flex flex-col p-8">
       <div className="flex justify-between p-6">
@@ -49,6 +50,12 @@ const Page = () => {
             className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50"
           >
             Add Product
+          </button>
+          <button
+            onClick={seeProductPush}
+            className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50"
+          >
+            See Product
           </button>
         </div>
       </div>
