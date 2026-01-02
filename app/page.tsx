@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import GetAssignedExercise from "./_components/GetAssignedExercise";
 import { Footer } from "./_components/Footer";
 import CoinPage from "./_components/ShowCoin";
+import ShowCarousel from "./_components/Carousel";
 
 const Page = () => {
   const router = useRouter();
@@ -36,6 +37,7 @@ const Page = () => {
       <div className="fixed top-17 right-4.5 z-50">
         <CoinPage />
       </div>
+      <ShowCarousel />
     </div>
   );
 };
