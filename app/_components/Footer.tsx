@@ -24,7 +24,7 @@ export const Footer = () => {
       >
         <Link
           href="/"
-          className="flex items-center gap-4 text-white hover:text-gray-400 transition"
+          className="flex items-center gap-4 text-white  hover:text-gray-400 transition"
         >
           <House size={22} />
           <span className="text-sm font-medium">Home</span>
