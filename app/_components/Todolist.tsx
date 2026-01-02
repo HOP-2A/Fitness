@@ -66,7 +66,7 @@ const Todolist = ({ teacherId }: TodoListProps) => {
           value={task}
           onChange={(e) => setTask(e.target.value)}
           placeholder="Write a new task..."
-          className="flex-1 rounded-lg bg-[#0E1113] border border-[#3B434D] px-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] transition"
+          className="flex-1 rounded-lg bg-[#3A4047] border border-[#3B434D] px-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] transition"
         />
         <button
           onClick={addTodo}

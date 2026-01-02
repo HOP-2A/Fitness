@@ -95,7 +95,7 @@ const GetAssignedExercise = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl ml-65 space-y-6">
       <h2 className="text-3xl font-extrabold text-black ">
         Assigned Exercises
       </h2>

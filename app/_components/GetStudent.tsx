@@ -29,16 +29,16 @@ export const GetStudent = () => {
         <h2 className="text-xl font-bold text-[#A3FFAB] mb-3 flex items-center gap-2">
           🌱 Students
         </h2>
-        <div className="border border-[#3B434D] rounded h-[24px] w-[24px] flex justify-center items-center text-">
+        <div className="border border-[#3B434D] rounded h-[24px] w-[24px] flex justify-center items-center font-bold">
           {users.length}
         </div>
       </div>
 
-      <ul className="space-y-2  overflow-y-auto">
+      <ul className="space-y-2 overflow-y-auto">
         {users.map((user) => (
           <li
             key={user.id}
-            className="p-3 rounded-lg border border-[#3B434D] bg-[#0E1113] text-white hover:bg-[#37404B] transition-colors shadow-sm hover:cursor-pointer"
+            className="p-3 rounded-lg border border-[#3B434D] bg-[#3A4047] text-white hover:bg-[#37404B] transition-colors shadow-sm hover:cursor-pointer"
             onClick={() => push(`/teacher/${user.id}`)}
           >
             <p className="font-semibold">{user.username}</p>

@@ -79,21 +79,21 @@ export default function AddProductState() {
             onChange={(e) => setProductName(e.target.value)}
             placeholder="Product Name"
             required
-            className="w-full bg-[#0E1113] border border-zinc-600 text-white px-4 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
+            className="w-full bg-[#3A4047] border border-zinc-600 text-white px-4 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
           />
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Title"
             required
-            className="w-full bg-[#0E1113] border border-zinc-600 text-white px-4 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
+            className="w-full bg-[#3A4047] border border-zinc-600 text-white px-4 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
           />
           <input
             value={image}
             onChange={(e) => setImage(e.target.value)}
             placeholder="Image URL"
             required
-            className="w-full bg-[#0E1113] border border-zinc-600 text-white px-4 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
+            className="w-full bg-[#3A4047] border border-zinc-600 text-white px-4 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
           />
           <div className="grid grid-cols-3 gap-3">
             <input
@@ -104,7 +104,7 @@ export default function AddProductState() {
               max={1000}
               min={1}
               required
-              className="w-full bg-[#0E1113] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
+              className="w-full bg-[#3A4047] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
             />
             <input
               value={stock}
@@ -114,7 +114,7 @@ export default function AddProductState() {
               required
               max={200}
               min={1}
-              className="w-full bg-[#0E1113] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
+              className="w-full bg-[#3A4047] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
             />
             <input
               value={dailyLimit}
@@ -124,7 +124,7 @@ export default function AddProductState() {
               required
               max={100}
               min={1}
-              className="w-full bg-[#0E1113] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
+              className="w-full bg-[#3A4047] border border-zinc-600 text-white px-3 py-2 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] focus:border-transparent transition"
             />
           </div>
 
