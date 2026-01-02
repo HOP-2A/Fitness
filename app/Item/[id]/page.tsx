@@ -71,7 +71,7 @@ export default function ShopItemDetail() {
 
       <div className="mx-auto max-w-7xl px-6 py-6">
         <button
-          onClick={() => router.push("/shop")}
+          onClick={() => router.push("/")}
           className="mb-6 flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
         >
           <ArrowLeft size={16} />
@@ -110,9 +110,7 @@ export default function ShopItemDetail() {
                     </span>
                   </p>
                   <p>
-                    <span className="text-slate-400 text-xs">
-                      Sold In All Time
-                    </span>
+                    <span className="text-slate-400 text-xs">Sold Today</span>
                     <br />
                     <span className="font-medium text-slate-800">
                       {item.soldToday}
