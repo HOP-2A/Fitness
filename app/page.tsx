@@ -33,11 +33,13 @@ const Page = () => {
       <div className="top-4 left-4">
         <GetAssignedExercise />
       </div>
+      <ShowCarousel />
+
       <Footer />
+
       <div className="fixed top-17 right-4.5 z-50">
         <CoinPage />
       </div>
-      <ShowCarousel />
     </div>
   );
 };
