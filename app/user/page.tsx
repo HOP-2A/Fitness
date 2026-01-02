@@ -67,7 +67,7 @@ const Page = () => {
           </CardContent>
         </Card>
 
-        <div className="fixed bottom-195 right-6 z-50 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl p-3">
+        <div className="fixed right-6 top-29">
           <CoinPage />
         </div>
       </motion.div>
