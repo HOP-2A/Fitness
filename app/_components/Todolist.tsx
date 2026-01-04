@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
@@ -68,12 +69,12 @@ const Todolist = ({ teacherId }: TodoListProps) => {
           placeholder="Write a new task..."
           className="flex-1 rounded-lg bg-[#3A4047] border border-[#3B434D] px-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A3FFAB] transition"
         />
-        <button
+        <Button
           onClick={addTodo}
-          className="bg-[#A3FFAB] text-[#1E2429] px-5 py-2 rounded-full text-sm font-medium shadow-md hover:shadow-lg transition transform hover:scale-105"
+          className="bg-[#A3FFAB] text-[#1E2429] px-5 py-2 rounded-full text-sm font-medium shadow-md hover:shadow-lg transition transform hover:scale-105 hover:cursor-pointer"
         >
           Add
-        </button>
+        </Button>
       </div>
 
       {todos.length === 0 ? (

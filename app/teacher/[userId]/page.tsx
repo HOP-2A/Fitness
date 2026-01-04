@@ -187,7 +187,7 @@ export default function ExercisePage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => router.back()}
-            className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 transition"
+            className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 transition hover:cursor-pointer"
           >
             ← Back
           </button>
@@ -260,7 +260,7 @@ export default function ExercisePage() {
                     <span className="text-green-400">level: {ex.rate} </span>
                     <button
                       onClick={() => deleteTask(ex.id)}
-                      className="text-xs px-3 py-1 rounded bg-red-600/80 hover:bg-red-600"
+                      className="text-xs px-3 py-1 rounded bg-red-600/80 hover:bg-red-600 hover:cursor-pointer"
                     >
                       Delete
                     </button>
@@ -270,7 +270,7 @@ export default function ExercisePage() {
                     <div className="mt-4 flex gap-2">
                       <button
                         onClick={() => setEditingExercise(ex)}
-                        className="text-xs px-3 py-1 rounded bg-blue-600/80 hover:bg-blue-600"
+                        className="text-xs px-3 py-1 rounded bg-blue-600/80 hover:bg-blue-600 hover:cursor-pointer"
                       >
                         Edit
                       </button>
@@ -360,13 +360,13 @@ export default function ExercisePage() {
               <div className="flex justify-end gap-2 mt-5">
                 <button
                   onClick={() => setEditingExercise(null)}
-                  className="px-4 py-2 text-sm rounded bg-white/10 hover:bg-white/20"
+                  className="px-4 py-2 text-sm rounded bg-white/10 hover:bg-white/20 hover:cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={saveEdit}
-                  className="px-4 py-2 text-sm rounded bg-blue-600 hover:bg-blue-700"
+                  className="px-4 py-2 text-sm rounded bg-blue-600 hover:bg-blue-700 hover:cursor-pointer"
                 >
                   Save
                 </button>
@@ -395,26 +395,26 @@ export default function ExercisePage() {
               </h3>
               <div className="flex gap-2">
                 <button
-                  className="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded"
+                  className="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded hover:cursor-pointer"
                   onClick={() => handleStatusChange("PENDING")}
                 >
                   PENDING
                 </button>
                 <button
-                  className="px-3 py-1 bg-green-500/20 text-green-400 rounded"
+                  className="px-3 py-1 bg-green-500/20 text-green-400 rounded hover:cursor-pointer"
                   onClick={() => handleStatusChange("DONE")}
                 >
                   DONE
                 </button>
                 <button
-                  className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded"
+                  className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded hover:cursor-pointer"
                   onClick={() => handleStatusChange("APPROVE")}
                 >
                   APPROVE
                 </button>
               </div>
               <button
-                className="mt-3 text-sm text-white/60"
+                className="mt-3 text-sm text-white/60 hover:cursor-pointer"
                 onClick={() => setShowStatusModal(false)}
               >
                 Cancel
