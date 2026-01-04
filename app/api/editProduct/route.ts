@@ -1,4 +1,4 @@
-// /app/api/shop/edit.ts
+
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 

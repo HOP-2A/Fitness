@@ -27,10 +27,23 @@ model User {
   profilePicture String?
   coin           Int     @default(0)
 
-  purchases Purchase[]
-
+  purchases  Purchase[]
   exercises  AssignedExercise[]
   attendance Attendance[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Teacher {
+  id        String @id @default(nanoid())
+  adminName String
+  email     String @unique
+  clerkId   String @unique
+
+  shopItems         ShopItem[]
+  assignedExercises AssignedExercise[]
+  todos             Todo[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -71,21 +84,6 @@ model Purchase {
   createdAt DateTime @default(now())
 }
 
-model Teacher {
-  id        String @id @default(nanoid())
-  adminName String
-  email     String @unique
-  clerkId   String @unique
-
-  shopItems ShopItem[]
-
-  assignedExercises AssignedExercise[]
-  todos             Todo[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model AssignedExercise {
   id String @id @default(nanoid())
 
@@ -103,8 +101,27 @@ model AssignedExercise {
   status ExerciseStatus @default(PENDING)
   reward Int            @default(0)
 
+  exerciseComments ExerciseComment[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ExerciseComment {
+  id String @id @default(nanoid())
+
+  content String
+
+  exerciseId String
+  exercise   AssignedExercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+
+  authorId String
+
+  parentId String?
+  parent   ExerciseComment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies  ExerciseComment[] @relation("CommentReplies")
+
+  createdAt DateTime @default(now())
 }
 
 model Attendance {
@@ -126,9 +143,11 @@ model Session {
 }
 
 model Todo {
-  id        String   @id @default(nanoid())
-  task      String
+  id   String @id @default(nanoid())
+  task String
+
   teacherId String
-  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+
   createdAt DateTime @default(now())
 }
