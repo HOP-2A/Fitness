@@ -94,7 +94,7 @@ export default function DetailPage() {
       </button>
 
       <div className="flex flex-col lg:flex-row gap-8 max-w-[1500px] mx-auto">
-        <div className="flex-1 rounded-3xl bg-zinc-900/80 border border-zinc-800 p-8 space-y-6 shadow-2xl flex flex-col">
+        <div className="flex-1 h-[20%] rounded-3xl bg-zinc-900/80 border border-zinc-800 p-8 space-y-6 shadow-2xl flex flex-col">
           <div className="space-y-3">
             <h1 className="text-5xl font-bold text-white">{exercise.title}</h1>
             {exercise.description && (

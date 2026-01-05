@@ -52,6 +52,7 @@ export default function ShopPage() {
             onChange={(e) => setSearch(e.target.value)}
             className="
             ml-auto w-[320px]
+            mr-10 mt-10
             rounded-xl
             bg-white/5
             border border-white/10

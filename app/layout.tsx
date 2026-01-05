@@ -3,10 +3,12 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+
+import { ProfileHeader } from "./_components/profileForLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +37,16 @@ export default function RootLayout({
             </SignedOut>
             <header className="fixed top-4 right-4 z-50">
               <SignedIn>
-                <div className="flex items-center gap-3 bg-[#A3FFAB] px-4 py-2 rounded-full shadow-lg ">
+                <ProfileHeader />
+                {/* <div className="flex items-center gap-3 bg-[#A3FFAB] px-4 py-2 rounded-full shadow-lg ">
                   <UserButton />
+                  <span className="text-sm text-blue-400 font-medium">
+                    {user?.username}
+                  </span>
                   <span className="text-sm text-blue-400 font-medium">
                     Profile
                   </span>
-                </div>
+                </div> */}
               </SignedIn>
             </header>
           </div>
