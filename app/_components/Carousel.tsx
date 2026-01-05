@@ -44,7 +44,7 @@ const ShowCarousel = () => {
     <div className="flex justify-center w-full px-4">
       <Carousel
         className="w-full max-w-2xl"
-        orientation="vertical"
+        orientation="horizontal"
         opts={{
           align: "start",
           loop: true,
@@ -52,11 +52,11 @@ const ShowCarousel = () => {
         plugins={[autoplayPlugin]}
       >
         <div className="relative">
-          <CarouselContent className="-mt-4 h-[760px]">
+          <CarouselContent className="mt-4">
             {items?.map((item) => (
               <CarouselItem key={item.id} className="pt-4 basis-1/4">
                 <div
-                  className="border rounded-xl p-4 flex items-center gap-4 shadow-sm h-[180px]"
+                  className="border rounded-xl p-4 flex items-center gap-4 shadow-lg hover:shadow-xl h-[240px] transition duration-300 ease-in-out"
                   onClick={() => router.push(`/Item/${item.id}`)}
                 >
                   <img
@@ -65,8 +65,8 @@ const ShowCarousel = () => {
                     className="w-32 h-32 object-cover rounded-lg flex-shrink-0"
                   />
 
-                  <div className="flex flex-col gap-1 flex-1">
-                    <h3 className="font-semibold text-lg">
+                  <div className="flex flex-col gap-2 flex-1">
+                    <h3 className="font-semibold text-lg text-gray-800 hover:text-green-600 transition duration-200 ease-in-out">
                       {item.productName}
                     </h3>
                     <p className="text-sm text-muted-foreground line-clamp-2">
@@ -81,8 +81,8 @@ const ShowCarousel = () => {
             ))}
           </CarouselContent>
 
-          <CarouselPrevious className="absolute -top-12 left-1/2 -translate-x-1/2" />
-          <CarouselNext className="absolute -bottom-12 left-1/2 -translate-x-1/2" />
+          <CarouselPrevious className="absolute top-1/2 left-4 transform -translate-y-1/2 opacity-0 pointer-events-none" />
+          <CarouselNext className="absolute top-1/2 right-4 transform -translate-y-1/2 opacity-0 pointer-events-none" />
         </div>
       </Carousel>
     </div>
