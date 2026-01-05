@@ -124,7 +124,7 @@ export default function ChallengeForm() {
     <div className="flex justify-center pt-10 min-h-screen bg-[#192126]">
       <motion.button
         onClick={() => push("/teacher")}
-        className="absolute top-6 left-6 px-5 py-2 rounded-xl bg-[#2C353C] text-[#B6E0FE] hover:bg-[#3B4A54] transition-colors"
+        className="absolute top-6 left-6 px-5 py-2 rounded-xl bg-[#2C353C] text-[#B6E0FE] hover:bg-[#3B4A54] transition-colors hover:cursor-pointer"
       >
         ← Back
       </motion.button>

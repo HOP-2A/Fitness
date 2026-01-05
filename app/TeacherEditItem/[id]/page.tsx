@@ -60,7 +60,17 @@ export default function ShopItemDetail() {
     fetchItem();
   }, [id]);
 
-  if (loading) return <p className="text-center mt-20">Loading...</p>;
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#0F1419]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-12 w-12 border-4 border-white/20 border-t-[#BBF246] rounded-full animate-spin"></div>
+          <span className="text-sm text-white/70">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   if (error) return <p className="text-red-500 text-center mt-20">{error}</p>;
   if (!item) return <p className="text-center mt-20">No item found</p>;
 
@@ -91,11 +101,11 @@ export default function ShopItemDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 relative">
-      <div className="mx-auto max-w-7xl px-6 py-6">
+    <div className="min-h-screen bg-[#1F262C] text-white relative">
+      <div className="mx-auto max-w-7xl px-6 py-8">
         <button
           onClick={() => router.push("/teacher/seeProducts")}
-          className="mb-6 flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
+          className="mb-6 flex items-center gap-2 text-sm text-blue-400 hover:text-blue-600"
         >
           <ArrowLeft size={16} />
           Back
@@ -103,90 +113,96 @@ export default function ShopItemDetail() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div className="rounded-xl border border-[#2a2f3a] bg-[#2A323A] shadow-lg overflow-hidden">
               <img
                 src={form.image}
                 alt={form.productName}
-                className="w-full h-[360px] object-cover bg-slate-100"
+                className="w-full h-[360px] object-cover bg-gray-200"
               />
 
-              <div className="p-6 space-y-4">
+              <div className="p-6 space-y-6">
                 {!editing ? (
                   <>
-                    <h1 className="text-2xl font-semibold text-slate-900">
+                    <h1 className="text-3xl font-semibold">
                       {item.productName}
                     </h1>
-                    <p className="text-sm text-slate-500">{item.title}</p>
-                    <p className="text-green-600 font-bold">${item.price}</p>
-                    <p>Stock: {item.stock}</p>
-                    <p>Daily Limit: {item.dailyLimit}</p>
+                    <p className="text-sm text-gray-400">{item.title}</p>
+                    <p className="text-xl font-semibold text-emerald-500">
+                      ${item.price}
+                    </p>
+                    <p className="text-sm text-gray-400">Stock: {item.stock}</p>
+                    <p className="text-sm text-gray-400">
+                      Daily Limit: {item.dailyLimit}
+                    </p>
                     <button
                       onClick={() => setEditing(true)}
-                      className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+                      className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
                     >
                       Edit Product
                     </button>
                   </>
                 ) : (
                   <>
-                    <input
-                      type="text"
-                      name="productName"
-                      value={form.productName}
-                      onChange={handleChange}
-                      placeholder="Product Name"
-                      className="border px-2 py-1 w-full rounded"
-                    />
-                    <input
-                      type="text"
-                      name="title"
-                      value={form.title}
-                      onChange={handleChange}
-                      placeholder="Title"
-                      className="border px-2 py-1 w-full rounded"
-                    />
-                    <input
-                      type="text"
-                      name="image"
-                      value={form.image}
-                      onChange={handleChange}
-                      placeholder="Image URL"
-                      className="border px-2 py-1 w-full rounded"
-                    />
-                    <input
-                      type="number"
-                      name="price"
-                      value={form.price}
-                      onChange={handleChange}
-                      placeholder="Price"
-                      className="border px-2 py-1 w-full rounded"
-                    />
-                    <input
-                      type="number"
-                      name="stock"
-                      value={form.stock}
-                      onChange={handleChange}
-                      placeholder="Stock"
-                      className="border px-2 py-1 w-full rounded"
-                    />
-                    <input
-                      type="number"
-                      name="dailyLimit"
-                      value={form.dailyLimit}
-                      onChange={handleChange}
-                      placeholder="Daily Limit"
-                      className="border px-2 py-1 w-full rounded"
-                    />
-                    <div className="flex gap-2 mt-2">
+                    <div className="space-y-4">
+                      <input
+                        type="text"
+                        name="productName"
+                        value={form.productName}
+                        onChange={handleChange}
+                        placeholder="Product Name"
+                        className="border border-[#3A444D] px-4 py-2 w-full rounded-lg bg-[#1F262C] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                      <input
+                        type="text"
+                        name="title"
+                        value={form.title}
+                        onChange={handleChange}
+                        placeholder="Title"
+                        className="border border-[#3A444D] px-4 py-2 w-full rounded-lg bg-[#1F262C] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                      <input
+                        type="text"
+                        name="image"
+                        value={form.image}
+                        onChange={handleChange}
+                        placeholder="Image URL"
+                        className="border border-[#3A444D] px-4 py-2 w-full rounded-lg bg-[#1F262C] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                      <input
+                        type="number"
+                        name="price"
+                        value={form.price}
+                        onChange={handleChange}
+                        placeholder="Price"
+                        className="border border-[#3A444D] px-4 py-2 w-full rounded-lg bg-[#1F262C] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                      <input
+                        type="number"
+                        name="stock"
+                        value={form.stock}
+                        onChange={handleChange}
+                        placeholder="Stock"
+                        className="border border-[#3A444D] px-4 py-2 w-full rounded-lg bg-[#1F262C] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                      <input
+                        type="number"
+                        name="dailyLimit"
+                        value={form.dailyLimit}
+                        onChange={handleChange}
+                        placeholder="Daily Limit"
+                        className="border border-[#3A444D] px-4 py-2 w-full rounded-lg bg-[#1F262C] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div className="flex gap-4 mt-4">
                       <button
                         onClick={handleSave}
-                        className="px-4 py-2 bg-green-600 text-white rounded"
+                        className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all"
                       >
                         Save
                       </button>
                       <button
                         onClick={() => setEditing(false)}
-                        className="px-4 py-2 bg-gray-400 text-white rounded"
+                        className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all"
                       >
                         Cancel
                       </button>
