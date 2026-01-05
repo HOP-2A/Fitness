@@ -11,7 +11,7 @@ type Leader = {
 export default function LeaderDetail({ leader }: { leader: Leader }) {
   return (
     <div
-      className="w-128 rounded-xl border border-green-300/40
+      className="p-6 rounded-xl border border-green-300/40
       bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
       p-4 shadow-xl"
     >

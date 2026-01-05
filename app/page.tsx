@@ -37,9 +37,7 @@ const Page = () => {
 
       <Footer />
 
-      <div className="fixed top-17 right-4.5 z-50">
-        <CoinPage />
-      </div>
+      <div className="fixed top-17 right-4.5 z-50"></div>
     </div>
   );
 };
