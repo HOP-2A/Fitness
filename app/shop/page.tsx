@@ -39,7 +39,7 @@ export default function ShopPage() {
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={() => router.push("/")}
-            className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition"
+            className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition hover:cursor-pointer"
           >
             <ArrowLeft size={16} />
             Back

@@ -62,7 +62,7 @@ export default function ShopItemDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 relative">
+    <div className="min-h-screen bg-[#192126] relative">
       <div className="fixed top-17 right-44 z-50 flex flex-col items-end gap-4">
         <div className="w-[300px]">
           <CoinPage variant="shop" />
@@ -72,7 +72,7 @@ export default function ShopItemDetail() {
       <div className="mx-auto max-w-7xl px-6 py-6">
         <button
           onClick={() => router.push("/shop")}
-          className="mb-6 flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
+          className="mb-6 flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 hover:cursor-pointer"
         >
           <ArrowLeft size={16} />
           Back
