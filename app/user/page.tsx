@@ -7,7 +7,6 @@ import { useUser } from "@clerk/nextjs";
 import { motion } from "framer-motion";
 import { Mail, User } from "lucide-react";
 import { Footer } from "../_components/Footer";
-import CoinPage from "../_components/ShowCoin";
 
 const Page = () => {
   const { user: clerkUser } = useUser();
@@ -66,10 +65,6 @@ const Page = () => {
             </div>
           </CardContent>
         </Card>
-
-        <div className="fixed bottom-195 right-6 z-50 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl p-3">
-          <CoinPage />
-        </div>
       </motion.div>
 
       <Footer />
