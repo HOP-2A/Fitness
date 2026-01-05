@@ -17,7 +17,7 @@ export default function ChallengeCard({ item }: ChallengeCardProps) {
     <div className="bg-white rounded-xl shadow-md border border-gray-200 p-5 hover:shadow-lg transition-shadow duration-200">
       <div className="flex justify-between items-center mb-3">
         <h2 className="text-xl font-semibold text-gray-800">{item.title}</h2>
-        <span className="bg-green-200 text-green-800 text-xs font-medium px-3 py-1 rounded-full">
+        <span className="bg-[#A3FFAB] text-green-800 text-xs font-medium px-3 py-1 rounded-full">
           {item.status}
         </span>
       </div>

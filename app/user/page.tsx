@@ -19,9 +19,9 @@ const Page = () => {
     : "U";
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#050B14]">
-      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-green-500/20 rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 -right-40 w-[500px] h-[500px] bg-emerald-500/20 rounded-full blur-[120px]" />
+    <div className="relative min-h-screen flex flex-col justify-between overflow-hidden">
+      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 -right-40 w-[500px] h-[500px]rounded-full blur-[120px]" />
 
       <motion.div
         initial={{ opacity: 0, y: 32 }}

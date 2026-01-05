@@ -59,7 +59,7 @@ export default function CoinPage({ variant = "default" }: CoinPageProps) {
     : "text-white font-semibold truncate max-w-[180px]";
 
   const coinClass = isShop
-    ? "text-xl font-semibold text-emerald-600"
+    ? "text-xl font-semibold text-emerald-400"
     : "text-yellow-400 font-bold text-2xl";
 
   return (

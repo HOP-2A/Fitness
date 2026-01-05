@@ -27,7 +27,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-[#192126]`}
         >
           <div>
             <SignedOut>
@@ -35,7 +35,7 @@ export default function RootLayout({
             </SignedOut>
             <header className="fixed top-4 right-4 z-50">
               <SignedIn>
-                <div className="flex items-center gap-3 bg-green-300 px-4 py-2 rounded-full shadow-lg ">
+                <div className="flex items-center gap-3 bg-[#A3FFAB] px-4 py-2 rounded-full shadow-lg ">
                   <UserButton />
                   <span className="text-sm text-blue-400 font-medium">
                     Profile

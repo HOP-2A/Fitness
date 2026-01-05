@@ -3,10 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
-  { params }: { params: { exerciseId: string } }
+  context: { params: Promise<{ exerciseId: string }> }
 ) {
   try {
-    const { exerciseId } = params;
+    const { exerciseId } = await context.params;
+
+    if (!exerciseId) {
+      return new NextResponse("ExerciseId is required", { status: 400 });
+    }
 
     const comments = await prisma.exerciseComment.findMany({
       where: {
@@ -15,18 +19,11 @@ export async function GET(
       orderBy: {
         createdAt: "asc",
       },
-      select: {
-        id: true,
-        content: true,
-        authorId: true,
-        parentId: true,
-        createdAt: true,
-      },
     });
 
     return NextResponse.json(comments);
   } catch (error) {
-    console.error("[GET_EXERCISE_COMMENTS]", error);
+    console.error(error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

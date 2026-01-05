@@ -31,9 +31,9 @@ export default function ShopPage() {
   }, [search]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#020617] via-[#050B14] to-[#0F172A]">
-      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[140px]" />
-      <div className="absolute bottom-0 -right-40 w-[600px] h-[600px] bg-green-400/10 rounded-full blur-[140px]" />
+    <div className="relative min-h-screen overflow-hidden">
+      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-[140px]" />
+      <div className="absolute bottom-0 -right-40 w-[600px] h-[600px] rounded-full blur-[140px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-6">
         <div className="flex items-center gap-4 mb-8">
@@ -107,7 +107,7 @@ export default function ShopPage() {
                   <p className="text-xs text-gray-400 mb-3">{item.title}</p>
 
                   <div className="text-sm space-y-1 mb-4">
-                    <p className="font-semibold text-emerald-400">
+                    <p className="font-semibold text-[#A3FFAB]">
                       {item.price} coin
                     </p>
                     <p className="text-xs text-gray-500">Stock: {item.stock}</p>
@@ -115,15 +115,7 @@ export default function ShopPage() {
 
                   <Button
                     onClick={() => router.push(`/shop/${item.id}`)}
-                    className="
-                    mt-auto h-9 rounded-xl
-                    bg-emerald-500 text-black font-semibold
-                    shadow-lg shadow-emerald-500/20
-                    transition-all
-                    hover:bg-emerald-400
-                    hover:shadow-emerald-400/40
-                    active:scale-95
-                  "
+                    className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50 hover:cursor-pointer"
                   >
                     See Detail
                   </Button>
