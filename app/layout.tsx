@@ -49,7 +49,7 @@ export default function RootLayout({
 
           {/* <footer className="w-full py-4 bg-[#192126]">
             <div className="text-center text-white text-sm">
-              © Zoloogiin maanaaguud bagiin tusul.
+              © 2025 - 2026 FitCommerce · Fit today, Buy tomorrow.
             </div>
           </footer> */}
 
