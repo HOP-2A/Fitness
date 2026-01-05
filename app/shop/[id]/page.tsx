@@ -72,7 +72,7 @@ export default function ShopItemDetail() {
       <div className="mx-auto max-w-7xl px-6 py-6">
         <button
           onClick={() => router.push("/shop")}
-          className="mb-6 flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
+          className="mb-6 flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 hover:cursor-pointer"
         >
           <ArrowLeft size={16} />
           Back
