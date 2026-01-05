@@ -150,7 +150,7 @@ const GetAssignedExercise = () => {
               </div>
 
               <button
-                className="mt-4 text-sm text-gray-400 hover:underline hover:cursor-pointer"
+                className="mt-4 text-sm text-black hover:underline hover:cursor-pointer"
                 onClick={() => router.push(`/detail/${ex.id}`)}
               >
                 See Details →
