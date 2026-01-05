@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { toast } from "sonner";
 
 type ShopItem = {
   id: string;
@@ -64,9 +65,9 @@ export default function BuyProductPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.error || "Purchase failed");
+        toast(data.error || "Purchase failed");
       } else {
-        alert("Purchase successful!");
+        toast("Purchase successful!");
 
         setItem({
           ...item,
@@ -77,7 +78,7 @@ export default function BuyProductPage() {
         setQuantity(1);
       }
     } catch {
-      alert("Failed to connect to server");
+      toast("Failed to connect to server");
     }
   };
 
@@ -86,11 +87,11 @@ export default function BuyProductPage() {
       style={{ padding: "2rem" }}
       className="flex flex-col gap-3 content-start"
     >
-      <p className="font-bold">Price: {item.price} coins</p>
-      <p className="font-bold">Stock: {item.stock}</p>
-      <p className="font-bold">Remaining today: {remainingToday}</p>
+      <p className="font-bold text-white">Price: {item.price} coins</p>
+      <p className="font-bold text-white">Stock: {item.stock}</p>
+      <p className="font-bold text-white">Remaining today: {remainingToday}</p>
 
-      <label className="border border-[#A3FFAB] rounded-xl p-3 text-center font-semibold">
+      <label className="border border-[#A3FFAB] rounded-xl p-3 text-center font-semibold text-white">
         Quantity:
         <input
           className="border rounded-xl p-1 text-center"
@@ -112,7 +113,7 @@ export default function BuyProductPage() {
         onClick={handlePurchase}
         style={{ marginLeft: "1rem", padding: "0.5rem 1rem" }}
         disabled={quantity < 1 || quantity > maxQty}
-        className="border border-[#A3FFAB] rounded-xl p-3 text-center font-semibold hover:bg-[#A3FFAB] hover:text-black transition cursor-pointer"
+        className="border border-[#A3FFAB] rounded-xl p-3 text-center font-semibold hover:bg-[#A3FFAB] hover:text-black transition cursor-pointer text-white"
       >
         Buy
       </button>
