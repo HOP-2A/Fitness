@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CoinPage from "./ShowCoin";
+import LeaderDetail from "./LeaderDetail";
 
 type User = {
   id: string;
@@ -12,20 +12,19 @@ type User = {
   createdAt: string;
 };
 
-export const Leaderboard = () => {
+export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<User[]>([]);
-  const router = useRouter();
+
   useEffect(() => {
-    const getUser = async () => {
+    const fetchLeaderboard = async () => {
       const res = await fetch("/api/leaderboard");
       const data = await res.json();
-      setLeaderboard(data.User);
+      setLeaderboard(data.User ?? []);
     };
-    getUser();
+
+    fetchLeaderboard();
   }, []);
-  const DetailHaruulah = (id: string) => {
-    router.push(`/leaderDetail/${id}`);
-  };
+
   return (
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -67,12 +66,12 @@ export const Leaderboard = () => {
               <div
                 key={user.id}
                 className={`
-              flex justify-between items-center
-              rounded-2xl px-6 py-4
-              border ${borderClass} ${bgClass} ${textClass}
-              shadow hover:scale-[1.01] transition-all
-            `}
-                onClick={() => DetailHaruulah(user.id)}
+                  relative group
+                  flex justify-between items-center
+                  rounded-2xl px-6 py-4
+                  border ${borderClass} ${bgClass} ${textClass}
+                  shadow hover:scale-[1.01] transition-all
+                `}
               >
                 <div className="space-y-1">
                   <p className={`text-lg font-semibold ${textClass}`}>
@@ -88,6 +87,11 @@ export const Leaderboard = () => {
                 >
                   {user.coin} 🪙
                 </span>
+
+                {/* Hover detail card */}
+                <div className="absolute top-1/2 left-full ml-4 -translate-y-1/2 hidden group-hover:block z-40">
+                  <LeaderDetail leader={user} />
+                </div>
               </div>
             );
           })}
@@ -99,4 +103,4 @@ export const Leaderboard = () => {
       </div>
     </div>
   );
-};
+}
