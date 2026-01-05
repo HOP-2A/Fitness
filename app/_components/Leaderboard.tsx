@@ -26,18 +26,8 @@ export default function Leaderboard() {
   }, []);
 
   return (
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <div className="min-h-screen  py-12 px-4">
-      <div className="max-w-2xl ml-65 space-y-6">
-=======
-    <div className="py-12 px-4">
-      <div className="w-full ml-65 space-y-6">
->>>>>>> 82451d8 (css)
-=======
     <div className="min-h-screen bg-gradient-to-b from-blue-800 to-red py-12 px-4">
       <div className="max-w-2xl ml-65 space-y-6">
->>>>>>> 2874bbf (css)
         <h1 className="text-3xl font-semibold text-center mb-10 text-emerald-300">
           🏆 Leaderboard
         </h1>
@@ -88,7 +78,6 @@ export default function Leaderboard() {
                   {user.coin} 🪙
                 </span>
 
-                {/* Hover detail card */}
                 <div className="absolute top-1/2 left-full ml-4 -translate-y-1/2 hidden group-hover:block z-40">
                   <LeaderDetail leader={user} />
                 </div>
