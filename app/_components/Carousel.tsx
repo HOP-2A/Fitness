@@ -5,8 +5,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useRouter } from "next/navigation";
@@ -23,67 +21,80 @@ type ShopItem = {
 const ShowCarousel = () => {
   const [items, setItems] = useState<ShopItem[]>([]);
   const router = useRouter();
+
   const autoplayPlugin = Autoplay({
-    delay: 2000,
+    delay: 2500,
     stopOnInteraction: false,
-    stopOnMouseEnter: false,
-    stopOnLastSnap: false,
   });
 
   useEffect(() => {
     const fetchItems = async () => {
       const res = await fetch("/api/shop/getProducts");
       const data = await res.json();
-
       setItems(data);
     };
     fetchItems();
   }, []);
 
   return (
-    <div className="flex justify-center w-full px-4">
+    <div className="w-full py-6">
       <Carousel
-        className="w-full max-w-2xl"
-        orientation="horizontal"
-        opts={{
-          align: "start",
-          loop: true,
-        }}
+        opts={{ align: "start", loop: true, slidesToScroll: 1 }}
         plugins={[autoplayPlugin]}
+        className="w-full"
       >
-        <div className="relative">
-          <CarouselContent className="mt-4">
-            {items?.map((item) => (
-              <CarouselItem key={item.id} className="pt-4 basis-1/4">
-                <div
-                  className="border rounded-xl p-4 flex items-center gap-4 shadow-lg hover:shadow-xl h-[240px] transition duration-300 ease-in-out"
-                  onClick={() => router.push(`/Item/${item.id}`)}
-                >
+        <CarouselContent className="-ml-3">
+          {items.map((item) => (
+            <CarouselItem
+              key={item.id}
+              className="pl-3 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+            >
+              <div
+                onClick={() => router.push(`/Item/${item.id}`)}
+                className="
+                  group cursor-pointer rounded-xl bg-white
+                  shadow-sm hover:shadow-lg
+                  transition-all duration-300
+                  hover:-translate-y-1
+                  overflow-hidden
+                "
+              >
+                <div className="relative h-56 bg-gray-100 flex items-center justify-center p-4">
                   <img
                     src={item.image || "/placeholder.svg"}
                     alt={item.productName}
-                    className="w-32 h-32 object-cover rounded-lg flex-shrink-0"
+                    className="
+                      h-full w-full
+                      object-contain
+                      transition-transform duration-300
+                      group-hover:scale-105
+                    "
                   />
 
-                  <div className="flex flex-col gap-2 flex-1">
-                    <h3 className="font-semibold text-lg text-gray-800 hover:text-green-600 transition duration-200 ease-in-out">
-                      {item.productName}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
-                      {item.title}
-                    </p>
-                    <p className="font-bold text-green-600 mt-auto">
-                      ${item.price}
-                    </p>
+                  <div className="absolute top-2 right-2 bg-green-600 text-white text-[11px] font-semibold px-2 py-0.5 rounded-full shadow">
+                    coin:{item.price}
                   </div>
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
 
-          <CarouselPrevious className="absolute top-1/2 left-4 transform -translate-y-1/2 opacity-0 pointer-events-none" />
-          <CarouselNext className="absolute top-1/2 right-4 transform -translate-y-1/2 opacity-0 pointer-events-none" />
-        </div>
+                <div className="p-3 flex flex-col gap-1.5">
+                  <h3 className="font-semibold text-gray-900 text-sm line-clamp-1">
+                    {item.productName}
+                  </h3>
+
+                  <p className="text-xs text-gray-500 line-clamp-2">
+                    {item.title}
+                  </p>
+
+                  <div className="mt-2">
+                    <span className="inline-block text-[11px] px-2.5 py-1 rounded-full bg-green-50 text-green-700 font-medium">
+                      View details →
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
       </Carousel>
     </div>
   );

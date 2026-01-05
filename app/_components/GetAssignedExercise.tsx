@@ -44,9 +44,9 @@ const GetAssignedExercise = () => {
   const timeAgo = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
-
-    const diffMs = now.getTime() - date.getTime();
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffDays = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
+    );
 
     if (diffDays === 0) return "Today";
     if (diffDays === 1) return "Yesterday";
@@ -95,8 +95,8 @@ const GetAssignedExercise = () => {
   }
 
   return (
-    <div className="max-w-2xl ml-65 space-y-6">
-      <h2 className="text-3xl font-extrabold text-black ">
+    <div className="ml-64 max-w-[1350px] pb-10">
+      <h2 className="mb-6 text-3xl font-extrabold text-black">
         Assigned Exercises
       </h2>
 
@@ -105,20 +105,21 @@ const GetAssignedExercise = () => {
           🌱 No exercises assigned yet
         </div>
       ) : (
-        exercises.map((ex) => (
-          <div
-            key={ex.id}
-            className="relative rounded-xl border border-green-300/40
+        <div className="grid grid-cols-2 gap-6 items-start">
+          {exercises.map((ex) => (
+            <div
+              key={ex.id}
+              className="relative rounded-xl border border-green-300/40
               bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-green-900/10
               p-6 transition hover:scale-[1.02]"
-          >
-            <button
-              onClick={() => {
-                if (ex.status === "APPROVE") return;
-                setSelectedExercise(ex);
-                setShowStatusModal(true);
-              }}
-              className={`absolute top-4 right-4 rounded-full border px-3 py-1
+            >
+              <button
+                onClick={() => {
+                  if (ex.status === "APPROVE") return;
+                  setSelectedExercise(ex);
+                  setShowStatusModal(true);
+                }}
+                className={`absolute top-4 right-4 rounded-full border px-3 py-1
                 text-xs font-semibold tracking-wide transition
                 ${
                   ex.status === "APPROVE"
@@ -126,36 +127,37 @@ const GetAssignedExercise = () => {
                     : "hover:scale-105 cursor-pointer"
                 }
                 ${statusColor(ex.status)}`}
-            >
-              {ex.status}
-            </button>
+              >
+                {ex.status}
+              </button>
 
-            <h3 className="text-xl font-semibold text-black flex items-center gap-2">
-              {ex.title}
-              {timeAgo(ex.createdAt) === "Today" && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-400">
-                  NEW
-                </span>
-              )}
-            </h3>
+              <h3 className="text-xl font-semibold text-black flex items-center gap-2">
+                {ex.title}
+                {timeAgo(ex.createdAt) === "Today" && (
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-400">
+                    NEW
+                  </span>
+                )}
+              </h3>
 
-            <p className="mt-1 text-xs text-gray-300">
-              📅 Posted: {timeAgo(ex.createdAt)}
-            </p>
+              <p className="mt-1 text-xs text-gray-300">
+                📅 Posted: {timeAgo(ex.createdAt)}
+              </p>
 
-            <div className="mt-4 flex justify-between text-xs text-black">
-              <span>⭐ Rate: {ex.rate}</span>
-              <span>💰 Reward: {ex.reward}</span>
+              <div className="mt-4 flex justify-between text-xs text-black">
+                <span>⭐ Rate: {ex.rate}</span>
+                <span>💰 Reward: {ex.reward}</span>
+              </div>
+
+              <button
+                className="mt-4 text-sm text-black hover:underline"
+                onClick={() => router.push(`/detail/${ex.id}`)}
+              >
+                See Details →
+              </button>
             </div>
-
-            <button
-              className="mt-4 text-sm text-black hover:cursor-pointer"
-              onClick={() => router.push(`/detail/${ex.id}`)}
-            >
-              See Details →
-            </button>
-          </div>
-        ))
+          ))}
+        </div>
       )}
 
       <AnimatePresence>
@@ -179,16 +181,14 @@ const GetAssignedExercise = () => {
               <div className="flex flex-col gap-2">
                 <button
                   onClick={() => handleStatusChange("PENDING")}
-                  className="py-2 rounded bg-yellow-500/20
-                    text-yellow-400 hover:bg-yellow-500/30"
+                  className="py-2 rounded bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30"
                 >
                   🟡 PENDING
                 </button>
 
                 <button
                   onClick={() => handleStatusChange("DONE")}
-                  className="py-2 rounded bg-green-500/20
-                    text-green-400 hover:bg-green-500/30"
+                  className="py-2 rounded bg-green-500/20 text-green-400 hover:bg-green-500/30"
                 >
                   🟢 DONE
                 </button>
