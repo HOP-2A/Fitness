@@ -72,7 +72,7 @@ export default function ShopItemDetail() {
       <div className="mx-auto max-w-7xl px-6 py-6">
         <button
           onClick={() => router.push("/shop")}
-          className="mb-6 flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 hover:cursor-pointer"
+          className="mb-6 flex items-center gap-2 text-sm text-gray-400 hover:text-white transition hover:cursor-pointer"
         >
           <ArrowLeft size={16} />
           Back
@@ -80,32 +80,30 @@ export default function ShopItemDetail() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div className="rounded-xl border border-white/10 bg-white/5 shadow-sm overflow-hidden">
               <img
                 src={item.image}
                 alt={item.productName}
-                className="w-full h-[360px] object-cover bg-slate-100"
+                className="w-full h-[360px] object-cover bg-black/30"
               />
 
               <div className="p-6 space-y-4">
-                <h1 className="text-2xl font-semibold text-slate-900">
+                <h1 className="text-2xl font-semibold text-white">
                   {item.productName}
                 </h1>
 
-                <p className="text-sm text-slate-500">{item.title}</p>
+                <p className="text-sm text-gray-400">{item.title}</p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm pt-2">
                   <p>
                     <span className="text-slate-400 text-xs">Stock</span>
                     <br />
-                    <span className="font-medium text-slate-800">
-                      {item.stock}
-                    </span>
+                    <span className="font-medium text-white">{item.stock}</span>
                   </p>
                   <p>
                     <span className="text-slate-400 text-xs">Daily Limit</span>
                     <br />
-                    <span className="font-medium text-slate-800">
+                    <span className="font-medium text-white">
                       {item.dailyLimit}
                     </span>
                   </p>
@@ -114,13 +112,13 @@ export default function ShopItemDetail() {
                       Sold In All Time
                     </span>
                     <br />
-                    <span className="font-medium text-slate-800">
+                    <span className="font-medium text-white">
                       {item.soldToday}
                     </span>
                   </p>
                 </div>
 
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-white">
                   Created: {timeAgo(item.createdAt)}
                 </p>
               </div>
@@ -128,10 +126,10 @@ export default function ShopItemDetail() {
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 space-y-4">
+            <div className="rounded-2xl border border-white/10 bg-white/5 shadow-sm p-6 space-y-4">
               <div className="text-center">
-                <p className="text-xs text-slate-500">Price</p>
-                <p className="text-3xl font-semibold text-emerald-600">
+                <p className="text-xs text-white">Price</p>
+                <p className="text-3xl font-semibold text-[#A3FFAB]">
                   {item.price} coins
                 </p>
               </div>
