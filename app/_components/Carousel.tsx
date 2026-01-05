@@ -52,14 +52,14 @@ const ShowCarousel = () => {
               <div
                 onClick={() => router.push(`/Item/${item.id}`)}
                 className="
-                  group cursor-pointer rounded-xl bg-white
+                  group cursor-pointer rounded-xl bg-gray-800/50 border border-gray-700/50
                   shadow-sm hover:shadow-lg
                   transition-all duration-300
                   hover:-translate-y-1
                   overflow-hidden
                 "
               >
-                <div className="relative h-56 bg-gray-100 flex items-center justify-center p-4">
+                <div className="relative h-56 bg-gray-900/50 flex items-center justify-center p-4">
                   <img
                     src={item.image || "/placeholder.svg"}
                     alt={item.productName}
@@ -77,11 +77,11 @@ const ShowCarousel = () => {
                 </div>
 
                 <div className="p-3 flex flex-col gap-1.5">
-                  <h3 className="font-semibold text-gray-900 text-sm line-clamp-1">
+                  <h3 className="font-semibold text-gray-100 text-sm line-clamp-1">
                     {item.productName}
                   </h3>
 
-                  <p className="text-xs text-gray-500 line-clamp-2">
+                  <p className="text-xs text-gray-400 line-clamp-2">
                     {item.title}
                   </p>
 
