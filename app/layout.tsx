@@ -49,7 +49,7 @@ export default function RootLayout({
 
           {/* <footer className="w-full py-4 bg-[#192126]">
             <div className="text-center text-white text-sm">
-              © 2025 Kenomu · Learn today, lead tomorrow.
+              © Zoloogiin maanaaguud bagiin tusul.
             </div>
           </footer> */}
 
