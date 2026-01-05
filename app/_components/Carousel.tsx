@@ -37,7 +37,11 @@ const ShowCarousel = () => {
   }, []);
 
   return (
+<<<<<<< HEAD
     <div className="w-full py-6">
+=======
+    <div className="flex justify-center px-4">
+>>>>>>> 82451d8 (css)
       <Carousel
         opts={{ align: "start", loop: true, slidesToScroll: 1 }}
         plugins={[autoplayPlugin]}
