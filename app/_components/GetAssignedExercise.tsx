@@ -80,7 +80,7 @@ const GetAssignedExercise = () => {
       case "PENDING":
         return "bg-yellow-200/30 text-yellow-600 border-yellow-300/50";
       case "DONE":
-        return "bg-green-200/30 text-green-700 border-green-400/50";
+        return "bg-[#A3FFAB] text-green-700 border-green-400/50";
       case "APPROVE":
         return "bg-purple-200/30 text-purple-700 border-purple-400/50";
     }

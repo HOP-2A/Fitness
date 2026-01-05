@@ -22,6 +22,10 @@ interface Comment {
 }
 
 const CommentItem = ({ comment }: { comment: Comment }) => {
+  const { user: clerkUser } = useUser();
+  const userData = useAuth(clerkUser?.id);
+  const user = userData?.user;
+
   const [showReplies, setShowReplies] = useState(false);
   const hasReplies = comment.replies && comment.replies.length > 0;
 
@@ -33,7 +37,7 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
             <UserIcon size={14} className="text-gray-300" />
           </div>
           <span className="font-semibold text-xs text-gray-200">
-            {comment.authorId}
+            {user?.username}
           </span>
           <span className="text-[10px] text-gray-500">
             {new Date(comment.createdAt).toLocaleDateString()}
@@ -156,7 +160,7 @@ const AskTeacher = ({ exerciseId }: { exerciseId: string }) => {
       <div className="mb-8 max-h-[600px] overflow-y-auto pr-2">
         {comments.length > 0 ? (
           comments.map((comment) => (
-            <CommentItem key={comment.id} comment={comment} />
+            <CommentItem key={user?.username} comment={comment} />
           ))
         ) : (
           <div className="text-center py-10 text-gray-400 italic bg-[#2A323A] rounded-lg border border-dashed border-[#3A444D]">

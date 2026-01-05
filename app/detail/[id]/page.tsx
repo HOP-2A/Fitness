@@ -108,7 +108,7 @@ export default function DetailPage() {
               className={`px-4 py-1 rounded-full text-lg font-semibold
               ${
                 exercise.status === "APPROVE"
-                  ? "bg-emerald-500/20 text-emerald-400"
+                  ? "bg-purple-200/30 text-purple-700 border-purple-400/50"
                   : exercise.status === "DONE"
                   ? "bg-green-500/20 text-green-400"
                   : "bg-yellow-500/20 text-yellow-400"

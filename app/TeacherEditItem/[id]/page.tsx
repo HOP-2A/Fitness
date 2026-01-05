@@ -196,7 +196,7 @@ export default function ShopItemDetail() {
                     <div className="flex gap-4 mt-4">
                       <button
                         onClick={handleSave}
-                        className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all"
+                        className="px-6 py-2 bg-[#A3FFAB] text-white rounded-lg hover:bg-[#8AE086]  transition-all"
                       >
                         Save
                       </button>
