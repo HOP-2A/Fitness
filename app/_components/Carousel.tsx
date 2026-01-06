@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useRouter } from "next/navigation";
+import { Coins } from "lucide-react";
 
 type ShopItem = {
   id: string;
@@ -23,7 +24,7 @@ const ShowCarousel = () => {
   const router = useRouter();
 
   const autoplayPlugin = Autoplay({
-    delay: 2500,
+    delay: 3000,
     stopOnInteraction: false,
   });
 
@@ -36,59 +37,71 @@ const ShowCarousel = () => {
     fetchItems();
   }, []);
 
+  if (items.length === 0) {
+    return (
+      <div className="rounded-2xl border border-slate-700 bg-slate-900/50 p-12 text-center">
+        <div className="text-slate-400">Loading shop items...</div>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full py-6">
+    <div className="w-full">
       <Carousel
         opts={{ align: "start", loop: true, slidesToScroll: 1 }}
         plugins={[autoplayPlugin]}
         className="w-full"
       >
-        <CarouselContent className="-ml-3">
+        <CarouselContent className="-ml-4">
           {items.map((item) => (
             <CarouselItem
               key={item.id}
-              className="pl-3 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+              className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
             >
               <div
                 onClick={() => router.push(`/Item/${item.id}`)}
-                className="
-                  group cursor-pointer rounded-xl bg-gray-800/50 border border-gray-700/50
-                  shadow-sm hover:shadow-lg
-                  transition-all duration-300
-                  hover:-translate-y-1
-                  overflow-hidden
-                "
+                className="group cursor-pointer rounded-2xl border border-slate-700 bg-gradient-to-br from-slate-900/80 to-slate-900/40 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1"
               >
-                <div className="relative h-56 bg-gray-900/50 flex items-center justify-center p-4">
+                <div className="relative h-56 bg-slate-900/50 flex items-center justify-center p-6 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
                   <img
                     src={item.image || "/placeholder.svg"}
                     alt={item.productName}
-                    className="
-                      h-full w-full
-                      object-contain
-                      transition-transform duration-300
-                      group-hover:scale-105
-                    "
+                    className="relative z-10 h-full w-full object-contain transition-transform duration-500 group-hover:scale-110"
                   />
 
-                  <div className="absolute top-2 right-2 bg-green-600 text-white text-[11px] font-semibold px-2 py-0.5 rounded-full shadow">
-                    coin:{item.price}
+                  <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-emerald-600 px-3 py-1.5 shadow-lg shadow-emerald-500/20">
+                    <Coins className="h-3.5 w-3.5 text-white" />
+                    <span className="text-xs font-bold text-white">
+                      {item.price}
+                    </span>
                   </div>
+
+                  {item.stock <= 5 && (
+                    <div className="absolute top-3 left-3 rounded-full bg-red-500/90 px-2.5 py-1 text-[10px] font-semibold text-white">
+                      Only {item.stock} left!
+                    </div>
+                  )}
                 </div>
 
-                <div className="p-3 flex flex-col gap-1.5">
-                  <h3 className="font-semibold text-gray-100 text-sm line-clamp-1">
-                    {item.productName}
-                  </h3>
+                <div className="p-4 space-y-3">
+                  <div>
+                    <h3 className="font-bold text-white text-base mb-1 line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                      {item.productName}
+                    </h3>
+                    <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                      {item.title}
+                    </p>
+                  </div>
 
-                  <p className="text-xs text-gray-400 line-clamp-2">
-                    {item.title}
-                  </p>
-
-                  <div className="mt-2">
-                    <span className="inline-block text-[11px] px-2.5 py-1 rounded-full bg-green-50 text-green-700 font-medium">
-                      View details →
+                  <div className="flex items-center justify-between pt-2 border-t border-slate-700/50">
+                    <span className="text-xs font-semibold text-emerald-400 group-hover:text-emerald-300 transition-colors">
+                      View Details →
                     </span>
+                    <div className="h-8 w-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center group-hover:border-emerald-500/50 group-hover:bg-emerald-500/10 transition-all">
+                      <span className="text-emerald-400 text-xs">→</span>
+                    </div>
                   </div>
                 </div>
               </div>

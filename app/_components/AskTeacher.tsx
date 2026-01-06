@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/providers/authProvider";
 import { useUser } from "@clerk/nextjs";
 import {
@@ -10,6 +8,7 @@ import {
   ChevronDown,
   ChevronUp,
   User as UserIcon,
+  Sparkles,
 } from "lucide-react";
 
 interface Comment {
@@ -31,27 +30,31 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
 
   return (
     <div className="mt-4">
-      <div className="bg-[#2A323A] p-4 rounded-lg border border-[#3A444D]">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="bg-[#1F262C] p-1 rounded-full border border-[#3A444D]">
-            <UserIcon size={14} className="text-gray-300" />
+      <div className="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50 hover:border-slate-600/50 transition-all">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full">
+            <UserIcon size={14} className="text-white" />
           </div>
-          <span className="font-semibold text-xs text-gray-200">
-            {user?.username}
-          </span>
-          <span className="text-[10px] text-gray-500">
-            {new Date(comment.createdAt).toLocaleDateString()}
-          </span>
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-sm text-white">
+                {user?.username}
+              </span>
+              <span className="text-xs text-slate-500">
+                • {new Date(comment.createdAt).toLocaleDateString()}
+              </span>
+            </div>
+          </div>
         </div>
 
-        <p className="text-sm text-gray-200 leading-relaxed">
+        <p className="text-slate-300 text-sm leading-relaxed mb-3">
           {comment.content}
         </p>
 
         {hasReplies && (
           <button
             onClick={() => setShowReplies(!showReplies)}
-            className="mt-3 text-xs font-semibold text-blue-400 hover:text-blue-500 transition flex items-center gap-1 bg-[#232A31] px-2 py-1 rounded border border-[#3A444D] hover:cursor-pointer"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-xs font-medium text-blue-300 transition-all"
           >
             {showReplies ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
             {showReplies
@@ -62,7 +65,7 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
       </div>
 
       {showReplies && hasReplies && (
-        <div className="ml-6 border-l border-[#3A444D] pl-4 mt-2">
+        <div className="ml-6 border-l-2 border-slate-700/50 pl-4 mt-2">
           {comment.replies?.map((reply) => (
             <CommentItem key={reply.id} comment={reply} />
           ))}
@@ -144,48 +147,81 @@ const AskTeacher = ({ exerciseId }: { exerciseId: string }) => {
 
   if (!user) {
     return (
-      <div className="p-6 text-center border border-[#3A444D] rounded-xl bg-[#2A323A] text-gray-400 italic">
-        Нэвтэрснээр асуулт асуух боломжтой.
+      <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/50 backdrop-blur-xl rounded-3xl border border-slate-700/50 shadow-2xl p-6">
+        <div className="text-center text-slate-400 italic">
+          Нэвтэрснээр асуулт асуух боломжтой.
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#1F262C] p-6 rounded-2xl border border-[#3A444D] max-w-2xl mx-auto">
-      <h3 className="text-lg font-bold text-gray-100 mb-6 flex items-center gap-2">
-        <MessageSquare className="text-blue-500" size={20} />
-        Ask question from teacher ({comments.length})
-      </h3>
+    <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/50 backdrop-blur-xl rounded-3xl border border-slate-700/50 shadow-2xl p-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6 pb-6 border-b border-slate-700/50">
+        <h3 className="text-xl font-bold text-white flex items-center gap-3">
+          <div className="p-2 bg-blue-500/20 rounded-lg">
+            <MessageSquare className="text-blue-400" size={20} />
+          </div>
+          Ask Questions
+        </h3>
+        <span className="px-3 py-1 bg-slate-800 rounded-full text-sm font-semibold text-slate-300">
+          {comments.length}
+        </span>
+      </div>
 
-      <div className="mb-8 max-h-[600px] overflow-y-auto pr-2">
+      {/* Comments List */}
+      <div className="space-y-4 mb-6 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
         {comments.length > 0 ? (
           comments.map((comment) => (
-            <CommentItem key={user?.username} comment={comment} />
+            <CommentItem key={comment.id} comment={comment} />
           ))
         ) : (
-          <div className="text-center py-10 text-gray-400 italic bg-[#2A323A] rounded-lg border border-dashed border-[#3A444D]">
+          <div className="text-center py-10 text-slate-400 italic bg-slate-800/30 rounded-2xl border border-dashed border-slate-700/50">
             Одоогоор асуулт алга байна.
           </div>
         )}
       </div>
 
-      <div className="border-t border-[#3A444D] pt-6">
+      {/* Input Form */}
+      <div className="border-t border-slate-700/50 pt-6">
         <form onSubmit={handleSubmit} className="space-y-3">
-          <Textarea
+          <textarea
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             placeholder="Багшаас асуух зүйл байна уу?"
-            className="bg-[#232A31] border-[#3A444D] text-gray-100 placeholder:text-gray-500 min-h-[100px]"
+            className="w-full bg-slate-800/50 border border-slate-700/50 rounded-xl p-4 text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 transition-all resize-none min-h-[100px]"
           />
-          <Button
+          <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 hover:cursor-pointer"
+            className="w-full px-6 py-4 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white transition-all hover:shadow-lg hover:shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
           >
+            <Sparkles
+              size={18}
+              className="group-hover:rotate-12 transition-transform"
+            />
             {loading ? "Илгээж байна..." : "Асуулт илгээх"}
-          </Button>
+          </button>
         </form>
       </div>
+
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(30, 41, 59, 0.3);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(71, 85, 105, 0.5);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(71, 85, 105, 0.7);
+        }
+      `}</style>
     </div>
   );
 };

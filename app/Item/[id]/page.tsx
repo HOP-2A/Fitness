@@ -1,7 +1,7 @@
 "use client";
 
 import BuyProductPage from "@/app/_components/BuyProduct";
-import CoinPage from "@/app/_components/ShowCoin";
+
 import { ArrowLeft } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -63,12 +63,6 @@ export default function ShopItemDetail() {
 
   return (
     <div className="min-h-screen bg-slate-50 relative">
-      <div className="fixed top-17 right-44 z-50 flex flex-col items-end gap-4">
-        <div className="w-[300px]">
-          <CoinPage variant="shop" />
-        </div>
-      </div>
-
       <div className="mx-auto max-w-7xl px-6 py-6">
         <button
           onClick={() => router.push("/")}
