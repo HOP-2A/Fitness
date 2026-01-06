@@ -105,6 +105,7 @@ export default function BuyProductPage() {
     } finally {
       setPurchasing(false);
     }
+    window.location.reload();
   };
 
   const incrementQty = () => {
