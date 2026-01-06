@@ -1,26 +1,27 @@
-import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
+export const GET = async (
   _req: NextRequest,
-  { params }: { params: { clerkId: string } }
-) {
-  try {
-    const { clerkId } = params;
+  context: { params: Promise<{ clerkId: string }> }
+) => {
+  const { clerkId } = await context.params;
 
-    const user = await prisma.user.findUnique({
-      where: { clerkId },
-    });
+  const student = await prisma.user.findUnique({
+    where: { clerkId },
+  });
 
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
+  const teacher = await prisma.teacher.findUnique({
+    where: { clerkId },
+  });
 
-    return NextResponse.json(user);
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+  if (student) {
+    return NextResponse.json(student);
   }
-}
+
+  if (teacher) {
+    return NextResponse.json(teacher);
+  }
+
+  return NextResponse.json({ error: "User not found" }, { status: 404 });
+};

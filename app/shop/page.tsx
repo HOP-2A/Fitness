@@ -44,17 +44,6 @@ export default function ShopPage() {
       <div className="absolute -top-40 -left-40 w-96 h-96 md:w-[600px] md:h-[600px] bg-emerald-500/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 -right-40 w-96 h-96 md:w-[600px] md:h-[600px] bg-blue-500/20 rounded-full blur-3xl"></div>
 
-<<<<<<< HEAD
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-6">
-        <div className="flex items-center gap-4 mb-8">
-          <button
-            onClick={() => router.push("/")}
-            className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition hover:cursor-pointer"
-          >
-            <ArrowLeft size={16} />
-            Back
-          </button>
-=======
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8">
         {/* Header section */}
         <div className="mb-8 sm:mb-10">
@@ -67,7 +56,6 @@ export default function ShopPage() {
                 Browse our fitness equipment and accessories
               </p>
             </div>
->>>>>>> f7317a2 (buten 180 gradus ergesen ui)
 
             {/* Search bar */}
             <div className="relative w-full sm:w-80">

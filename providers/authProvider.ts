@@ -8,6 +8,7 @@ export type AppUser = {
   profilePicture: string | null;
   coin: number;
   createdAt: Date;
+  adminName: string;
 };
 
 export const useAuth = (clerkId: string | null | undefined) => {

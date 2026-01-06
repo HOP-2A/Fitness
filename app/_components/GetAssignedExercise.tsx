@@ -208,21 +208,6 @@ const GetAssignedExercise = () => {
                   </div>
                 </div>
 
-<<<<<<< HEAD
-              <div className="mt-4 flex justify-between text-xs text-gray-300">
-                <span>⭐ Rate: {ex.rate}</span>
-                <span>💰 Reward: {ex.reward}</span>
-              </div>
-
-              <button
-                className="mt-4 text-sm text-black hover:underline hover:cursor-pointer"
-                onClick={() => router.push(`/detail/${ex.id}`)}
-              >
-                See Details →
-              </button>
-            </div>
-          ))}
-=======
                 <button
                   onClick={() => router.push(`/detail/${ex.id}`)}
                   className="w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/20 active:scale-95"
@@ -232,7 +217,6 @@ const GetAssignedExercise = () => {
               </motion.div>
             );
           })}
->>>>>>> f7317a2 (buten 180 gradus ergesen ui)
         </div>
       )}
 
