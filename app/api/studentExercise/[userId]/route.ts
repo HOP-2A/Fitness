@@ -3,19 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  context: { params: Promise<{ clerkId: string }> }
+  context: { params: Promise<{ userId: string }> }
 ) {
-  const { clerkId } = await context.params;
+  const { userId } = await context.params;
 
-  if (!clerkId) {
+  if (!userId) {
     return NextResponse.json(
-      { error: "Missing clerkId parameter" },
+      { error: "Missing userId parameter" },
       { status: 400 }
     );
   }
 
   const user = await prisma.user.findFirst({
-    where: { clerkId },
+    where: { clerkId: userId },
     select: {
       id: true,
       username: true,
@@ -29,4 +29,3 @@ export async function GET(
 
   return NextResponse.json({ user }, { status: 200 });
 }
-
