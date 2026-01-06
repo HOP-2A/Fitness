@@ -15,8 +15,10 @@ type User = {
   id: string;
   username: string;
   email: string;
+  profilePicture: string | null;
   coin: number;
-  createdAt: string;
+  adminName: string;
+  createdAt: Date;
 };
 
 type UserWithStyle = User & {
@@ -114,7 +116,6 @@ export default function Leaderboard() {
   return (
     <div className="min-h-screen py-12 px-4 ml-64 bg-[#0a0c10]">
       <div className="max-w-3xl mx-auto">
-
         <div className="mb-12 text-center">
           <div className="mb-4 flex items-center justify-center gap-3">
             <Trophy className="h-10 w-10 text-yellow-500 animate-pulse" />
@@ -152,7 +153,6 @@ export default function Leaderboard() {
               >
                 <div className="p-4">
                   <div className="flex items-center justify-between gap-4">
-
                     <div className="flex items-center gap-5">
                       <div
                         className={`
@@ -182,7 +182,6 @@ export default function Leaderboard() {
                       </div>
                     </div>
 
-
                     <div
                       className={`
                       flex items-center gap-2
@@ -196,7 +195,6 @@ export default function Leaderboard() {
                       </span>
                     </div>
                   </div>
-
 
                   <div className="grid grid-rows-[0fr] transition-all duration-300 ease-in-out group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
                     <div className="overflow-hidden">
@@ -220,7 +218,6 @@ export default function Leaderboard() {
             ))}
           </div>
         )}
-
 
         {leaderboard.length > 0 && (
           <div className="mt-10 rounded-3xl border border-slate-800/50 bg-slate-900/30 p-8 backdrop-blur-sm">
