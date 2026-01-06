@@ -115,7 +115,7 @@ export const SignUp = () => {
         <Button
           onClick={handleSubmit}
           disabled={isLoading}
-          className="w-full py-5 bg-[#BBF246] text-black"
+          className="w-full py-5 bg-[#BBF246] text-black hover:cursor-pointer "
         >
           {isLoading ? "Signing up..." : "Sign up"}
         </Button>

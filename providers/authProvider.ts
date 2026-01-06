@@ -7,6 +7,7 @@ export type AppUser = {
   clerkId: string;
   profilePicture: string | null;
   coin: number;
+  createdAt: Date;
   adminName: string;
   createdAt: Date;
 };
