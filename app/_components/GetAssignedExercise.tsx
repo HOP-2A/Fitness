@@ -210,7 +210,7 @@ const GetAssignedExercise = () => {
 
                 <button
                   onClick={() => router.push(`/detail/${ex.id}`)}
-                  className="w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/20 active:scale-95"
+                  className=" hover:cursor-pointer w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/20 active:scale-95"
                 >
                   View Details →
                 </button>
@@ -243,7 +243,7 @@ const GetAssignedExercise = () => {
               <div className="space-y-3">
                 <button
                   onClick={() => handleStatusChange("PENDING")}
-                  className="w-full rounded-lg bg-yellow-500/10 border border-yellow-500/30 px-4 py-3 text-sm font-semibold text-yellow-400 transition-all hover:bg-yellow-500/20 active:scale-95"
+                  className=" hover:cursor-pointer w-full rounded-lg bg-yellow-500/10 border border-yellow-500/30 px-4 py-3 text-sm font-semibold text-yellow-400 transition-all hover:bg-yellow-500/20 active:scale-95"
                 >
                   <span className="mr-2">⏳</span>
                   Mark as Pending
@@ -251,7 +251,7 @@ const GetAssignedExercise = () => {
 
                 <button
                   onClick={() => handleStatusChange("DONE")}
-                  className="w-full rounded-lg bg-emerald-500/10 border border-emerald-500/30 px-4 py-3 text-sm font-semibold text-emerald-400 transition-all hover:bg-emerald-500/20 active:scale-95"
+                  className=" hover:cursor-pointer w-full rounded-lg bg-emerald-500/10 border border-emerald-500/30 px-4 py-3 text-sm font-semibold text-emerald-400 transition-all hover:bg-emerald-500/20 active:scale-95"
                 >
                   <span className="mr-2">✓</span>
                   Mark as Complete
@@ -259,7 +259,7 @@ const GetAssignedExercise = () => {
               </div>
 
               <button
-                className="mt-6 w-full text-sm text-slate-400 transition-colors hover:text-white"
+                className=" hover:cursor-pointer mt-6 w-full text-sm text-slate-400 transition-colors hover:text-white"
                 onClick={() => setShowStatusModal(false)}
               >
                 Cancel

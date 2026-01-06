@@ -145,7 +145,7 @@ export default function BuyProductPage() {
           <button
             onClick={decrementQty}
             disabled={quantity <= 1}
-            className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+            className=" hover:cursor-pointer w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
           >
             <Minus size={16} />
           </button>
@@ -167,7 +167,7 @@ export default function BuyProductPage() {
           <button
             onClick={incrementQty}
             disabled={quantity >= maxQty}
-            className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+            className=" hover:cursor-pointer w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
           >
             <Plus size={16} />
           </button>
@@ -186,7 +186,7 @@ export default function BuyProductPage() {
         disabled={
           quantity < 1 || quantity > maxQty || purchasing || item.stock === 0
         }
-        className="w-full bg-gradient-to-r from-emerald-400 to-green-500 text-white font-bold py-4 rounded-xl hover:shadow-lg hover:shadow-emerald-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+        className=" hover:cursor-pointer w-full bg-gradient-to-r from-emerald-400 to-green-500 text-white font-bold py-4 rounded-xl hover:shadow-lg hover:shadow-emerald-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
       >
         {purchasing ? (
           <>

@@ -91,7 +91,7 @@ const Todolist = ({ teacherId }: TodoListProps) => {
               <span className="text-white text-sm">{t.task}</span>
               <button
                 onClick={() => deleteTodo(t.id)}
-                className="text-[#FF6B6B] hover:text-[#FF4C4C] text-xs font-medium transition"
+                className="text-[#FF6B6B] hover:text-[#FF4C4C] text-xs font-medium transition hover:cursor-pointer "
               >
                 Delete
               </button>

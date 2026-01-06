@@ -54,7 +54,7 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
         {hasReplies && (
           <button
             onClick={() => setShowReplies(!showReplies)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-xs font-medium text-blue-300 transition-all"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-xs font-medium text-blue-300 transition-all hover:cursor-pointer"
           >
             {showReplies ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
             {showReplies
@@ -157,7 +157,6 @@ const AskTeacher = ({ exerciseId }: { exerciseId: string }) => {
 
   return (
     <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/50 backdrop-blur-xl rounded-3xl border border-slate-700/50 shadow-2xl p-6">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6 pb-6 border-b border-slate-700/50">
         <h3 className="text-xl font-bold text-white flex items-center gap-3">
           <div className="p-2 bg-blue-500/20 rounded-lg">
@@ -170,7 +169,6 @@ const AskTeacher = ({ exerciseId }: { exerciseId: string }) => {
         </span>
       </div>
 
-      {/* Comments List */}
       <div className="space-y-4 mb-6 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
         {comments.length > 0 ? (
           comments.map((comment) => (
@@ -183,7 +181,6 @@ const AskTeacher = ({ exerciseId }: { exerciseId: string }) => {
         )}
       </div>
 
-      {/* Input Form */}
       <div className="border-t border-slate-700/50 pt-6">
         <form onSubmit={handleSubmit} className="space-y-3">
           <textarea
@@ -195,7 +192,7 @@ const AskTeacher = ({ exerciseId }: { exerciseId: string }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-6 py-4 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white transition-all hover:shadow-lg hover:shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+            className="w-full px-6 py-4 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white transition-all hover:shadow-lg hover:shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group \"
           >
             <Sparkles
               size={18}

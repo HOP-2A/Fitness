@@ -41,7 +41,6 @@ const TeacherExerciseComments: React.FC<TeacherExerciseCommentsProps> = ({
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     if (!teacherId) return;
 
@@ -62,7 +61,6 @@ const TeacherExerciseComments: React.FC<TeacherExerciseCommentsProps> = ({
 
     fetchComments();
   }, [teacherId]);
-
 
   const submitReply = async (commentId: string, exerciseId: string) => {
     const text = replyText[commentId];
@@ -97,7 +95,6 @@ const TeacherExerciseComments: React.FC<TeacherExerciseCommentsProps> = ({
       setLoadingId(null);
     }
   };
-
 
   const groupedByExercise = comments.reduce(
     (acc: Record<string, TeacherComment[]>, comment) => {
@@ -209,7 +206,7 @@ const TeacherExerciseComments: React.FC<TeacherExerciseCommentsProps> = ({
                       <Button
                         onClick={() => submitReply(comment.id, exercise.id)}
                         disabled={loadingId === comment.id}
-                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                        className="bg-blue-600 hover:bg-blue-700 text-white  hover:cursor-pointer "
                       >
                         {loadingId === comment.id
                           ? "Илгээж байна..."

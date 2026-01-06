@@ -76,7 +76,7 @@ export default function ShopItemDetail() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-6">
         <button
           onClick={() => router.push("/shop")}
-          className="mb-6 flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors group"
+          className="mb-6 flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors group hover:cursor-pointer "
         >
           <ArrowLeft
             size={16}

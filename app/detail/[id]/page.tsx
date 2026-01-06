@@ -129,7 +129,7 @@ export default function DetailPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4 md:p-8">
       <button
         onClick={() => router.back()}
-        className="group flex items-center gap-2 text-slate-400 hover:text-white transition-all mb-8 px-4 py-2 rounded-lg hover:bg-white/5"
+        className="group flex items-center gap-2 text-slate-400 hover:text-white transition-all mb-8 px-4 py-2 rounded-lg hover:bg-white/5  hover:cursor-pointer "
       >
         <ArrowLeft
           size={20}
@@ -213,7 +213,7 @@ export default function DetailPage() {
                 <button
                   disabled={updating}
                   onClick={() => changeStatus("PENDING")}
-                  className="flex-1 px-6 py-4 rounded-xl font-semibold bg-gradient-to-r from-amber-500/20 to-amber-600/20 text-amber-300 border border-amber-500/30 hover:from-amber-500/30 hover:to-amber-600/30 hover:border-amber-500/50 transition-all hover:shadow-lg hover:shadow-amber-500/20 disabled:opacity-50 disabled:cursor-not-allowed group"
+                  className="flex-1 px-6 py-4 rounded-xl font-semibold bg-gradient-to-r from-amber-500/20 to-amber-600/20 text-amber-300 border border-amber-500/30 hover:from-amber-500/30 hover:to-amber-600/30 hover:border-amber-500/50 transition-all hover:shadow-lg hover:shadow-amber-500/20 disabled:opacity-50 disabled:cursor-not-allowed group   hover:cursor-pointer "
                 >
                   <span className="flex items-center justify-center gap-2">
                     <Clock
@@ -226,7 +226,7 @@ export default function DetailPage() {
                 <button
                   disabled={updating}
                   onClick={() => changeStatus("DONE")}
-                  className="flex-1 px-6 py-4 rounded-xl font-semibold bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 text-emerald-300 border border-emerald-500/30 hover:from-emerald-500/30 hover:to-emerald-600/30 hover:border-emerald-500/50 transition-all hover:shadow-lg hover:shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed group"
+                  className="flex-1 px-6 py-4 rounded-xl font-semibold bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 text-emerald-300 border border-emerald-500/30 hover:from-emerald-500/30 hover:to-emerald-600/30 hover:cursor-pointer  hover:border-emerald-500/50 transition-all hover:shadow-lg hover:shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed group"
                 >
                   <span className="flex items-center justify-center gap-2">
                     <CheckCircle2

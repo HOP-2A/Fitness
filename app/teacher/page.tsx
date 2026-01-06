@@ -50,25 +50,25 @@ const Page = () => {
         <div className="flex justify-end gap-4">
           <Button
             onClick={handleGiveExercise}
-            className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50 hover:cursor-pointer"
+            className="px-6 py-3 mt-4 bg-[#A3FFAB]    text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50 hover:cursor-pointer"
           >
             Give Exercise
           </Button>
           <Button
             onClick={addProductPush}
-            className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50 hover:cursor-pointer"
+            className="px-6 py-3 mt-4 bg-[#A3FFAB]   text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50 hover:cursor-pointer"
           >
             Add Product
           </Button>
           <Button
             onClick={seeProductPush}
-            className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50 hover:cursor-pointer"
+            className="px-6 py-3 mt-4 bg-[#A3FFAB]    text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50 hover:cursor-pointer"
           >
             See Product
           </Button>
           <Button
             onClick={commentPush}
-            className="px-6 py-3 mt-4 bg-[#A3FFAB] text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50 hover:cursor-pointer"
+            className="px-6 py-3 mt-4 bg-[#A3FFAB]   text-[#0F1419] font-bold rounded-lg hover:bg-[#8AE086] transition-colors shadow-md shadow-[#A3FFAB]/50 hover:cursor-pointer"
           >
             See Students Questions
           </Button>

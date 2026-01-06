@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useRouter } from "next/navigation";
-import { Coins } from "lucide-react";
+import { Coins, Package } from "lucide-react";
 
 type ShopItem = {
   id: string;
@@ -30,9 +30,13 @@ const ShowCarousel = () => {
 
   useEffect(() => {
     const fetchItems = async () => {
-      const res = await fetch("/api/shop/getProducts");
-      const data = await res.json();
-      setItems(data);
+      try {
+        const res = await fetch("/api/shop/getProducts");
+        const data = await res.json();
+        setItems(data);
+      } catch (err) {
+        console.error("Failed to fetch products", err);
+      }
     };
     fetchItems();
   }, []);
@@ -60,47 +64,58 @@ const ShowCarousel = () => {
             >
               <div
                 onClick={() => router.push(`/Item/${item.id}`)}
-                className="group cursor-pointer rounded-2xl border border-slate-700 bg-gradient-to-br from-slate-900/80 to-slate-900/40 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1"
+                className="group cursor-pointer rounded-3xl border border-slate-800 bg-slate-900/40 p-3 backdrop-blur-md transition-all duration-500 hover:border-emerald-500/40 hover:bg-slate-900/60 hover:-translate-y-2"
               >
-                <div className="relative h-56 bg-slate-900/50 flex items-center justify-center p-6 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                  <img
-                    src={item.image || "/placeholder.svg"}
-                    alt={item.productName}
-                    className="relative z-10 h-full w-full object-contain transition-transform duration-500 group-hover:scale-110"
-                  />
-
-                  <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-emerald-600 px-3 py-1.5 shadow-lg shadow-emerald-500/20">
-                    <Coins className="h-3.5 w-3.5 text-white" />
-                    <span className="text-xs font-bold text-white">
-                      {item.price}
+                <div className="flex items-center justify-between mb-4 px-1">
+                  <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-2xl">
+                    <Coins className="h-4 w-4 text-emerald-400" />
+                    <span className="text-sm font-black text-emerald-400">
+                      {item.price.toLocaleString()}
                     </span>
                   </div>
 
-                  {item.stock <= 5 && (
-                    <div className="absolute top-3 left-3 rounded-full bg-red-500/90 px-2.5 py-1 text-[10px] font-semibold text-white">
-                      Only {item.stock} left!
+                  {item.stock <= 5 ? (
+                    <div className="bg-red-500/10 border border-red-500/20 px-3 py-1.5 rounded-2xl">
+                      <span className="text-[10px] font-bold text-red-400 uppercase tracking-tight">
+                        Only {item.stock} left
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-1.5 text-slate-500 px-2">
+                      <Package className="h-3 w-3" />
+                      <span className="text-[11px] font-medium">
+                        {item.stock}
+                      </span>
                     </div>
                   )}
                 </div>
 
-                <div className="p-4 space-y-3">
-                  <div>
-                    <h3 className="font-bold text-white text-base mb-1 line-clamp-1 group-hover:text-emerald-400 transition-colors">
-                      {item.productName}
-                    </h3>
-                    <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
-                      {item.title}
-                    </p>
-                  </div>
+                <div className="relative aspect-square w-full mb-4 overflow-hidden rounded-2xl bg-slate-950/50 border border-white/5">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-700/50">
-                    <span className="text-xs font-semibold text-emerald-400 group-hover:text-emerald-300 transition-colors">
-                      View Details →
+                  <img
+                    src={item.image || "/placeholder.svg"}
+                    alt={item.productName}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                </div>
+
+                <div className="px-1 space-y-2">
+                  <h3 className="font-bold text-white text-lg line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                    {item.productName}
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-2 min-h-[32px] leading-relaxed">
+                    {item.title}
+                  </p>
+
+                  <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-emerald-400 transition-all">
+                      Details
                     </span>
-                    <div className="h-8 w-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center group-hover:border-emerald-500/50 group-hover:bg-emerald-500/10 transition-all">
-                      <span className="text-emerald-400 text-xs">→</span>
+                    <div className="h-7 w-7 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-emerald-500 transition-all duration-300">
+                      <span className="text-white text-xs group-hover:translate-x-0.5 transition-transform">
+                        →
+                      </span>
                     </div>
                   </div>
                 </div>

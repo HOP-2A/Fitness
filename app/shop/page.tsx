@@ -1,9 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Search, Package } from "lucide-react";
-import { Footer } from "../_components/Footer";
+import { Search, Package, ArrowLeft } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface ShopItem {
   id: string;
@@ -19,7 +20,6 @@ export default function ShopPage() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-
   useEffect(() => {
     const timer = setTimeout(async () => {
       setLoading(true);
@@ -39,13 +39,28 @@ export default function ShopPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900">
-      <Footer />
-      {/* Animated background blobs */}
       <div className="absolute -top-40 -left-40 w-96 h-96 md:w-[600px] md:h-[600px] bg-emerald-500/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 -right-40 w-96 h-96 md:w-[600px] md:h-[600px] bg-blue-500/20 rounded-full blur-3xl"></div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8">
-        {/* Header section */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8 hover:cursor-pointer ">
+        <Button
+          onClick={() => router.push("/")}
+          className="
+    fixed
+    top-6
+    left-6
+    z-50
+    bg-gray-300
+    text-black
+    hover:bg-gray-800
+    hover:text-gray-300
+    shadow-lg hover:cursor-pointer 
+  "
+        >
+          <ArrowLeft size={16} />
+          Back
+        </Button>
+
         <div className="mb-8 sm:mb-10">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
@@ -57,7 +72,6 @@ export default function ShopPage() {
               </p>
             </div>
 
-            {/* Search bar */}
             <div className="relative w-full sm:w-80">
               <Search
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
@@ -74,7 +88,6 @@ export default function ShopPage() {
           </div>
         </div>
 
-        {/* Products grid */}
         {loading ? (
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
@@ -101,7 +114,7 @@ export default function ShopPage() {
                     alt={item.productName}
                     className="h-48 sm:h-52 w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  {/* Stock badge */}
+
                   <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm rounded-lg px-3 py-1 border border-white/10">
                     <p className="text-xs text-white flex items-center gap-1">
                       <Package size={12} />
@@ -119,7 +132,6 @@ export default function ShopPage() {
                     {item.title}
                   </p>
 
-                  {/* Price section */}
                   <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/10">
                     <div>
                       <p className="text-xs text-gray-500">Price</p>
@@ -130,10 +142,9 @@ export default function ShopPage() {
                     <span className="text-sm text-gray-400">coins</span>
                   </div>
 
-                  {/* Button */}
                   <button
                     onClick={() => router.push(`/shop/${item.id}`)}
-                    className="w-full bg-gradient-to-r from-emerald-400 to-green-500 text-white font-bold py-3 rounded-xl hover:shadow-lg hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 active:scale-95"
+                    className="w-full bg-gradient-to-r from-emerald-400 hover:cursor-pointer  to-green-500 text-white font-bold py-3 rounded-xl hover:shadow-lg hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 active:scale-95"
                   >
                     View Details
                   </button>
