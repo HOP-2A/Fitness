@@ -28,10 +28,12 @@ type UserWithStyle = User & {
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<UserWithStyle[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
+        setLoading(true);
         const res = await fetch("/api/leaderboard");
         const data = await res.json();
         const users: User[] = data?.User ?? [];
@@ -100,6 +102,8 @@ export default function Leaderboard() {
       } catch (err) {
         console.error("Failed to fetch leaderboard", err);
         setLeaderboard([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -129,7 +133,13 @@ export default function Leaderboard() {
           </p>
         </div>
 
-        {leaderboard.length === 0 ? (
+        {loading ? (
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-12 text-center">
+            <p className="text-slate-400 font-medium animate-pulse">
+              Loading...
+            </p>
+          </div>
+        ) : leaderboard.length === 0 ? (
           <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-12 text-center">
             <Trophy className="mx-auto mb-4 h-12 w-12 text-slate-700" />
             <p className="text-slate-500 font-medium">
@@ -156,8 +166,8 @@ export default function Leaderboard() {
                     <div className="flex items-center gap-5">
                       <div
                         className={`
-                        flex h-12 w-12 items-center justify-center rounded-xl 
-                        ${index < 3 ? "bg-white/10" : "bg-black/20"} 
+                        flex h-12 w-12 items-center justify-center rounded-xl
+                        ${index < 3 ? "bg-white/10" : "bg-black/20"}
                         text-xl font-black ${user.style.text}
                       `}
                       >
