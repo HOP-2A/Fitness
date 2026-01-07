@@ -29,11 +29,14 @@ const Page = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-blue-800 to-red text-white">
-      <div className="top-4 left-4">
+    <div className="relative bg-gradient-to-b from-blue-800 to-red text-white">
+      <div className="flex flex-col">
         <GetAssignedExercise />
+
+        <div className="w-300">
+          <ShowCarousel />
+        </div>
       </div>
-      <ShowCarousel />
 
       <Footer />
 
