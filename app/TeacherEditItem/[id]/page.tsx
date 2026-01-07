@@ -3,6 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface ShopItem {
   id: string;
@@ -88,15 +89,15 @@ export default function ShopItemDetail() {
 
       const data = await res.json();
       if (!res.ok) {
-        alert(data.error || "Failed to update");
+        toast(data.error || "Failed to update");
       } else {
         setItem(data.product);
         setEditing(false);
-        alert("Product updated successfully!");
+        toast("Product updated successfully!");
       }
     } catch (err) {
       console.error(err);
-      alert("Update failed");
+      toast("Update failed");
     }
   };
 
