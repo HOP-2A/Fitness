@@ -25,6 +25,7 @@ const GetAssignedExercise = () => {
   const user = userData.user;
 
   const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [loading, setLoading] = useState(true);
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(
     null
@@ -34,9 +35,11 @@ const GetAssignedExercise = () => {
     if (!isLoaded || !user) return;
 
     const fetchExercises = async () => {
+      setLoading(true);
       const res = await fetch(`/api/getExercise/${user.id}`);
       const data = await res.json();
       setExercises(data);
+      setLoading(false);
     };
 
     fetchExercises();
@@ -102,12 +105,12 @@ const GetAssignedExercise = () => {
     }
   };
 
-  if (!isLoaded) {
+  if (!isLoaded || loading) {
     return (
       <div className="ml-64 max-w-[1350px] mr-7 py-16 text-center">
         <div className="inline-flex items-center gap-2 text-sm text-slate-400">
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-700 border-t-emerald-500" />
-          Loading your exercises...
+          Loading exercises...
         </div>
       </div>
     );
@@ -179,9 +182,8 @@ const GetAssignedExercise = () => {
                       </span>
                     )}
                   </h3>
-                  <p className="text-sm text-slate-400 flex items-center gap-1.5">
-                    <span className="text-slate-500">📅</span>
-                    {timeAgo(ex.createdAt)}
+                  <p className="text-sm text-slate-400">
+                    📅 {timeAgo(ex.createdAt)}
                   </p>
                 </div>
 
@@ -191,16 +193,17 @@ const GetAssignedExercise = () => {
                       Difficulty
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-yellow-400">⭐</span>
+                      ⭐
                       <span className="text-lg font-bold text-white">
                         {ex.rate}
                       </span>
                     </div>
                   </div>
+
                   <div className="flex-1 rounded-lg bg-slate-800/50 p-3 border border-slate-700/50">
                     <div className="text-xs text-slate-400 mb-1">Reward</div>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-emerald-400">💰</span>
+                      💰
                       <span className="text-lg font-bold text-emerald-400">
                         {ex.reward}
                       </span>
@@ -210,7 +213,7 @@ const GetAssignedExercise = () => {
 
                 <button
                   onClick={() => router.push(`/detail/${ex.id}`)}
-                  className=" hover:cursor-pointer w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/20 active:scale-95"
+                  className="w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/20 active:scale-95"
                 >
                   View Details →
                 </button>
@@ -230,7 +233,7 @@ const GetAssignedExercise = () => {
             onClick={() => setShowStatusModal(false)}
           >
             <motion.div
-              className="w-[320px] rounded-2xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"
+              className="w-[320px] rounded-2xl border border-slate-700 bg-slate-900 p-6"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -243,24 +246,22 @@ const GetAssignedExercise = () => {
               <div className="space-y-3">
                 <button
                   onClick={() => handleStatusChange("PENDING")}
-                  className=" hover:cursor-pointer w-full rounded-lg bg-yellow-500/10 border border-yellow-500/30 px-4 py-3 text-sm font-semibold text-yellow-400 transition-all hover:bg-yellow-500/20 active:scale-95"
+                  className="w-full rounded-lg bg-yellow-500/10 border border-yellow-500/30 px-4 py-3 text-sm font-semibold text-yellow-400 hover:bg-yellow-500/20"
                 >
-                  <span className="mr-2">⏳</span>
-                  Mark as Pending
+                  ⏳ Mark as Pending
                 </button>
 
                 <button
                   onClick={() => handleStatusChange("DONE")}
-                  className=" hover:cursor-pointer w-full rounded-lg bg-emerald-500/10 border border-emerald-500/30 px-4 py-3 text-sm font-semibold text-emerald-400 transition-all hover:bg-emerald-500/20 active:scale-95"
+                  className="w-full rounded-lg bg-emerald-500/10 border border-emerald-500/30 px-4 py-3 text-sm font-semibold text-emerald-400 hover:bg-emerald-500/20"
                 >
-                  <span className="mr-2">✓</span>
-                  Mark as Complete
+                  ✓ Mark as Complete
                 </button>
               </div>
 
               <button
-                className=" hover:cursor-pointer mt-6 w-full text-sm text-slate-400 transition-colors hover:text-white"
                 onClick={() => setShowStatusModal(false)}
+                className="mt-6 w-full text-sm text-slate-400 hover:text-white"
               >
                 Cancel
               </button>
